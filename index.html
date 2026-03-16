@@ -1,0 +1,1048 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GT: Новые Горизонты — Idle</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap');
+:root{
+  --bg:#130d06;--bg2:#1c1208;--bg3:#241709;--bg4:#2e1c0a;
+  --leather:#3e2410;--leather2:#4e2e14;--leather3:#5e3a1a;
+  --text:#d4b060;--text2:#c0a050;--text-dim:#8a6530;--text-muted:#5a4020;
+  --border:#4a2e10;--border2:#6a4020;--border3:#8a5830;
+  --gold:#c89020;--gold2:#e8c030;
+  --copper:#b86820;--copper2:#d08030;
+  --green2:#507838;--green3:#70a850;
+  --red:#802418;--red2:#c04030;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--text);font-family:'Crimson Text',Georgia,serif;font-size:15px;min-height:100vh;overflow-x:hidden;
+  background-image:radial-gradient(ellipse at 15% 40%,rgba(78,46,20,.2) 0%,transparent 55%),radial-gradient(ellipse at 85% 70%,rgba(50,28,12,.25) 0%,transparent 50%);}
+body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:999;opacity:.025;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");}
+
+/* ── HEADER ── */
+#header{background:linear-gradient(180deg,var(--leather2),var(--leather) 70%,var(--bg2));border-bottom:3px solid var(--border3);
+  padding:10px 20px;display:flex;align-items:center;justify-content:space-between;
+  position:sticky;top:0;z-index:200;box-shadow:0 4px 24px rgba(0,0,0,.85);}
+#header h1{font-family:'Cinzel',serif;font-size:17px;font-weight:700;color:var(--gold2);letter-spacing:3px;
+  text-shadow:0 1px 5px rgba(0,0,0,.9),0 0 20px rgba(220,180,40,.3);}
+#era-display{font-family:'Cinzel',serif;font-size:12px;color:var(--copper2);letter-spacing:2px;animation:flamePulse 3s infinite;}
+@keyframes flamePulse{0%,100%{color:var(--copper2)}50%{color:var(--gold2)}}
+#playtime{font-family:'Cinzel',serif;font-size:11px;color:var(--text-dim);}
+
+/* ── LAYOUT ── */
+#game-layout{display:grid;grid-template-columns:255px 1fr 305px;height:calc(100vh - 52px);}
+
+/* ── RESOURCES ── */
+#resources-panel{background:linear-gradient(180deg,var(--bg2),var(--bg));border-right:3px solid var(--border);overflow-y:auto;padding:10px 8px;}
+.panel-title{font-family:'Cinzel',serif;font-size:11px;color:var(--text-dim);letter-spacing:3px;padding:7px 5px 9px;border-bottom:2px solid var(--border);margin-bottom:10px;display:flex;align-items:center;gap:7px;}
+.rivet{display:inline-block;width:8px;height:8px;border-radius:50%;background:radial-gradient(circle at 35% 35%,var(--gold2),var(--copper));box-shadow:0 1px 3px rgba(0,0,0,.7);flex-shrink:0;}
+.res-group{margin-bottom:12px;}
+.rg-title{font-family:'Cinzel',serif;font-size:9px;color:var(--text-muted);letter-spacing:2px;padding:2px 3px 5px;border-bottom:1px dashed var(--border);margin-bottom:4px;text-transform:uppercase;}
+.ri{display:flex;align-items:center;padding:4px 6px;margin-bottom:2px;border-radius:3px;border:1px solid transparent;transition:all .2s;opacity:.13;}
+.ri.on{opacity:1;border-color:rgba(74,46,16,.7);background:rgba(36,23,9,.8);}
+.ri.on:hover{border-color:var(--border2);}
+.ri-icon{width:17px;height:17px;margin-right:5px;flex-shrink:0;font-size:12px;display:flex;align-items:center;justify-content:center;}
+.ri-name{flex:1;color:var(--text2);font-size:13px;}
+.ri-amt{font-size:13px;color:var(--gold2);min-width:52px;text-align:right;font-weight:600;}
+.ri-rate{font-size:10px;min-width:48px;text-align:right;padding-left:3px;}
+
+/* ── MAIN ── */
+#main-area{overflow-y:auto;padding:12px;display:flex;flex-direction:column;gap:10px;background:var(--bg);}
+
+/* ── ERA BANNER ── */
+.era-banner{background:linear-gradient(90deg,transparent,var(--leather) 18%,var(--leather2) 50%,var(--leather) 82%,transparent);
+  border-top:2px solid var(--border3);border-bottom:2px solid var(--border3);padding:11px 40px;text-align:center;
+  font-family:'Cinzel',serif;font-size:15px;font-weight:700;color:var(--gold2);letter-spacing:5px;
+  text-shadow:0 1px 5px rgba(0,0,0,.9);position:relative;animation:eraReveal .7s ease;}
+.era-banner::before{content:'✦';position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--copper2);font-size:12px;}
+.era-banner::after{content:'✦';position:absolute;right:14px;top:50%;transform:translateY(-50%);color:var(--copper2);font-size:12px;}
+@keyframes eraReveal{0%{opacity:0;transform:scaleY(.3)}100%{opacity:1;transform:scaleY(1)}}
+
+/* ── TOOLS SECTION ── */
+#tools-section{background:linear-gradient(135deg,var(--bg3),var(--bg2));border:1px solid var(--border);border-radius:4px;padding:10px 12px;}
+.sec-hdr{display:flex;align-items:center;gap:10px;padding-bottom:8px;margin-bottom:8px;border-bottom:1px solid var(--border);}
+.sec-hdr h3{font-family:'Cinzel',serif;font-size:11px;color:var(--text-dim);letter-spacing:3px;text-transform:uppercase;}
+.sec-line{flex:1;height:1px;background:var(--border);opacity:.5;}
+#tools-display{display:flex;gap:8px;flex-wrap:wrap;align-items:center;}
+.tool-slot{width:56px;height:56px;border:2px solid var(--border);border-radius:4px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:20px;position:relative;background:var(--bg);transition:all .2s;}
+.tool-slot.has-tool{border-color:var(--border3);background:linear-gradient(135deg,var(--bg3),var(--bg2));box-shadow:inset 0 1px 0 rgba(220,180,40,.1);}
+.tt{position:absolute;bottom:2px;right:3px;font-size:8px;color:var(--copper);font-family:'Cinzel',serif;}
+.tb{position:absolute;top:2px;left:3px;font-size:8px;color:var(--green3);font-family:'Cinzel',serif;}
+.tools-info{flex:1;padding:3px 10px;display:flex;flex-direction:column;gap:4px;}
+.ti-line{font-size:12px;color:var(--text-dim);}
+.ti-val{color:var(--gold2);font-family:'Cinzel',serif;font-size:12px;}
+.hide-done-tools-btn{margin-top:4px;background:transparent;border:1px solid var(--border2);color:var(--text-muted);font-family:'Cinzel',serif;font-size:9px;letter-spacing:1px;padding:3px 8px;border-radius:2px;cursor:pointer;transition:all .15s;}
+.hide-done-tools-btn:hover{border-color:var(--border3);color:var(--text-dim);}
+.hide-done-tools-btn.act{border-color:var(--copper);color:var(--copper2);}
+
+/* ── MODE + ZONES ── */
+#mode-bar{display:flex;align-items:center;gap:6px;background:var(--bg2);border:1px solid var(--border);border-radius:4px;padding:5px 8px;}
+#mode-bar span{font-family:'Cinzel',serif;font-size:10px;color:var(--text-dim);letter-spacing:1px;white-space:nowrap;}
+.mode-btn{flex:1;padding:6px 8px;background:transparent;border:1px solid var(--border);border-radius:3px;color:var(--text-dim);font-family:'Cinzel',serif;font-size:10px;letter-spacing:1px;cursor:pointer;transition:all .15s;text-align:center;}
+.mode-btn.act{border-color:var(--gold);color:var(--gold2);background:linear-gradient(180deg,var(--leather3),var(--leather));}
+.mode-btn:hover:not(.act){border-color:var(--border2);color:var(--text);}
+
+#zones-bar{display:flex;gap:5px;}
+.zone-btn{flex:1;padding:8px 5px;background:linear-gradient(180deg,var(--bg3),var(--bg2));border:2px solid var(--border);border-radius:4px;color:var(--text-dim);font-family:'Cinzel',serif;font-size:10px;letter-spacing:1px;cursor:pointer;transition:all .15s;text-align:center;}
+.zone-btn:hover{border-color:var(--border3);color:var(--text);}
+.zone-btn.act{border-color:var(--gold);color:var(--gold2);background:linear-gradient(180deg,var(--leather3),var(--leather));box-shadow:0 0 10px rgba(200,140,20,.2);}
+.zone-icon{font-size:18px;display:block;margin-bottom:3px;}
+
+/* ── EXPLORE ── */
+#explore-area{background:linear-gradient(160deg,var(--bg3),var(--bg2));border:1px solid var(--border);border-radius:4px;padding:11px 13px;}
+#explore-area h4{font-family:'Cinzel',serif;font-size:12px;color:var(--gold);letter-spacing:2px;margin-bottom:9px;}
+.zpw{display:flex;align-items:center;gap:9px;margin-bottom:9px;}
+.zpbar{flex:1;height:14px;background:var(--bg);border:1px solid var(--border2);border-radius:7px;overflow:hidden;}
+.zpfill{height:100%;border-radius:7px;background:linear-gradient(90deg,var(--copper),var(--gold2));width:0%;transition:width .08s linear;box-shadow:0 0 6px rgba(200,140,20,.35);}
+.zplab{font-family:'Cinzel',serif;font-size:11px;color:var(--copper2);min-width:52px;text-align:right;}
+#explore-btn{background:linear-gradient(180deg,var(--leather3),var(--leather));border:2px solid var(--border3);color:var(--text);font-family:'Cinzel',serif;font-size:13px;letter-spacing:2px;padding:9px 20px;border-radius:3px;cursor:pointer;transition:all .15s;width:100%;margin-bottom:7px;}
+#explore-btn:hover:not([disabled]){border-color:var(--gold);color:var(--gold2);box-shadow:0 0 14px rgba(200,140,20,.3);}
+#explore-btn[disabled]{opacity:.4;cursor:not-allowed;}
+.drop-tags{display:flex;flex-wrap:wrap;gap:5px;}
+.drop-tag{background:rgba(36,23,9,.9);border:1px solid var(--border2);border-radius:3px;padding:3px 7px;font-size:11px;color:var(--text2);}
+
+/* ── CLICKER ── */
+#clicker-area{display:none;grid-template-columns:1fr 1fr;gap:8px;}
+.czc{background:linear-gradient(160deg,var(--bg3),var(--bg2));border:2px solid var(--border);border-radius:4px;padding:14px 10px;cursor:pointer;transition:all .12s;text-align:center;user-select:none;}
+.czc:hover{border-color:var(--border3);transform:translateY(-2px);box-shadow:0 4px 14px rgba(0,0,0,.55);}
+.czc:active{transform:translateY(1px);box-shadow:none;border-color:var(--gold);}
+.czc.locked{opacity:.18;pointer-events:none;}
+.czc-icon{font-size:28px;margin-bottom:5px;}
+.czc-name{font-family:'Cinzel',serif;font-size:12px;color:var(--gold);letter-spacing:1px;margin-bottom:4px;}
+.czc-drops{font-size:11px;color:var(--text-dim);line-height:1.5;}
+.czc-bonus{font-size:10px;color:var(--green3);margin-top:4px;}
+
+/* ── TABS ── */
+.tab-bar{display:flex;gap:3px;background:var(--bg2);border:1px solid var(--border);border-radius:4px;padding:4px;}
+.tab-btn{background:transparent;border:1px solid transparent;color:var(--text-dim);font-family:'Cinzel',serif;font-size:11px;padding:7px 12px;border-radius:3px;cursor:pointer;transition:all .15s;letter-spacing:1px;flex:1;text-align:center;}
+.tab-btn.act{border-color:var(--border3);color:var(--gold);background:linear-gradient(180deg,var(--leather3),var(--leather));}
+.tab-btn:hover:not(.act){border-color:var(--border2);color:var(--text);background:rgba(78,46,20,.25);}
+.tab-content{display:none;}
+.tab-content.act{display:block;}
+
+/* ── CRAFTING ── */
+#crafting-area{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:7px;}
+.craft-cat-hdr{grid-column:1/-1;font-family:'Cinzel',serif;font-size:10px;color:var(--text-muted);letter-spacing:3px;padding:5px 2px 3px;border-bottom:1px dashed var(--border);margin-top:4px;text-transform:uppercase;}
+.ccard{background:linear-gradient(160deg,var(--bg3),var(--bg2));border:1px solid var(--border);border-radius:4px;padding:10px 11px;cursor:pointer;transition:border-color .15s,transform .1s;text-align:left;position:relative;overflow:hidden;display:flex;flex-direction:column;gap:4px;}
+.ccard::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--border2),transparent);}
+.ccard:hover:not([disabled]):not(.locked){border-color:var(--border3);transform:translateY(-1px);box-shadow:0 3px 10px rgba(0,0,0,.55);}
+.ccard:active:not([disabled]):not(.locked){transform:translateY(0);}
+.ccard[disabled]{opacity:.3;cursor:not-allowed;}
+.ccard.locked{opacity:.12;cursor:not-allowed;}
+.ccard.done{opacity:.45;cursor:default;border-color:var(--green2)!important;}
+.ccard.going{border-color:var(--copper)!important;box-shadow:0 0 8px rgba(200,120,30,.2)!important;}
+.cn{font-family:'Cinzel',serif;font-size:12px;font-weight:600;color:var(--text);letter-spacing:.5px;}
+.cd{font-size:12px;color:var(--text-dim);font-style:italic;line-height:1.3;}
+.cc{font-size:11px;color:var(--copper2);margin-top:2px;}.cc .ok{color:var(--green3);}.cc .miss{color:var(--red2);}
+.cp-wrap{margin-top:4px;}
+.cp-lbl{font-size:10px;color:var(--copper2);font-family:'Cinzel',serif;margin-bottom:3px;}
+.cp-bar{height:5px;background:var(--bg);border:1px solid var(--border2);border-radius:3px;overflow:hidden;}
+.cp-fill{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--copper),var(--gold2));width:0%;transition:width .08s linear;}
+
+/* ── MACHINES ── */
+#machines-area{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:9px;}
+.mcard{background:linear-gradient(160deg,var(--bg3),var(--bg2));border:1px solid var(--border);border-radius:4px;padding:11px;position:relative;overflow:hidden;}
+.mcard::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--border2),transparent);}
+.mcard.on{border-color:var(--green2);box-shadow:0 0 12px rgba(48,72,24,.3);}
+.mcard.on::before{background:linear-gradient(90deg,transparent,var(--green2),transparent);}
+.mcard.paused{border-color:var(--copper)!important;box-shadow:0 0 10px rgba(180,100,20,.2)!important;}
+.mcard.paused::before{background:linear-gradient(90deg,transparent,var(--copper),transparent)!important;}
+.mcard.locked{opacity:.13;}
+.mn{font-family:'Cinzel',serif;font-size:11px;font-weight:600;color:var(--gold);letter-spacing:1.5px;margin-bottom:4px;}
+.mcnt{position:absolute;top:9px;right:11px;font-family:'Cinzel',serif;font-size:13px;color:var(--copper2);font-weight:600;}
+.ms{font-size:12px;color:var(--text-dim);margin-bottom:5px;font-style:italic;}
+.mr{font-size:11px;color:var(--text-muted);margin-bottom:6px;line-height:1.5;border-top:1px dashed var(--border);padding-top:5px;}
+.mr b{color:var(--text-dim);}
+.mprod{font-size:11px;color:var(--green3);margin-bottom:4px;}
+.mcons{font-size:11px;color:var(--red2);margin-bottom:4px;}
+.mpbar{height:5px;background:var(--bg);border:1px solid var(--border);border-radius:3px;margin-bottom:7px;overflow:hidden;}
+.mpfill{height:100%;border-radius:3px;background:linear-gradient(90deg,#2a4818,var(--green3),var(--gold));width:0%;transition:width .08s linear;}
+.mbuy{background:linear-gradient(180deg,var(--leather3),var(--leather));border:1px solid var(--border3);color:var(--text);font-family:'Cinzel',serif;font-size:10px;letter-spacing:1px;padding:5px 10px;border-radius:3px;cursor:pointer;width:100%;transition:all .15s;margin-bottom:4px;}
+.mbuy:hover:not([disabled]){border-color:var(--gold);color:var(--gold2);}
+.mbuy[disabled]{opacity:.3;cursor:not-allowed;}
+.mpause{background:transparent;border:1px solid var(--border2);color:var(--text-muted);font-family:'Cinzel',serif;font-size:9px;letter-spacing:1px;padding:4px 10px;border-radius:3px;cursor:pointer;width:100%;transition:all .15s;}
+.mpause:hover{border-color:var(--copper2);color:var(--copper2);}
+.mpause.paused-btn{border-color:var(--green2);color:var(--green3);}
+.mhint{font-size:11px;color:var(--text-muted);font-style:italic;margin-top:3px;}
+
+/* ── LOG ── */
+#log-area{background:var(--bg2);border:1px solid var(--border);border-radius:4px;padding:9px;height:100px;overflow-y:auto;font-size:12px;line-height:1.8;}
+.le{color:var(--text-dim);animation:logIn .3s ease;}
+.le.imp{color:var(--copper2);}.le.good{color:var(--green3);}.le.era{color:var(--gold2);font-family:'Cinzel',serif;font-size:11px;}
+@keyframes logIn{from{opacity:0;padding-left:9px}to{opacity:1;padding-left:0}}
+
+/* ── QUESTBOOK ── */
+#questbook-panel{background:linear-gradient(180deg,#1e1408,#180f06,#140d05);border-left:3px solid var(--border);overflow-y:auto;padding:10px 10px 10px 14px;position:relative;}
+#questbook-panel::before{content:'';position:absolute;top:0;left:0;bottom:0;width:5px;background:linear-gradient(180deg,var(--border3),var(--border2),var(--leather),var(--border2),var(--border3));opacity:.8;}
+.qctrl{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
+.hdone{background:transparent;border:1px solid var(--border2);color:var(--text-muted);font-family:'Cinzel',serif;font-size:9px;letter-spacing:1px;padding:4px 9px;border-radius:3px;cursor:pointer;transition:all .15s;white-space:nowrap;}
+.hdone:hover{border-color:var(--border3);color:var(--text-dim);}
+.hdone.act{border-color:var(--copper);color:var(--copper2);}
+.qi{background:linear-gradient(160deg,rgba(220,180,40,.03),rgba(180,120,16,.015));border:1px solid var(--border);border-radius:4px;padding:9px 9px 9px 13px;margin-bottom:7px;position:relative;overflow:hidden;transition:border-color .2s;}
+.qi::before{content:'';position:absolute;top:0;left:0;bottom:0;width:4px;background:var(--border2);border-radius:4px 0 0 4px;}
+.qi.done{border-color:rgba(72,112,48,.4);background:rgba(48,72,24,.08);opacity:.6;}.qi.done::before{background:var(--green2);}
+.qi.locked{opacity:.18;}.qi.locked::before{background:var(--text-muted);}
+.qi.avail::before{background:var(--copper2);}
+.qi:hover:not(.locked):not(.done){border-color:var(--border2);}
+.qt{font-family:'Cinzel',serif;font-size:11px;font-weight:600;color:var(--gold);letter-spacing:.5px;margin-bottom:5px;display:flex;align-items:center;gap:5px;}
+.qt .ck{color:var(--green3);}
+.qdesc{font-size:12px;color:var(--text-dim);line-height:1.5;margin-bottom:6px;font-style:italic;}
+.qrpw{display:flex;align-items:center;gap:5px;margin-bottom:4px;}
+.qpname{font-size:11px;color:var(--text-dim);min-width:82px;}
+.qpname .ok{color:var(--green3);}.qpname .no{color:var(--red2);}
+.qpb{flex:1;height:5px;background:var(--bg);border:1px solid var(--border);border-radius:3px;overflow:hidden;}
+.qpbf{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--copper),var(--gold));transition:width .5s;}
+.qplbl{font-size:11px;color:var(--text2);min-width:52px;text-align:right;font-family:'Cinzel',serif;}
+.qcheck{display:flex;align-items:center;gap:6px;margin-bottom:4px;font-size:12px;}
+.qrew{font-size:12px;color:var(--gold2);margin-top:6px;border-top:1px dashed var(--border);padding-top:5px;}
+.qhint{font-size:11px;color:var(--text-muted);margin-top:4px;font-style:italic;background:rgba(40,24,8,.6);border:1px solid var(--border);border-radius:3px;padding:5px 7px;line-height:1.6;}
+.qclaim{background:linear-gradient(180deg,rgba(72,112,48,.3),rgba(40,80,20,.2));border:1px solid var(--green2);color:var(--green3);font-family:'Cinzel',serif;font-size:10px;letter-spacing:1px;padding:5px 10px;border-radius:3px;cursor:pointer;margin-top:5px;width:100%;transition:all .15s;}
+.qclaim:hover{background:rgba(72,112,48,.45);box-shadow:0 0 8px rgba(72,112,48,.3);}
+
+/* ── NOTIFY ── */
+#notif{position:fixed;top:68px;right:18px;background:linear-gradient(135deg,var(--leather2),var(--leather));border:1px solid var(--gold);border-radius:4px;padding:10px 16px;font-family:'Cinzel',serif;font-size:11px;letter-spacing:1px;color:var(--gold2);z-index:999;transform:translateX(120%);transition:transform .35s cubic-bezier(.34,1.56,.64,1);box-shadow:0 4px 24px rgba(0,0,0,.8);max-width:270px;}
+#notif.show{transform:translateX(0);}
+.ft{position:fixed;font-family:'Cinzel',serif;font-size:12px;color:var(--gold2);text-shadow:0 1px 4px rgba(0,0,0,.9);pointer-events:none;z-index:500;animation:ftUp 1.3s ease forwards;white-space:nowrap;}
+@keyframes ftUp{0%{opacity:1;transform:translateY(0)}100%{opacity:0;transform:translateY(-55px)}}
+::-webkit-scrollbar{width:5px;}::-webkit-scrollbar-track{background:var(--bg);}::-webkit-scrollbar-thumb{background:var(--border2);border-radius:3px;}
+</style>
+</head>
+<body>
+<div id="header">
+  <h1>⚒ GT: НОВЫЕ ГОРИЗОНТЫ</h1>
+  <div id="era-display">✦ КАМЕННЫЙ ВЕК ✦</div>
+  <div id="playtime">00:00:00</div>
+</div>
+<div id="game-layout">
+
+<!-- RESOURCES -->
+<div id="resources-panel">
+  <div class="panel-title"><span class="rivet"></span> РЕСУРСЫ <span class="rivet"></span></div>
+  <div class="res-group"><div class="rg-title">— Сырьё —</div>
+    <div class="ri" id="rr-wood">  <span class="ri-icon">🪵</span><span class="ri-name">Дерево</span>    <span class="ri-amt" id="ra-wood">0</span>  <span class="ri-rate" id="rrate-wood"></span></div>
+    <div class="ri" id="rr-stone"> <span class="ri-icon">🪨</span><span class="ri-name">Камень</span>    <span class="ri-amt" id="ra-stone">0</span> <span class="ri-rate" id="rrate-stone"></span></div>
+    <div class="ri" id="rr-flint"> <span class="ri-icon">◆</span> <span class="ri-name">Кремень</span>   <span class="ri-amt" id="ra-flint">0</span> <span class="ri-rate" id="rrate-flint"></span></div>
+    <div class="ri" id="rr-clay">  <span class="ri-icon">🟫</span><span class="ri-name">Глина</span>     <span class="ri-amt" id="ra-clay">0</span>  <span class="ri-rate" id="rrate-clay"></span></div>
+    <div class="ri" id="rr-sand">  <span class="ri-icon">🟡</span><span class="ri-name">Песок</span>     <span class="ri-amt" id="ra-sand">0</span>  <span class="ri-rate" id="rrate-sand"></span></div>
+    <div class="ri" id="rr-gravel"><span class="ri-icon">⬛</span><span class="ri-name">Гравий</span>    <span class="ri-amt" id="ra-gravel">0</span><span class="ri-rate" id="rrate-gravel"></span></div>
+  </div>
+  <div class="res-group"><div class="rg-title">— Пыль & слитки —</div>
+    <div class="ri" id="rr-cdust"> <span class="ri-icon" style="color:#c07830">✦</span><span class="ri-name">Медная пыль</span>  <span class="ri-amt" id="ra-cdust">0</span> <span class="ri-rate" id="rrate-cdust"></span></div>
+    <div class="ri" id="rr-tdust"> <span class="ri-icon" style="color:#a0c0d8">✦</span><span class="ri-name">Оловян. пыль</span><span class="ri-amt" id="ra-tdust">0</span> <span class="ri-rate" id="rrate-tdust"></span></div>
+    <div class="ri" id="rr-bdust"> <span class="ri-icon" style="color:#cd7f32">✦</span><span class="ri-name">Бронз. пыль</span> <span class="ri-amt" id="ra-bdust">0</span> <span class="ri-rate" id="rrate-bdust"></span></div>
+    <div class="ri" id="rr-copper"><span class="ri-icon" style="color:#c07830">◉</span><span class="ri-name">Медь</span>         <span class="ri-amt" id="ra-copper">0</span><span class="ri-rate" id="rrate-copper"></span></div>
+    <div class="ri" id="rr-tin">   <span class="ri-icon" style="color:#a0c0d8">◉</span><span class="ri-name">Олово</span>        <span class="ri-amt" id="ra-tin">0</span>   <span class="ri-rate" id="rrate-tin"></span></div>
+    <div class="ri" id="rr-iron">  <span class="ri-icon" style="color:#b0c0d0">◉</span><span class="ri-name">Железо</span>       <span class="ri-amt" id="ra-iron">0</span>  <span class="ri-rate" id="rrate-iron"></span></div>
+    <div class="ri" id="rr-coal">  <span class="ri-icon" style="color:#7080a0">◉</span><span class="ri-name">Уголь</span>        <span class="ri-amt" id="ra-coal">0</span>  <span class="ri-rate" id="rrate-coal"></span></div>
+    <div class="ri" id="rr-bronze"><span class="ri-icon" style="color:#cd7f32">◉</span><span class="ri-name">Бронза</span>       <span class="ri-amt" id="ra-bronze">0</span><span class="ri-rate" id="rrate-bronze"></span></div>
+    <div class="ri" id="rr-steel"> <span class="ri-icon" style="color:#c8d8e8">◉</span><span class="ri-name">Сталь</span>        <span class="ri-amt" id="ra-steel">0</span> <span class="ri-rate" id="rrate-steel"></span></div>
+  </div>
+  <div class="res-group"><div class="rg-title">— Промежуточные —</div>
+    <div class="ri" id="rr-claydust"><span class="ri-icon">🟤</span><span class="ri-name">Глиняная пыль</span><span class="ri-amt" id="ra-claydust">0</span><span class="ri-rate" id="rrate-claydust"></span></div>
+    <div class="ri" id="rr-cokebrick"><span class="ri-icon">🧱</span><span class="ri-name">Кокс. кирпич</span><span class="ri-amt" id="ra-cokebrick">0</span><span class="ri-rate" id="rrate-cokebrick"></span></div>
+    <div class="ri" id="rr-charcoal"><span class="ri-icon">🔥</span><span class="ri-name">Дрв. уголь</span>  <span class="ri-amt" id="ra-charcoal">0</span><span class="ri-rate" id="rrate-charcoal"></span></div>
+    <div class="ri" id="rr-coke">    <span class="ri-icon" style="color:#556677">⬛</span><span class="ri-name">Кокс</span>      <span class="ri-amt" id="ra-coke">0</span>    <span class="ri-rate" id="rrate-coke"></span></div>
+    <div class="ri" id="rr-creosote"><span class="ri-icon" style="color:#667700">◈</span><span class="ri-name">Креозот</span>     <span class="ri-amt" id="ra-creosote">0</span><span class="ri-rate" id="rrate-creosote"></span></div>
+    <div class="ri" id="rr-steam">   <span class="ri-icon" style="color:#7a9898">≋</span><span class="ri-name">Пар (мб)</span>   <span class="ri-amt" id="ra-steam">0</span>   <span class="ri-rate" id="rrate-steam"></span></div>
+  </div>
+  <div class="res-group"><div class="rg-title">— Плиты —</div>
+    <div class="ri" id="rr-bplate"><span class="ri-icon" style="color:#cd7f32">▬</span><span class="ri-name">Бронз. плита</span><span class="ri-amt" id="ra-bplate">0</span><span class="ri-rate" id="rrate-bplate"></span></div>
+    <div class="ri" id="rr-iplate"><span class="ri-icon" style="color:#b0c0d0">▬</span><span class="ri-name">Жел. плита</span> <span class="ri-amt" id="ra-iplate">0</span><span class="ri-rate" id="rrate-iplate"></span></div>
+    <div class="ri" id="rr-splate"><span class="ri-icon" style="color:#c8d8e8">▬</span><span class="ri-name">Стал. плита</span><span class="ri-amt" id="ra-splate">0</span><span class="ri-rate" id="rrate-splate"></span></div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div id="main-area">
+  <div id="era-banner" class="era-banner">⚒ КАМЕННЫЙ ВЕК ⚒</div>
+
+  <div id="tools-section">
+    <div class="sec-hdr"><h3>Снаряжение</h3><div class="sec-line"></div></div>
+    <div id="tools-display">
+      <div class="tool-slot" id="ts-pickaxe"><span>⛏️</span><span class="tt" id="tt-pickaxe">—</span><span class="tb" id="tb-pickaxe">×1</span></div>
+      <div class="tool-slot" id="ts-shovel"> <span>🪓</span><span class="tt" id="tt-shovel">—</span> <span class="tb" id="tb-shovel">×1</span></div>
+      <div class="tool-slot" id="ts-hoe">    <span>🌾</span><span class="tt" id="tt-hoe">—</span>    <span class="tb" id="tb-hoe">×1</span></div>
+      <div class="tools-info">
+        <div class="ti-line">Уровень добычи: <span class="ti-val" id="mining-lvl">1</span></div>
+        <div class="ti-line">Бонус: <span class="ti-val" id="mine-bonus">×1.0</span></div>
+        <button class="hide-done-tools-btn" id="hdt-btn" onclick="toggleHideDoneTools()">Скрыть готовые</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="mode-bar">
+    <span>РЕЖИМ:</span>
+    <button class="mode-btn" id="mb-clicker" onclick="setMode('clicker')">👆 Кликер</button>
+    <button class="mode-btn act" id="mb-explore" onclick="setMode('explore')">🗺️ Исследование</button>
+  </div>
+
+  <div id="zones-bar">
+    <button class="zone-btn act" id="zb-forest"      onclick="selZone('forest')"><span class="zone-icon">🌲</span>ЛЕС</button>
+    <button class="zone-btn"    id="zb-beach"       onclick="selZone('beach')"><span class="zone-icon">🏖️</span>ПЛЯЖ</button>
+    <button class="zone-btn"    id="zb-plains"      onclick="selZone('plains')"><span class="zone-icon">🌿</span>РАВНИНА</button>
+    <button class="zone-btn"    id="zb-underground" onclick="selZone('underground')"><span class="zone-icon">⛰️</span>ШАХТА</button>
+  </div>
+
+  <div id="explore-area">
+    <h4 id="exp-title">🌲 Исследовать лес</h4>
+    <div class="zpw"><div class="zpbar"><div class="zpfill" id="zpfill"></div></div><div class="zplab" id="zplab">Готово</div></div>
+    <button id="explore-btn" onclick="doExplore(event)">⚔️ ИССЛЕДОВАТЬ</button>
+    <div class="drop-tags" id="exp-drops"></div>
+  </div>
+
+  <div id="clicker-area"></div>
+
+  <div class="tab-bar">
+    <button class="tab-btn act" onclick="switchTab('crafting',event)">Крафт</button>
+    <button class="tab-btn"    onclick="switchTab('machines',event)">Машины</button>
+  </div>
+  <div id="tab-crafting" class="tab-content act"><div id="crafting-area"></div></div>
+  <div id="tab-machines" class="tab-content"><div id="machines-area"></div></div>
+
+  <div>
+    <div class="sec-hdr" style="padding-bottom:6px;margin-bottom:6px;border-bottom:1px solid var(--border)"><h3>Летопись</h3><div class="sec-line"></div></div>
+    <div id="log-area"></div>
+  </div>
+</div>
+
+<!-- QUESTBOOK -->
+<div id="questbook-panel">
+  <div class="qctrl">
+    <div class="panel-title" style="padding:0;border:none;margin:0">📖 ЗАДАНИЯ</div>
+    <button class="hdone" id="hdone-btn" onclick="toggleHideDone()">Скрыть выполн.</button>
+  </div>
+  <div id="quests-list"></div>
+</div>
+</div>
+<div id="notif"></div>
+
+<script>
+// ═══════════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════════
+const G={
+  era:0, playTime:0, mode:'explore', zone:'forest',
+  res:{
+    wood:0,stone:0,flint:0,clay:0,sand:0,gravel:0,
+    cdust:0,tdust:0,bdust:0,
+    copper:0,tin:0,iron:0,coal:0,bronze:0,steel:0,
+    claydust:0,cokebrick:0,charcoal:0,coke:0,creosote:0,steam:0,
+    bplate:0,iplate:0,splate:0
+  },
+  rates:{},
+  on:{ // unlocked
+    wood:true,stone:true,flint:true,clay:false,sand:false,gravel:false,
+    cdust:false,tdust:false,bdust:false,
+    copper:false,tin:false,iron:false,coal:false,bronze:false,steel:false,
+    claydust:false,cokebrick:false,charcoal:false,coke:false,creosote:false,steam:false,
+    bplate:false,iplate:false,splate:false
+  },
+  tools:{pickaxe:{tier:'none',bonus:1},shovel:{tier:'none',bonus:1},hoe:{tier:'none',bonus:1}},
+  mLvl:1,
+  machines:{}, // id->count
+  paused:{},   // id->bool
+  qClaimed:new Set(),
+  cDone:new Set(),
+  hideDone:false,
+  hideDoneTools:false
+};
+
+const RN={wood:'Дерево',stone:'Камень',flint:'Кремень',clay:'Глина',sand:'Песок',gravel:'Гравий',
+  cdust:'Медная пыль',tdust:'Оловян. пыль',bdust:'Бронз. пыль',
+  copper:'Медь',tin:'Олово',iron:'Железо',coal:'Уголь',bronze:'Бронза',steel:'Сталь',
+  claydust:'Глин. пыль',cokebrick:'Кокс. кирпич',charcoal:'Дрв. уголь',coke:'Кокс',creosote:'Креозот',steam:'Пар',
+  bplate:'Бронз. плита',iplate:'Жел. плита',splate:'Стал. плита'};
+
+const TIERS={none:{l:'—',b:1},flint:{l:'КРЕМЕНЬ',b:1.5},stone:{l:'КАМЕНЬ',b:2},
+  iron:{l:'ЖЕЛЕЗО',b:3},bronze:{l:'БРОНЗА',b:4.5},steel:{l:'СТАЛЬ',b:7}};
+
+// ═══════════════════════════════════════════════
+// ZONES
+// ═══════════════════════════════════════════════
+const ZONES={
+  forest:{label:'🌲 Лес',icon:'🌲',dur:2400,
+    drops:[{r:'wood',mn:3,mx:10,ch:.98,t:'shovel'},{r:'flint',mn:0,mx:2,ch:.25,t:'pickaxe'},{r:'stone',mn:0,mx:2,ch:.12,t:'pickaxe'}],
+    cdesc:'Дерево, Кремень'},
+  beach:{label:'🏖️ Пляж',icon:'🏖️',dur:2600,
+    drops:[{r:'sand',mn:4,mx:10,ch:.95,t:'shovel'},{r:'clay',mn:2,mx:7,ch:.65,t:'shovel'},{r:'gravel',mn:0,mx:3,ch:.35,t:'shovel'}],
+    cdesc:'Песок, Глина, Гравий'},
+  plains:{label:'🌿 Равнина',icon:'🌿',dur:2300,
+    drops:[{r:'stone',mn:5,mx:13,ch:.98,t:'pickaxe'},{r:'gravel',mn:1,mx:4,ch:.5,t:'shovel'},{r:'flint',mn:0,mx:3,ch:.3,t:'pickaxe'}],
+    cdesc:'Камень, Кремень, Гравий'},
+  underground:{label:'⛰️ Шахта',icon:'⛰️',dur:3800,
+    drops:[{r:'stone',mn:3,mx:8,ch:.98,t:'pickaxe'},{r:'coal',mn:1,mx:5,ch:.5,t:'pickaxe'},{r:'iron',mn:0,mx:3,ch:.38,t:'pickaxe'},{r:'copper',mn:0,mx:3,ch:.32,t:'pickaxe'},{r:'tin',mn:0,mx:2,ch:.25,t:'pickaxe'}],
+    cdesc:'Железо, Уголь, Медь, Олово',req:true}
+};
+
+function selZone(id){
+  G.zone=id;
+  document.querySelectorAll('.zone-btn').forEach(b=>b.classList.remove('act'));
+  document.getElementById('zb-'+id).classList.add('act');
+  stopExplore(); updateExpUI();
+  if(G.mode==='clicker') renderClicker();
+}
+
+function setMode(m){
+  G.mode=m;
+  document.getElementById('mb-clicker').classList.toggle('act',m==='clicker');
+  document.getElementById('mb-explore').classList.toggle('act',m==='explore');
+  document.getElementById('explore-area').style.display=m==='explore'?'':'none';
+  const ca=document.getElementById('clicker-area');
+  ca.style.display=m==='clicker'?'grid':'none';
+  if(m==='clicker')renderClicker();
+  stopExplore();
+}
+
+// ── EXPLORE ──
+let expTimer=null,expRunning=false;
+function updateExpUI(){
+  const z=ZONES[G.zone];
+  document.getElementById('exp-title').textContent=z.label;
+  const locked=z.req&&G.tools.pickaxe.tier==='none';
+  const btn=document.getElementById('explore-btn');
+  btn.disabled=locked||expRunning;
+  if(!expRunning) btn.textContent=locked?'🔒 Нужна кирка':'⚔️ ИССЛЕДОВАТЬ';
+  document.getElementById('exp-drops').innerHTML=
+    z.drops.filter(d=>d.ch>0.1).map(d=>`<div class="drop-tag">${RN[d.r]}</div>`).join('');
+}
+function doExplore(ev){
+  if(expRunning)return;
+  const z=ZONES[G.zone];
+  if(z.req&&G.tools.pickaxe.tier==='none'){log('Нужна кирка!','imp');return;}
+  expRunning=true;
+  const btn=document.getElementById('explore-btn');
+  btn.disabled=true; btn.textContent='⏳ Добываем...';
+  const pb=G.tools.pickaxe.bonus, dur=z.dur/(0.4+pb*0.6);
+  let el=0;
+  expTimer=setInterval(()=>{
+    el+=50;
+    const pct=Math.min(100,el/dur*100);
+    const fill=document.getElementById('zpfill'); if(fill)fill.style.width=pct+'%';
+    const lab=document.getElementById('zplab'); if(lab)lab.textContent=Math.ceil((dur-el)/100)/10+'с';
+    if(el>=dur){
+      clearInterval(expTimer);expTimer=null;expRunning=false;
+      if(fill)fill.style.width='0%'; if(lab)lab.textContent='Готово';
+      btn.disabled=false; btn.textContent='⚔️ ИССЛЕДОВАТЬ';
+      applyDrop(z,ev);
+    }
+  },50);
+}
+function stopExplore(){
+  if(expTimer){clearInterval(expTimer);expTimer=null;}
+  expRunning=false;
+  const f=document.getElementById('zpfill');if(f)f.style.width='0%';
+  const l=document.getElementById('zplab');if(l)l.textContent='Готово';
+  const b=document.getElementById('explore-btn');if(b){b.disabled=false;b.textContent='⚔️ ИССЛЕДОВАТЬ';}
+}
+function applyDrop(z,ev){
+  const gained={};
+  for(const d of z.drops){
+    if(Math.random()>d.ch)continue;
+    const tb=d.t?G.tools[d.t].bonus:1;
+    const amt=(d.mn+Math.random()*(d.mx-d.mn))*tb;
+    if(amt<0.05)continue;
+    G.res[d.r]=(G.res[d.r]||0)+amt; G.on[d.r]=true;
+    gained[d.r]=(gained[d.r]||0)+amt;
+  }
+  updRes(); checkEra(); checkQP(); refreshAff();
+  const s=Object.entries(gained).map(([k,v])=>`+${Math.floor(v)} ${RN[k]}`).join('  ');
+  if(s&&ev)ft(ev.clientX-80,ev.clientY-25,s);
+}
+
+// ── CLICKER ──
+const clickCD={};
+function renderClicker(){
+  const area=document.getElementById('clicker-area'); area.innerHTML='';
+  for(const[zid,z]of Object.entries(ZONES)){
+    const locked=z.req&&G.tools.pickaxe.tier==='none';
+    const card=document.createElement('div');
+    card.className='czc'+(locked?' locked':''); card.id='czc-'+zid;
+    const dropsText=z.drops.filter(d=>d.ch>.15).map(d=>`${RN[d.r]}: +${d.mn}~${d.mx}`).join('<br>');
+    const avgBonus=((G.tools.pickaxe.bonus+G.tools.shovel.bonus)/2).toFixed(1);
+    card.innerHTML=`<div class="czc-icon">${z.icon}</div><div class="czc-name">${z.label.replace(/.*? /,'')}</div><div class="czc-drops">${dropsText}</div><div class="czc-bonus">Инструмент: ×${avgBonus}</div>`;
+    if(!locked)card.onclick=(ev)=>doClick(zid,ev);
+    area.appendChild(card);
+  }
+}
+function doClick(zid,ev){
+  const now=Date.now(); if(now<(clickCD[zid]||0))return;
+  clickCD[zid]=now+700;
+  const z=ZONES[zid], gained={};
+  for(const[res,[mn,mx]]of Object.entries(
+    Object.fromEntries(z.drops.map(d=>[d.r,[d.mn,d.mx]]))
+  )){
+    const d=z.drops.find(x=>x.r===res); if(!d||Math.random()>d.ch*.7)continue;
+    const tb=d.t?G.tools[d.t].bonus:1;
+    const amt=(mn+Math.random()*(mx-mn)*0.5)*(tb*0.4+0.6);
+    if(amt<0.05)continue;
+    G.res[res]=(G.res[res]||0)+amt; G.on[res]=true;
+    gained[res]=(gained[res]||0)+amt;
+  }
+  const card=document.getElementById('czc-'+zid);
+  if(card){card.style.transform='scale(.94)';setTimeout(()=>card.style.transform='',110);}
+  updRes(); checkEra(); checkQP(); refreshAff();
+  const s=Object.entries(gained).map(([k,v])=>`+${Math.floor(v)} ${RN[k]}`).join('  ');
+  if(s)ft(ev.clientX-80,ev.clientY-20,s);
+}
+
+// ═══════════════════════════════════════════════
+// CRAFTS — реальная GTNH прогрессия
+// ═══════════════════════════════════════════════
+// Категории: Инструменты / GT-инструменты / Морт (пыль) / Крафт-стол / Плавильня / Паровой век
+const CRAFTS=[
+  // ── Инструменты ──
+  {id:'flint-pick',  name:'⛏️ Кремнёвая кирка',   desc:'Первая кирка. Открывает Шахту. +50% добычи.',     cat:'Инструменты',era:0,cost:{flint:3,wood:2},dur:3000,rep:false,
+   unlock:()=>G.res.flint>=3&&G.res.wood>=2,
+   eff:()=>{setTool('pickaxe','flint');G.on.copper=true;G.on.iron=true;G.on.coal=true;G.on.tin=true;}},
+  {id:'flint-shovel',name:'🪓 Кремнёвая лопата',  desc:'Ускоряет копку. Открывает глину и песок.',        cat:'Инструменты',era:0,cost:{flint:2,wood:2},dur:2500,rep:false,
+   unlock:()=>G.res.flint>=2&&G.res.wood>=2,
+   eff:()=>{setTool('shovel','flint');G.on.clay=true;G.on.sand=true;}},
+  {id:'flint-hoe',   name:'🌾 Кремнёвая мотыга',  desc:'Возделывает почву.',                               cat:'Инструменты',era:0,cost:{flint:2,wood:2},dur:2500,rep:false,
+   unlock:()=>G.res.flint>=2&&G.res.wood>=2,
+   eff:()=>setTool('hoe','flint')},
+  {id:'stone-pick',  name:'⛏️ Каменная кирка',    desc:'Уровень 2. Больше руды из шахты.',                cat:'Инструменты',era:0,cost:{stone:3,wood:2},dur:5000,rep:false,
+   unlock:()=>G.tools.pickaxe.tier==='flint'&&G.res.stone>=3,
+   eff:()=>{setTool('pickaxe','stone');G.mLvl=2;log('Каменная кирка! Уровень 2','imp');}},
+  {id:'stone-shovel',name:'🪓 Каменная лопата',   desc:'Уровень 2.',                                       cat:'Инструменты',era:0,cost:{stone:3,wood:2},dur:4000,rep:false,
+   unlock:()=>G.tools.shovel.tier==='flint'&&G.res.stone>=3,
+   eff:()=>setTool('shovel','stone')},
+  {id:'stone-hoe',   name:'🌾 Каменная мотыга',   desc:'Уровень 2.',                                       cat:'Инструменты',era:0,cost:{stone:3,wood:2},dur:4000,rep:false,
+   unlock:()=>G.tools.hoe.tier==='flint'&&G.res.stone>=3,
+   eff:()=>setTool('hoe','stone')},
+
+  // ── GT-инструменты ──
+  {id:'soft-mallet', name:'🔨 Мягкий молоток',    desc:'Первый GT-инструмент. Нужен для крафта кровати и многого другого.',cat:'GT-инструменты',era:0,cost:{wood:6},dur:2000,rep:false,
+   unlock:()=>G.res.wood>=6&&!G.machines['soft-mallet'],
+   eff:()=>{G.machines['soft-mallet']=1;log('Мягкий молоток готов!','good');}},
+  {id:'mortar',      name:'🪨 Каменный пест',      desc:'Перемалывает слитки в пыль. 5 камня + 2 кремня.', cat:'GT-инструменты',era:0,cost:{stone:5,flint:2},dur:4000,rep:false,
+   unlock:()=>G.res.stone>=5&&G.res.flint>=2&&!G.machines['mortar'],
+   eff:()=>{G.machines['mortar']=1;log('Каменный пест готов! Можно молоть руду','good');}},
+  {id:'hammer',      name:'🔨 Железный молоток',   desc:'GT-молоток. Кует плиты. 3 железа + 2 дерева.',    cat:'GT-инструменты',era:0,cost:{iron:3,wood:2},dur:5000,rep:false,
+   unlock:()=>G.res.iron>=3&&G.res.wood>=2&&!G.machines['hammer'],
+   eff:()=>{G.machines['hammer']=1;G.on['iplate']=true;log('Железный молоток! Ковка открыта','good');}},
+
+  // ── Пест: молоть руду в пыль ──
+  {id:'grind-copper',name:'✦ Молоть медь → пыль', desc:'Пест: 1 медный слиток → 1 медная пыль.',           cat:'Пест (помол)',era:0,cost:{copper:1},dur:1500,rep:true,
+   unlock:()=>G.machines['mortar']&&G.res.copper>=1,
+   eff:()=>{G.res.cdust+=1;G.on.cdust=true;updRes();}},
+  {id:'grind-tin',   name:'✦ Молоть олово → пыль',desc:'Пест: 1 оловянный слиток → 1 оловянная пыль.',    cat:'Пест (помол)',era:0,cost:{tin:1},dur:1500,rep:true,
+   unlock:()=>G.machines['mortar']&&G.res.tin>=1,
+   eff:()=>{G.res.tdust+=1;G.on.tdust=true;updRes();}},
+  {id:'grind-clay',  name:'✦ Молоть глину → пыль',desc:'Пест: 2 глины → 2 глин. пыли. Нужна для кирпичей.',cat:'Пест (помол)',era:0,cost:{clay:2},dur:2000,rep:true,
+   unlock:()=>G.machines['mortar']&&G.res.clay>=2,
+   eff:()=>{G.res.claydust+=2;G.on.claydust=true;updRes();}},
+
+  // ── Крафт-стол: смешать пыль ──
+  {id:'mix-bronze',  name:'⚗️ Смешать бронзовую пыль',desc:'Стол: 3 медн. пыли + 1 оловян. пыль → 4 бронз. пыли.',cat:'Крафт-стол',era:0,cost:{cdust:3,tdust:1},dur:2000,rep:true,
+   unlock:()=>G.res.cdust>=3&&G.res.tdust>=1,
+   eff:()=>{G.res.bdust+=4;G.on.bdust=true;updRes();}},
+  {id:'make-cokebrick',name:'🧱 Слепить кокс. кирпич',desc:'Стол: 1 глин. пыль + 1 песок → 2 кокс. кирпича.',cat:'Крафт-стол',era:0,cost:{claydust:1,sand:1},dur:2000,rep:true,
+   unlock:()=>G.res.claydust>=1&&G.res.sand>=1,
+   eff:()=>{G.res.cokebrick+=2;G.on.cokebrick=true;updRes();}},
+
+  // ── Плавильня (печь): обжигать ──
+  {id:'smelt-bronze',name:'🔥 Обжечь бронзовую пыль',desc:'Печь: 1 бронз. пыль → 1 бронзовый слиток.',    cat:'Плавильня',era:0,cost:{bdust:1},dur:2500,rep:true,
+   unlock:()=>G.res.bdust>=1,
+   eff:()=>{G.res.bronze+=1;G.on.bronze=true;updRes();}},
+
+  // ── Ковка (молоток) ──
+  {id:'forge-iplate',name:'▬ Ковать жел. плиту',  desc:'Молоток: 2 железа → 1 жел. плита.',               cat:'Ковка (молоток)',era:0,cost:{iron:2},dur:3000,rep:true,
+   unlock:()=>G.machines['hammer']&&G.res.iron>=2,
+   eff:()=>{G.res.iplate+=1;G.on.iplate=true;updRes();}},
+  {id:'forge-bplate',name:'▬ Ковать бронз. плиту',desc:'Молоток: 2 бронзы → 1 бронз. плита.',             cat:'Ковка (молоток)',era:0,cost:{bronze:2},dur:3000,rep:true,
+   unlock:()=>G.machines['hammer']&&G.res.bronze>=2,
+   eff:()=>{G.res.bplate+=1;G.on.bplate=true;updRes();}},
+
+  // ── Бронзовые инструменты: 3 плиты + 2 палки (как в GTNH 3x3) ──
+  {id:'bronze-pick', name:'⛏️ Бронзовая кирка',   desc:'Tinker\'s: 3 бронз. плиты + 2 дерева. Уровень 3.', cat:'Инструменты',era:0,cost:{bplate:3,wood:2},dur:7000,rep:false,
+   unlock:()=>G.res.bplate>=3&&G.res.wood>=2,
+   eff:()=>{setTool('pickaxe','bronze');G.mLvl=3;log('Бронзовая кирка! Уровень 3','era');}},
+  {id:'bronze-shovel',name:'🪓 Бронзовая лопата', desc:'Tinker\'s: 2 бронз. плиты + 2 дерева.',            cat:'Инструменты',era:0,cost:{bplate:2,wood:2},dur:6000,rep:false,
+   unlock:()=>G.res.bplate>=2&&G.res.wood>=2,
+   eff:()=>setTool('shovel','bronze')},
+  {id:'bronze-hoe',  name:'🌾 Бронзовая мотыга',  desc:'Tinker\'s: 2 бронз. плиты + 2 дерева.',            cat:'Инструменты',era:0,cost:{bplate:2,wood:2},dur:6000,rep:false,
+   unlock:()=>G.res.bplate>=2&&G.res.wood>=2,
+   eff:()=>setTool('hoe','bronze')},
+
+  // ── Паровой век ──
+  {id:'forge-splate',name:'▬ Ковать стал. плиту', desc:'Молоток: 2 стали → 1 стал. плита.',                cat:'Ковка (молоток)',era:1,cost:{steel:2},dur:3500,rep:true,
+   unlock:()=>G.era>=1&&G.machines['hammer']&&G.res.steel>=2,
+   eff:()=>{G.res.splate+=1;G.on.splate=true;updRes();}},
+  {id:'steel-pick',  name:'⛏️ Стальная кирка',    desc:'3 стал. плиты + 2 дерева. Уровень 4.',             cat:'Инструменты',era:1,cost:{splate:3,wood:2},dur:10000,rep:false,
+   unlock:()=>G.era>=1&&G.res.splate>=3,
+   eff:()=>{setTool('pickaxe','steel');G.mLvl=4;log('СТАЛЬНАЯ КИРКА! Уровень 4!','era');}},
+  {id:'steel-shovel',name:'🪓 Стальная лопата',   desc:'2 стал. плиты + 2 дерева.',                        cat:'Инструменты',era:1,cost:{splate:2,wood:2},dur:8000,rep:false,
+   unlock:()=>G.era>=1&&G.res.splate>=2,
+   eff:()=>setTool('shovel','steel')},
+  {id:'steel-hoe',   name:'🌾 Стальная мотыга',   desc:'2 стал. плиты + 2 дерева.',                        cat:'Инструменты',era:1,cost:{splate:2,wood:2},dur:8000,rep:false,
+   unlock:()=>G.era>=1&&G.res.splate>=2,
+   eff:()=>setTool('hoe','steel')},
+];
+
+// ═══════════════════════════════════════════════
+// MACHINES — фиксированные цены, пауза, умный пар
+// ═══════════════════════════════════════════════
+const MDEF=[
+  {id:'coke-oven',  name:'КОКСОВАЯ ПЕЧЬ',       icon:'🏭',era:0,max:4,
+   desc:'Дерево → Дрв. уголь + Креозот',
+   recipe:'Дерево → Дрв. уголь + Креозот',
+   cost:{cokebrick:32,stone:8},
+   prod:{charcoal:0.018,creosote:0.009},cons:{wood:0.012},
+   pt:150, steamCost:0,
+   unlock:()=>G.res.cokebrick>=32&&G.res.stone>=8,
+   hint:'Нужно: 32 кокс. кирпича + 8 камня\n(крафт кирпичей: глин. пыль + песок)'},
+  {id:'coal-boiler',name:'УГОЛЬНЫЙ КОТЁЛ',      icon:'⚗️',era:0,max:4,
+   desc:'Уголь/Дрв. уголь → Пар (144 мб/с)',
+   recipe:'Уголь → 144 мб/с пара',
+   cost:{bplate:20,stone:30},
+   prod:{steam:28},cons:{coal:0.008,charcoal:0.008},
+   pt:1, steamCost:0,
+   unlock:()=>G.res.bplate>=20&&G.res.stone>=30,
+   hint:'Нужно: 20 бронз. плит + 30 камня'},
+  {id:'steam-macer',name:'ПАР. МАЦЕРАТОР',      icon:'⚙️',era:1,max:2,
+   desc:'Перемалывает руду паром, удваивая выход',
+   recipe:'Руда + Пар → ×2 Металл',
+   cost:{bplate:20,iplate:10,steam:1000},
+   prod:{copper:0.06,tin:0.04,iron:0.08},cons:{steam:0},
+   pt:50, steamCost:2400, // мб за цикл
+   unlock:()=>(G.machines['coal-boiler']||0)>=1&&G.res.steam>=1000,
+   hint:'Котёл + 1000 мб пара'},
+  {id:'bbf',        name:'КИРП. ПЛАВИЛЬНЯ (BBF)',icon:'🔥',era:1,max:8,
+   desc:'Железо + Кокс → Сталь. Стройте 4-6 штук!',
+   recipe:'Железо + Кокс → Сталь',
+   cost:{clay:40,stone:25,sand:25,coal:15},
+   prod:{steel:0.003},cons:{iron:0.003,coke:0.003},
+   pt:480, steamCost:0,
+   unlock:()=>G.era>=1,
+   hint:'Доступно в Паровом веке'},
+  {id:'steam-furnace',name:'ПАРОВАЯ ПЕЧЬ',       icon:'♨️',era:1,max:2,
+   desc:'Дерево → Дрв. уголь + Кокс (быстро)',
+   recipe:'Дерево + Пар → Дрв. уголь + Кокс',
+   cost:{bplate:15,iplate:8},
+   prod:{charcoal:0.04,coke:0.025},cons:{wood:0.03},
+   pt:15, steamCost:600, // мб за цикл (600 мб = 15с × 40мб/с)
+   unlock:()=>(G.machines['coal-boiler']||0)>=1,
+   hint:'Нужен котёл'},
+  {id:'steam-hammer',name:'ПАРОВОЙ МОЛОТ',       icon:'🔨',era:1,max:2,
+   desc:'Авто: слитки → плиты. Бронза, железо, сталь.',
+   recipe:'Слитки + Пар → Плиты',
+   cost:{bplate:20,iplate:10},
+   prod:{bplate:0.025,iplate:0.02,splate:0.012},cons:{bronze:0.05,iron:0.04,steel:0.024},
+   pt:40, steamCost:1600, // мб за цикл
+   unlock:()=>(G.machines['coal-boiler']||0)>=1&&G.res.bronze>=20,
+   hint:'Котёл + 20 бронзы'},
+];
+
+// ═══════════════════════════════════════════════
+// QUESTS
+// ═══════════════════════════════════════════════
+const QUESTS=[
+  {id:'q-start',    title:'НАЧАЛО ПУТИ',      era:0,
+   desc:'Выберите зону и начните добычу. Для кремня — Лес или Равнина.',
+   req:[{r:'wood',a:20,l:'Дерево'},{r:'flint',a:5,l:'Кремень'}],
+   rew:{wood:25,flint:8},rdesc:'+25 дерева, +8 кремня',
+   hint:'Лес: дерево + кремень\nРавнина: камень + кремень',requires:[]},
+  {id:'q-tools',    title:'ПЕРВЫЕ ИНСТРУМЕНТЫ',era:0,
+   desc:'Создайте кирку и лопату из кремня.',
+   req:[{chk:()=>G.tools.pickaxe.tier!=='none',l:'Кирка'},{chk:()=>G.tools.shovel.tier!=='none',l:'Лопата'}],
+   rew:{flint:10,stone:20},rdesc:'+10 кремня, +20 камня',
+   hint:'Крафт → Кремнёвая кирка (3 кремня + 2 дерева)\nКрафт → Кремнёвая лопата (2 кремня + 2 дерева)',requires:['q-start']},
+  {id:'q-mallet',   title:'МЯГКИЙ МОЛОТОК',   era:0,
+   desc:'Первый GT-инструмент. 6 деревянных плах.',
+   req:[{chk:()=>!!G.machines['soft-mallet'],l:'Мягкий молоток'}],
+   rew:{wood:20},rdesc:'+20 дерева',
+   hint:'Крафт → «Мягкий молоток» (6 дерева)',requires:['q-tools']},
+  {id:'q-mortar',   title:'КАМЕННЫЙ ПЕСТ',     era:0,
+   desc:'GT-пест для помола руды в пыль. 5 камня + 2 кремня.',
+   req:[{chk:()=>!!G.machines['mortar'],l:'Каменный пест'}],
+   rew:{stone:15,flint:8},rdesc:'+15 камня, +8 кремня',
+   hint:'Крафт → «Каменный пест» (5 камня + 2 кремня)',requires:['q-mallet']},
+  {id:'q-mine',     title:'В ШАХТУ!',          era:0,
+   desc:'Кирка открыла Шахту. Добудьте первые металлы.',
+   req:[{r:'iron',a:10,l:'Железо'},{r:'coal',a:10,l:'Уголь'}],
+   rew:{iron:10,coal:10},rdesc:'+10 железа, +10 угля',
+   hint:'Зона ⛰️ Шахта. Без кирки закрыта.',requires:['q-mortar']},
+  {id:'q-metals',   title:'МЕДЬ И ОЛОВО',      era:0,
+   desc:'Для бронзы нужна медь и олово из Шахты.',
+   req:[{r:'copper',a:18,l:'Медь'},{r:'tin',a:9,l:'Олово'}],
+   rew:{copper:10,tin:5},rdesc:'+10 меди, +5 олова',
+   hint:'⛰️ Шахта. Каменная кирка даёт больше.',requires:['q-mine']},
+  {id:'q-bronze-dust',title:'БРОНЗОВАЯ ПЫЛЬ',  era:0,
+   desc:'Помелите медь и олово в пест, затем смешайте 3:1 на крафт-столе.',
+   req:[{r:'bdust',a:8,l:'Бронзовая пыль'}],
+   rew:{cdust:6,tdust:3},rdesc:'+6 медн. пыли, +3 оловян. пыли',
+   hint:'Шаг 1: Пест → «Молоть медь» (медь → медная пыль)\nШаг 2: Пест → «Молоть олово» (олово → оловян. пыль)\nШаг 3: Крафт-стол → «Смешать бронзовую пыль» (3 медн. + 1 оловян. = 4 бронз.)',requires:['q-metals']},
+  {id:'q-bronze',   title:'БРОНЗОВЫЕ СЛИТКИ',  era:0,
+   desc:'Обожгите бронзовую пыль в печи (костре) — получите слитки.',
+   req:[{r:'bronze',a:24,l:'Бронза'}],
+   rew:{bronze:12,copper:12},rdesc:'+12 бронзы, +12 меди',
+   hint:'Крафт → «Обжечь бронзовую пыль» (1 пыль → 1 слиток)\nЭто имитация простой печи/костра.',requires:['q-bronze-dust']},
+  {id:'q-hammer',   title:'ЖЕЛЕЗНЫЙ МОЛОТОК',  era:0,
+   desc:'GT-молоток. 3 железа + 2 дерева. Открывает ковку плит.',
+   req:[{chk:()=>!!G.machines['hammer'],l:'Железный молоток'}],
+   rew:{iron:20,iplate:5},rdesc:'+20 железа, +5 жел. плит',
+   hint:'Крафт → «Железный молоток» (3 железа + 2 дерева)',requires:['q-bronze']},
+  {id:'q-coke-prep',title:'ГЛИН. ПЫЛЬ + КИРПИЧИ',era:0,
+   desc:'Для коксовой печи нужны кирпичи: глина → глин. пыль (пест) → кирпичи (стол: пыль + песок).',
+   req:[{r:'cokebrick',a:32,l:'Кокс. кирпичей'}],
+   rew:{clay:20,sand:20},rdesc:'+20 глины, +20 песка',
+   hint:'Шаг 1: Пест → «Молоть глину» (2 глины → 2 глин. пыли)\nШаг 2: Крафт-стол → «Слепить кокс. кирпич» (1 пыль + 1 песок → 2 кирпича)\nИтого: 32 кирпича = 16 помолов + 16 крафтов',requires:['q-hammer']},
+  {id:'q-coke-oven',title:'КОКСОВАЯ ПЕЧЬ',     era:0,
+   desc:'Постройте печь: 32 кирпича + 8 камня. Даёт дрв. уголь — топливо для котла.',
+   req:[{chk:()=>(G.machines['coke-oven']||0)>=1,l:'Коксовая печь'}],
+   rew:{coal:20,wood:40},rdesc:'+20 угля, +40 дерева',
+   hint:'Машины → «Коксовая печь»\nСтоит: 32 кокс. кирпича + 8 камня',requires:['q-coke-prep']},
+  {id:'q-bplate',   title:'БРОНЗОВЫЕ ПЛИТЫ',   era:0,
+   desc:'Ковка молотком: 2 бронзы → 1 плита. Нужны для бронзовых инструментов и котла.',
+   req:[{r:'bplate',a:26,l:'Бронз. плит'}],
+   rew:{bronze:20,bplate:5},rdesc:'+20 бронзы, +5 плит',
+   hint:'Крафт → «Ковать бронз. плиту» (2 бронзы → 1 плита)',requires:['q-coke-oven']},
+  {id:'q-bronzekit',title:'БРОНЗОВЫЙ НАБОР',   era:0,
+   desc:'Бронзовые инструменты: 3 плиты + 2 дерева на кирку.',
+   req:[{chk:()=>G.tools.pickaxe.tier==='bronze',l:'Бронз. кирка'},{chk:()=>G.tools.shovel.tier==='bronze',l:'Бронз. лопата'},{chk:()=>G.tools.hoe.tier==='bronze',l:'Бронз. мотыга'}],
+   rew:{bronze:30,bplate:10},rdesc:'+30 бронзы, +10 плит',
+   hint:'Крафт → Бронзовые инструменты (у каждого свои плиты + дерево)',requires:['q-bplate']},
+  {id:'q-boiler',   title:'УГОЛЬНЫЙ КОТЁЛ',    era:0,
+   desc:'Котёл запустит Паровой век! 20 бронз. плит + 30 камня.',
+   req:[{chk:()=>(G.machines['coal-boiler']||0)>=1,l:'Котёл построен'}],
+   rew:{bplate:15,coal:35},rdesc:'+15 бронз. плит, +35 угля',
+   hint:'Машины → «Угольный котёл» (20 бронз. плит + 30 камня)\nКотлу нужен уголь или дрв. уголь для работы.',requires:['q-bronzekit']},
+  {id:'q-steam',    title:'⚙️ ПАРОВОЙ ВЕК',   era:0,
+   desc:'Котёл заработал — новые машины разблокированы!',
+   req:[{chk:()=>G.era>=1,l:'Паровой век'}],
+   rew:{bplate:12,coal:25},rdesc:'+12 бронз. плит, +25 угля',
+   hint:null,requires:['q-boiler']},
+  {id:'q-bbf',      title:'КИРП. ПЛАВИЛЬНЯ',   era:1,
+   desc:'BBF плавит железо + кокс → сталь. Стройте 4-6 штук!',
+   req:[{chk:()=>(G.machines['bbf']||0)>=4,l:'BBF × 4'}],
+   rew:{coke:20,iron:50},rdesc:'+20 кокса, +50 железа',
+   hint:'Машины → «Кирп. плавильня»\nПотребляет кокс. Кокс: из Паровой печи.',requires:['q-steam']},
+  {id:'q-steel',    title:'ПЕРВАЯ СТАЛЬ',       era:1,
+   desc:'Накопите сталь для финального снаряжения.',
+   req:[{r:'steel',a:30,l:'Сталь'}],
+   rew:{steel:15,splate:3},rdesc:'+15 стали, +3 стал. плиты',
+   hint:'4-6 BBF дают сталь постепенно.',requires:['q-bbf']},
+  {id:'q-steelkit', title:'СТАЛЬНОЙ НАБОР',     era:1,
+   desc:'Стальные инструменты — вершина Парового века.',
+   req:[{chk:()=>G.tools.pickaxe.tier==='steel',l:'Стальная кирка'},{chk:()=>G.tools.shovel.tier==='steel',l:'Стальная лопата'},{chk:()=>G.tools.hoe.tier==='steel',l:'Стальная мотыга'}],
+   rew:{steel:20,splate:10},rdesc:'+20 стали, +10 стал. плит',
+   hint:'Крафт → Стальные инструменты (плиты + дерево)',requires:['q-steel']},
+];
+
+// ═══════════════════════════════════════════════
+// HELPERS
+// ═══════════════════════════════════════════════
+function setTool(t,tier){
+  G.tools[t].tier=tier; G.tools[t].bonus=TIERS[tier].b;
+  updTools(); renderCrafts();
+  log(`${TIERS[tier].l} ${t==='pickaxe'?'кирка':t==='shovel'?'лопата':'мотыга'} готова`,'good');
+  updateExpUI();
+  if(G.mode==='clicker')renderClicker();
+}
+function canAfford(c){for(const[k,v]of Object.entries(c))if((G.res[k]||0)<v)return false;return true;}
+function payCost(c){for(const[k,v]of Object.entries(c))G.res[k]=Math.max(0,(G.res[k]||0)-v);}
+function fmt(n){if(n>=1e6)return(n/1e6).toFixed(1)+'M';if(n>=1e3)return(n/1e3).toFixed(1)+'K';return Math.floor(n)+'';}
+function log(msg,type=''){
+  const el=document.getElementById('log-area'),d=document.createElement('div');
+  d.className='le'+(type?' '+type:'');d.textContent='› '+msg;
+  el.insertBefore(d,el.firstChild);while(el.children.length>60)el.removeChild(el.lastChild);
+}
+function notify(msg){
+  const n=document.getElementById('notif');n.textContent=msg;n.classList.add('show');setTimeout(()=>n.classList.remove('show'),3500);
+}
+function ft(x,y,text){
+  const el=document.createElement('div');el.className='ft';el.textContent=text;
+  el.style.left=x+'px';el.style.top=y+'px';document.body.appendChild(el);setTimeout(()=>el.remove(),1300);
+}
+
+// ═══════════════════════════════════════════════
+// DISPLAY
+// ═══════════════════════════════════════════════
+function updRes(){
+  for(const[k,v]of Object.entries(G.res)){
+    const ri=document.getElementById('rr-'+k);if(ri)ri.classList.toggle('on',!!G.on[k]);
+    const a=document.getElementById('ra-'+k);if(a)a.textContent=fmt(v);
+    const r=document.getElementById('rrate-'+k);
+    if(r){const rt=G.rates[k]||0;r.textContent=Math.abs(rt)>.005?(rt>0?'+':'')+rt.toFixed(2)+'/с':'';r.style.color=rt>0?'var(--green3)':rt<0?'var(--red2)':'var(--text-dim)';}
+  }
+}
+function updTools(){
+  for(const[t,d]of Object.entries(G.tools)){
+    document.getElementById('tt-'+t).textContent=TIERS[d.tier].l;
+    document.getElementById('tb-'+t).textContent='×'+d.bonus.toFixed(1);
+    document.getElementById('ts-'+t).classList.toggle('has-tool',d.tier!=='none');
+  }
+  document.getElementById('mining-lvl').textContent=G.mLvl;
+  document.getElementById('mine-bonus').textContent='×'+((G.tools.pickaxe.bonus*.6+G.tools.shovel.bonus*.2+G.tools.hoe.bonus*.2)).toFixed(1);
+}
+
+// ═══════════════════════════════════════════════
+// CRAFTING — прогресс-бар без ре-рендера
+// ═══════════════════════════════════════════════
+const cT={};
+function renderCrafts(){
+  const area=document.getElementById('crafting-area');
+  const inProg=new Set(Object.keys(cT));
+  area.innerHTML='';
+  const cats={};
+  for(const c of CRAFTS){
+    if(c.era>G.era)continue;
+    // Скрыть выполненные одноразовые инструменты если включён режим
+    if(G.hideDoneTools&&!c.rep&&G.cDone.has(c.id)&&c.cat==='Инструменты')continue;
+    if(!cats[c.cat])cats[c.cat]=[];
+    cats[c.cat].push(c);
+  }
+  for(const[cat,items]of Object.entries(cats)){
+    const h=document.createElement('div');h.className='craft-cat-hdr';h.textContent='— '+cat+' —';area.appendChild(h);
+    for(const c of items){
+      const done=!c.rep&&G.cDone.has(c.id);
+      const going=inProg.has(c.id);
+      const ok=c.unlock()&&!done&&!going;
+      const locked=!c.unlock()&&!done&&!going;
+      const card=document.createElement('div');
+      card.className='ccard'+(done?' done':going?' going':locked?' locked':'');
+      card.id='cc-'+c.id;
+      if(!ok&&!going)card.setAttribute('disabled','');
+      const costH=Object.entries(c.cost).map(([k,v])=>`<span class="${(G.res[k]||0)>=v?'ok':'miss'}">${v} ${RN[k]||k}</span>`).join(', ');
+      const progH=going
+        ?`<div class="cp-wrap"><div class="cp-lbl" id="cpl-${c.id}">Крафтим...</div><div class="cp-bar"><div class="cp-fill" id="cpf-${c.id}" style="width:${Math.floor((cT[c.id]?.el||0)/c.dur*100)}%"></div></div></div>`
+        :`<div class="cc">Нужно: ${costH}</div>`;
+      card.innerHTML=`<div class="cn">${done?'✓ ':going?'⚙️ ':''}${c.name}</div><div class="cd">${c.desc}</div>${progH}`;
+      if(ok)card.onclick=()=>doCraft(c);
+      area.appendChild(card);
+    }
+  }
+}
+function doCraft(c){
+  if(cT[c.id])return;
+  if(!canAfford(c.cost)){log('Мало ресурсов!');return;}
+  payCost(c.cost);updRes();
+  cT[c.id]={el:0,dur:c.dur};
+  renderCrafts();
+  cT[c.id].iv=setInterval(()=>{
+    cT[c.id].el+=50;
+    const pct=Math.min(100,cT[c.id].el/c.dur*100);
+    const f=document.getElementById('cpf-'+c.id); if(f)f.style.width=pct+'%';
+    const l=document.getElementById('cpl-'+c.id); if(l){const r=Math.ceil((c.dur-cT[c.id].el)/100)/10;l.textContent=r>0?r+'с':'Готово!';}
+    if(cT[c.id].el>=c.dur){
+      clearInterval(cT[c.id].iv);delete cT[c.id];
+      c.eff();if(!c.rep)G.cDone.add(c.id);
+      updRes();renderCrafts();checkQP();renderQuests();
+    }
+  },50);
+}
+function refreshAff(){
+  for(const c of CRAFTS){
+    if(c.era>G.era||cT[c.id])continue;
+    const card=document.getElementById('cc-'+c.id);if(!card)continue;
+    const cc=card.querySelector('.cc');if(!cc)continue;
+    const costH=Object.entries(c.cost).map(([k,v])=>`<span class="${(G.res[k]||0)>=v?'ok':'miss'}">${v} ${RN[k]||k}</span>`).join(', ');
+    cc.innerHTML='Нужно: '+costH;
+    if(c.unlock()&&!G.cDone.has(c.id))card.removeAttribute('disabled');
+    else if(!c.unlock())card.setAttribute('disabled','');
+  }
+}
+function toggleHideDoneTools(){
+  G.hideDoneTools=!G.hideDoneTools;
+  const b=document.getElementById('hdt-btn');
+  b.textContent=G.hideDoneTools?'Показать все':'Скрыть готовые';
+  b.classList.toggle('act',G.hideDoneTools);
+  renderCrafts();
+}
+
+// ═══════════════════════════════════════════════
+// MACHINES — пауза + умный пар
+// ═══════════════════════════════════════════════
+const mT={};
+function renderMachines(){
+  const area=document.getElementById('machines-area');area.innerHTML='';
+  for(const m of MDEF){
+    if(m.era>G.era)continue;
+    const cnt=G.machines[m.id]||0,ok=m.unlock(),paused=G.paused[m.id];
+    const card=document.createElement('div');
+    card.className='mcard'+(cnt>0?(paused?' paused':' on'):'')+((!ok&&cnt===0)?' locked':'');
+    card.id='mc-'+m.id;
+    const cStr=Object.entries(m.cost).map(([k,v])=>`<span style="color:${(G.res[k]||0)>=v?'var(--green3)':'var(--red2)'}">${v} ${RN[k]}</span>`).join(', ');
+    const pStr=cnt>0?Object.entries(m.prod).map(([k,v])=>`+${(v*cnt).toFixed(3)}/с ${RN[k]}`).join('<br>'):'';
+    const cStr2=cnt>0?[
+      ...Object.entries(m.cons||{}).map(([k,v])=>`-${(v*cnt).toFixed(3)}/с ${RN[k]}`),
+      ...(m.steamCost>0?[`-${m.steamCost*cnt} мб/цикл Пар`]:[])
+    ].join('<br>'):'';
+    card.innerHTML=`
+      <div class="mn">${m.icon} ${m.name}</div><div class="mcnt">${cnt}/${m.max}</div>
+      <div class="ms">${m.desc}</div>
+      <div class="mr"><b>Рецепт:</b> ${m.recipe}</div>
+      ${cnt>0?`<div class="mprod">${pStr}</div>`:''}
+      ${cnt>0&&cStr2?`<div class="mcons">${cStr2}</div>`:''}
+      <div class="mpbar"><div class="mpfill" id="mp-${m.id}"></div></div>
+      ${cnt>0?`<button class="mpause${paused?' paused-btn':''}" onclick="togglePause('${m.id}')">${paused?'▶ ВОЗОБНОВИТЬ':'⏸ ПАУЗА'}</button>`:''}
+      ${ok&&cnt<m.max?`<button class="mbuy" onclick="buyM('${m.id}')">ПОСТРОИТЬ (${cStr})</button>`
+        :!ok?`<div class="mhint">🔒 ${m.hint}</div>`
+        :`<div style="font-size:11px;color:var(--text-muted);text-align:center;padding:3px">— МАКСИМУМ —</div>`}
+    `;
+    area.appendChild(card);
+  }
+}
+function togglePause(id){
+  G.paused[id]=!G.paused[id];
+  renderMachines();
+  const m=MDEF.find(x=>x.id===id);
+  log(`${m.name}: ${G.paused[id]?'ПАУЗА':'Возобновлена'}`,G.paused[id]?'imp':'good');
+}
+function buyM(id){
+  const m=MDEF.find(x=>x.id===id);if(!m)return;
+  if(!canAfford(m.cost)){log('Мало ресурсов!');return;}
+  payCost(m.cost);G.machines[id]=(G.machines[id]||0)+1;
+  updRes();renderMachines();
+  log(`Построено: ${m.name} (×${G.machines[id]})`,'good');
+  checkEra();checkQP();renderQuests();
+  if(G.machines[id]===1)startM(id);
+}
+function startM(id){
+  if(mT[id])return;
+  const m=MDEF.find(x=>x.id===id);if(!m)return;
+  let p=0;
+  mT[id]=setInterval(()=>{
+    const cnt=G.machines[id]||0;
+    if(cnt===0){clearInterval(mT[id]);delete mT[id];return;}
+    if(G.paused[id]){const f=document.getElementById('mp-'+id);if(f)f.style.width=p+'%';return;}
+    // Проверка ресурсов (не пар)
+    let canRun=true;
+    for(const[res]of Object.entries(m.cons||{}))if((G.res[res]||0)<=0){canRun=false;break;}
+    // Умная проверка пара: нужно хватать на весь цикл
+    if(m.steamCost>0&&(G.res.steam||0)<m.steamCost*cnt){canRun=false;}
+    const f=document.getElementById('mp-'+id);
+    if(canRun){
+      p+=100/(m.pt*10);if(f)f.style.width=Math.min(100,p)+'%';
+      if(p>=100){
+        p=0;
+        for(const[res,rate]of Object.entries(m.prod)){G.res[res]=(G.res[res]||0)+rate*cnt*m.pt;G.on[res]=true;}
+        // Списываем пар за цикл
+        if(m.steamCost>0)G.res.steam=Math.max(0,G.res.steam-m.steamCost*cnt);
+        updRes();checkQP();renderQuests();
+      }
+    }else{if(f)f.style.width='0%';p=0;}
+  },100);
+}
+function initMs(){for(const m of MDEF)if((G.machines[m.id]||0)>0)startM(m.id);}
+
+// ═══════════════════════════════════════════════
+// ERA
+// ═══════════════════════════════════════════════
+function checkEra(){
+  if(G.era===0&&(G.machines['coal-boiler']||0)>=1){
+    G.era=1;
+    document.getElementById('era-display').textContent='✦ ПАРОВОЙ ВЕК ✦';
+    const b=document.getElementById('era-banner');
+    b.textContent='⚙️ ПАРОВОЙ ВЕК ⚙️';
+    b.style.background='linear-gradient(90deg,transparent,rgba(90,55,20,.7) 18%,rgba(110,65,20,.9) 50%,rgba(90,55,20,.7) 82%,transparent)';
+    b.style.color='var(--copper2)';b.style.borderColor='var(--copper)';
+    log('═══ ПАРОВОЙ ВЕК! ═══','era');notify('⚙️ ПАРОВОЙ ВЕК РАЗБЛОКИРОВАН!');
+    renderCrafts();renderMachines();renderQuests();
+  }
+}
+
+// ═══════════════════════════════════════════════
+// QUESTS
+// ═══════════════════════════════════════════════
+function qOk(r){return r.chk?r.chk():(G.res[r.r]||0)>=r.a;}
+function qDone(q){return q.req.every(r=>qOk(r));}
+function qLocked(q){return q.requires.some(id=>!G.qClaimed.has(id));}
+function toggleHideDone(){
+  G.hideDone=!G.hideDone;
+  const b=document.getElementById('hdone-btn');
+  b.textContent=G.hideDone?'Показать все':'Скрыть выполн.';
+  b.classList.toggle('act',G.hideDone);
+  renderQuests();
+}
+function renderQuests(){
+  const list=document.getElementById('quests-list');list.innerHTML='';
+  for(const q of QUESTS){
+    if(q.era>G.era)continue;
+    const cl=G.qClaimed.has(q.id);
+    if(cl&&G.hideDone)continue;
+    const lk=qLocked(q),dn=qDone(q);
+    const div=document.createElement('div');
+    div.className='qi '+(cl?'done':lk?'locked':dn?'avail':'');
+    const rH=q.req.map(r=>{
+      const ok=qOk(r),lbl=r.l||r.r;
+      if(r.r){
+        const cur=Math.min(Math.floor(G.res[r.r]||0),r.a),pct=Math.min(100,Math.floor((G.res[r.r]||0)/r.a*100));
+        return`<div class="qrpw"><div class="qpname"><span class="${ok?'ok':'no'}">[${ok?'✓':'✗'}]</span> ${lbl}</div><div class="qpb"><div class="qpbf" style="width:${pct}%"></div></div><div class="qplbl">${cur}/${r.a}</div></div>`;
+      }
+      return`<div class="qcheck"><span class="${ok?'ok':'no'}" style="font-size:13px">[${ok?'✓':'✗'}]</span> <span style="color:var(--text2)">${lbl}</span></div>`;
+    }).join('');
+    div.innerHTML=`
+      <div class="qt">${cl?'<span class="ck">✓</span>':''}${q.title}</div>
+      <div class="qdesc">${q.desc}</div>
+      ${!cl?rH:''}
+      ${q.hint&&!cl?`<div class="qhint">💡 ${q.hint.replace(/\n/g,'<br>')}</div>`:''}
+      <div class="qrew">🎁 ${q.rdesc}</div>
+      ${!cl&&dn&&!lk?`<button class="qclaim" onclick="claimQ('${q.id}')">ПОЛУЧИТЬ НАГРАДУ</button>`:''}
+      ${lk?`<div style="font-size:11px;color:var(--text-muted);margin-top:3px">🔒 Сначала выполните предыдущие</div>`:''}
+    `;
+    list.appendChild(div);
+  }
+}
+function claimQ(id){
+  const q=QUESTS.find(x=>x.id===id);if(!q||G.qClaimed.has(id)||!qDone(q))return;
+  G.qClaimed.add(id);
+  for(const[res,amt]of Object.entries(q.rew)){G.res[res]=(G.res[res]||0)+amt;G.on[res]=true;}
+  updRes();renderQuests();
+  log(`Задание: ${q.title}`,'good');notify(`📖 ${q.title} — выполнено!`);
+}
+function checkQP(){renderQuests();}
+
+// ═══════════════════════════════════════════════
+// TICKS
+// ═══════════════════════════════════════════════
+let prevR={};
+setInterval(()=>{
+  for(const k of Object.keys(G.res)){G.rates[k]=(G.res[k]||0)-(prevR[k]||0);prevR[k]=G.res[k]||0;}
+  updRes();
+},1000);
+// Machine non-steam consumption
+setInterval(()=>{
+  for(const m of MDEF){
+    const cnt=G.machines[m.id]||0;if(cnt===0||!m.cons||G.paused[m.id])continue;
+    for(const[res,rate]of Object.entries(m.cons))G.res[res]=Math.max(0,(G.res[res]||0)-rate*cnt);
+  }
+},100);
+setInterval(()=>{
+  G.playTime++;
+  const h=Math.floor(G.playTime/3600).toString().padStart(2,'0');
+  const m=Math.floor((G.playTime%3600)/60).toString().padStart(2,'0');
+  const s=(G.playTime%60).toString().padStart(2,'0');
+  document.getElementById('playtime').textContent=`${h}:${m}:${s}`;
+},1000);
+setInterval(()=>{refreshAff();},1800);
+setInterval(()=>{
+  const a=document.querySelector('.tab-content.act');if(!a)return;
+  if(a.id==='tab-machines')renderMachines();
+},3500);
+
+// ═══════════════════════════════════════════════
+// TABS
+// ═══════════════════════════════════════════════
+function switchTab(tab,e){
+  document.querySelectorAll('.tab-content').forEach(x=>x.classList.remove('act'));
+  document.querySelectorAll('.tab-btn').forEach(x=>x.classList.remove('act'));
+  document.getElementById('tab-'+tab).classList.add('act');
+  if(e&&e.target)e.target.classList.add('act');
+  if(tab==='crafting')renderCrafts();
+  if(tab==='machines')renderMachines();
+}
+
+// ═══════════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════════
+updRes();updTools();renderCrafts();renderMachines();renderQuests();updateExpUI();initMs();
+log('Добро пожаловать в GT: Новые Горизонты!','era');
+log('Совет: сначала нарубите дерево и кремень','');
+log('Следуйте Книге заданий справа →','imp');
+</script>
+</body>
+</html>
