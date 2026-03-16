@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GT: Новые Горизонты — Idle</title>
+<title>GTNH Idle v0.013</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap');
 :root{
@@ -22,78 +22,76 @@ body{background:var(--bg);color:var(--text);font-family:'Crimson Text',Georgia,s
 body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:999;opacity:.025;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");}
 
-/* ── HEADER ── */
 #header{background:linear-gradient(180deg,var(--leather2),var(--leather) 70%,var(--bg2));border-bottom:3px solid var(--border3);
-  padding:10px 20px;display:flex;align-items:center;justify-content:space-between;
-  position:sticky;top:0;z-index:200;box-shadow:0 4px 24px rgba(0,0,0,.85);}
-#header h1{font-family:'Cinzel',serif;font-size:17px;font-weight:700;color:var(--gold2);letter-spacing:3px;
-  text-shadow:0 1px 5px rgba(0,0,0,.9),0 0 20px rgba(220,180,40,.3);}
-#era-display{font-family:'Cinzel',serif;font-size:12px;color:var(--copper2);letter-spacing:2px;animation:flamePulse 3s infinite;}
-@keyframes flamePulse{0%,100%{color:var(--copper2)}50%{color:var(--gold2)}}
-#playtime{font-family:'Cinzel',serif;font-size:11px;color:var(--text-dim);}
+  padding:10px 20px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:200;box-shadow:0 4px 24px rgba(0,0,0,.85);}
+#header h1{font-family:'Cinzel',serif;font-size:16px;font-weight:700;color:var(--gold2);letter-spacing:3px;text-shadow:0 1px 5px rgba(0,0,0,.9);}
+#era-display{font-family:'Cinzel',serif;font-size:12px;color:var(--copper2);letter-spacing:2px;animation:fp 3s infinite;}
+@keyframes fp{0%,100%{color:var(--copper2)}50%{color:var(--gold2)}}
+#playtime{font-family:'Cinzel',serif;font-size:12px;color:#e8d090;letter-spacing:1px;text-shadow:0 1px 3px rgba(0,0,0,.8);}
+#ver{font-family:'Cinzel',serif;font-size:10px;color:#d08030;letter-spacing:1px;padding:2px 9px;border:1px solid #8a5830;border-radius:3px;background:rgba(0,0,0,.4);text-shadow:0 1px 2px rgba(0,0,0,.8);}
 
-/* ── LAYOUT ── */
 #game-layout{display:grid;grid-template-columns:255px 1fr 305px;height:calc(100vh - 52px);}
 
-/* ── RESOURCES ── */
+/* RESOURCES */
 #resources-panel{background:linear-gradient(180deg,var(--bg2),var(--bg));border-right:3px solid var(--border);overflow-y:auto;padding:10px 8px;}
-.panel-title{font-family:'Cinzel',serif;font-size:11px;color:var(--text-dim);letter-spacing:3px;padding:7px 5px 9px;border-bottom:2px solid var(--border);margin-bottom:10px;display:flex;align-items:center;gap:7px;}
+.ptitle{font-family:'Cinzel',serif;font-size:11px;color:var(--text-dim);letter-spacing:3px;padding:7px 5px 9px;border-bottom:2px solid var(--border);margin-bottom:10px;display:flex;align-items:center;gap:7px;}
 .rivet{display:inline-block;width:8px;height:8px;border-radius:50%;background:radial-gradient(circle at 35% 35%,var(--gold2),var(--copper));box-shadow:0 1px 3px rgba(0,0,0,.7);flex-shrink:0;}
-.res-group{margin-bottom:12px;}
-.rg-title{font-family:'Cinzel',serif;font-size:9px;color:var(--text-muted);letter-spacing:2px;padding:2px 3px 5px;border-bottom:1px dashed var(--border);margin-bottom:4px;text-transform:uppercase;}
+.rg{margin-bottom:12px;}
+.rgt{font-family:'Cinzel',serif;font-size:9px;color:var(--text-muted);letter-spacing:2px;padding:2px 3px 5px;border-bottom:1px dashed var(--border);margin-bottom:4px;text-transform:uppercase;}
 .ri{display:flex;align-items:center;padding:4px 6px;margin-bottom:2px;border-radius:3px;border:1px solid transparent;transition:all .2s;opacity:.13;}
 .ri.on{opacity:1;border-color:rgba(74,46,16,.7);background:rgba(36,23,9,.8);}
 .ri.on:hover{border-color:var(--border2);}
-.ri-icon{width:17px;height:17px;margin-right:5px;flex-shrink:0;font-size:12px;display:flex;align-items:center;justify-content:center;}
-.ri-name{flex:1;color:var(--text2);font-size:13px;}
-.ri-amt{font-size:13px;color:var(--gold2);min-width:52px;text-align:right;font-weight:600;}
-.ri-rate{font-size:10px;min-width:48px;text-align:right;padding-left:3px;}
+.ric{width:17px;height:17px;margin-right:5px;flex-shrink:0;font-size:12px;display:flex;align-items:center;justify-content:center;}
+.rin{flex:1;color:var(--text2);font-size:13px;}
+.ria{font-size:13px;color:var(--gold2);min-width:52px;text-align:right;font-weight:600;}
+.rir{font-size:10px;min-width:48px;text-align:right;padding-left:3px;}
 
-/* ── MAIN ── */
+/* MAIN */
 #main-area{overflow-y:auto;padding:12px;display:flex;flex-direction:column;gap:10px;background:var(--bg);}
 
-/* ── ERA BANNER ── */
 .era-banner{background:linear-gradient(90deg,transparent,var(--leather) 18%,var(--leather2) 50%,var(--leather) 82%,transparent);
   border-top:2px solid var(--border3);border-bottom:2px solid var(--border3);padding:11px 40px;text-align:center;
   font-family:'Cinzel',serif;font-size:15px;font-weight:700;color:var(--gold2);letter-spacing:5px;
-  text-shadow:0 1px 5px rgba(0,0,0,.9);position:relative;animation:eraReveal .7s ease;}
+  text-shadow:0 1px 5px rgba(0,0,0,.9);position:relative;animation:er .7s ease;}
 .era-banner::before{content:'✦';position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--copper2);font-size:12px;}
 .era-banner::after{content:'✦';position:absolute;right:14px;top:50%;transform:translateY(-50%);color:var(--copper2);font-size:12px;}
-@keyframes eraReveal{0%{opacity:0;transform:scaleY(.3)}100%{opacity:1;transform:scaleY(1)}}
+@keyframes er{0%{opacity:0;transform:scaleY(.3)}100%{opacity:1;transform:scaleY(1)}}
 
-/* ── TOOLS SECTION ── */
+/* TOOLS */
 #tools-section{background:linear-gradient(135deg,var(--bg3),var(--bg2));border:1px solid var(--border);border-radius:4px;padding:10px 12px;}
-.sec-hdr{display:flex;align-items:center;gap:10px;padding-bottom:8px;margin-bottom:8px;border-bottom:1px solid var(--border);}
-.sec-hdr h3{font-family:'Cinzel',serif;font-size:11px;color:var(--text-dim);letter-spacing:3px;text-transform:uppercase;}
-.sec-line{flex:1;height:1px;background:var(--border);opacity:.5;}
+.sechdr{display:flex;align-items:center;gap:10px;padding-bottom:8px;margin-bottom:8px;border-bottom:1px solid var(--border);}
+.sechdr h3{font-family:'Cinzel',serif;font-size:11px;color:var(--text-dim);letter-spacing:3px;text-transform:uppercase;}
+.secline{flex:1;height:1px;background:var(--border);opacity:.5;}
+/* кнопка скрыть — inline в заголовке секции */
+#hdt-btn{margin-left:auto;background:transparent;border:1px solid var(--border2);color:var(--text-dim);font-family:'Cinzel',serif;font-size:9px;letter-spacing:1px;padding:3px 9px;border-radius:3px;cursor:pointer;transition:all .15s;white-space:nowrap;flex-shrink:0;}
+#hdt-btn:hover{border-color:var(--border3);color:var(--text);}
+#hdt-btn.act{border-color:var(--copper);color:var(--copper2);}
 #tools-display{display:flex;gap:8px;flex-wrap:wrap;align-items:center;}
-.tool-slot{width:56px;height:56px;border:2px solid var(--border);border-radius:4px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:20px;position:relative;background:var(--bg);transition:all .2s;}
-.tool-slot.has-tool{border-color:var(--border3);background:linear-gradient(135deg,var(--bg3),var(--bg2));box-shadow:inset 0 1px 0 rgba(220,180,40,.1);}
+.tslot{width:56px;height:56px;border:2px solid var(--border);border-radius:4px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:20px;position:relative;background:var(--bg);transition:all .2s;}
+.tslot.has{border-color:var(--border3);background:linear-gradient(135deg,var(--bg3),var(--bg2));box-shadow:inset 0 1px 0 rgba(220,180,40,.1);}
 .tt{position:absolute;bottom:2px;right:3px;font-size:8px;color:var(--copper);font-family:'Cinzel',serif;}
 .tb{position:absolute;top:2px;left:3px;font-size:8px;color:var(--green3);font-family:'Cinzel',serif;}
-.tools-info{flex:1;padding:3px 10px;display:flex;flex-direction:column;gap:4px;}
-.ti-line{font-size:12px;color:var(--text-dim);}
-.ti-val{color:var(--gold2);font-family:'Cinzel',serif;font-size:12px;}
-.hide-done-tools-btn{margin-top:4px;background:transparent;border:1px solid var(--border2);color:var(--text-muted);font-family:'Cinzel',serif;font-size:9px;letter-spacing:1px;padding:3px 8px;border-radius:2px;cursor:pointer;transition:all .15s;}
-.hide-done-tools-btn:hover{border-color:var(--border3);color:var(--text-dim);}
-.hide-done-tools-btn.act{border-color:var(--copper);color:var(--copper2);}
+.tinfo{flex:1;padding:3px 10px;display:flex;flex-direction:column;gap:4px;}
+.tiline{font-size:12px;color:var(--text-dim);}
+.tival{color:var(--gold2);font-family:'Cinzel',serif;font-size:12px;}
 
-/* ── MODE + ZONES ── */
+/* MODE */
 #mode-bar{display:flex;align-items:center;gap:6px;background:var(--bg2);border:1px solid var(--border);border-radius:4px;padding:5px 8px;}
 #mode-bar span{font-family:'Cinzel',serif;font-size:10px;color:var(--text-dim);letter-spacing:1px;white-space:nowrap;}
-.mode-btn{flex:1;padding:6px 8px;background:transparent;border:1px solid var(--border);border-radius:3px;color:var(--text-dim);font-family:'Cinzel',serif;font-size:10px;letter-spacing:1px;cursor:pointer;transition:all .15s;text-align:center;}
-.mode-btn.act{border-color:var(--gold);color:var(--gold2);background:linear-gradient(180deg,var(--leather3),var(--leather));}
-.mode-btn:hover:not(.act){border-color:var(--border2);color:var(--text);}
+.mbtn{flex:1;padding:6px 8px;background:transparent;border:1px solid var(--border);border-radius:3px;color:var(--text-dim);font-family:'Cinzel',serif;font-size:10px;letter-spacing:1px;cursor:pointer;transition:all .15s;text-align:center;}
+.mbtn.act{border-color:var(--gold);color:var(--gold2);background:linear-gradient(180deg,var(--leather3),var(--leather));}
+.mbtn:hover:not(.act){border-color:var(--border2);color:var(--text);}
 
+/* ZONES — shared top bar */
 #zones-bar{display:flex;gap:5px;}
-.zone-btn{flex:1;padding:8px 5px;background:linear-gradient(180deg,var(--bg3),var(--bg2));border:2px solid var(--border);border-radius:4px;color:var(--text-dim);font-family:'Cinzel',serif;font-size:10px;letter-spacing:1px;cursor:pointer;transition:all .15s;text-align:center;}
-.zone-btn:hover{border-color:var(--border3);color:var(--text);}
-.zone-btn.act{border-color:var(--gold);color:var(--gold2);background:linear-gradient(180deg,var(--leather3),var(--leather));box-shadow:0 0 10px rgba(200,140,20,.2);}
-.zone-icon{font-size:18px;display:block;margin-bottom:3px;}
+.zbtn{flex:1;padding:8px 5px;background:linear-gradient(180deg,var(--bg3),var(--bg2));border:2px solid var(--border);border-radius:4px;color:var(--text-dim);font-family:'Cinzel',serif;font-size:10px;letter-spacing:1px;cursor:pointer;transition:all .15s;text-align:center;}
+.zbtn:hover{border-color:var(--border3);color:var(--text);}
+.zbtn.act{border-color:var(--gold);color:var(--gold2);background:linear-gradient(180deg,var(--leather3),var(--leather));box-shadow:0 0 10px rgba(200,140,20,.2);}
+.zicon{font-size:18px;display:block;margin-bottom:3px;}
 
-/* ── EXPLORE ── */
+/* EXPLORE */
 #explore-area{background:linear-gradient(160deg,var(--bg3),var(--bg2));border:1px solid var(--border);border-radius:4px;padding:11px 13px;}
-#explore-area h4{font-family:'Cinzel',serif;font-size:12px;color:var(--gold);letter-spacing:2px;margin-bottom:9px;}
+#exp-title{font-family:'Cinzel',serif;font-size:12px;color:var(--gold);letter-spacing:2px;margin-bottom:9px;}
 .zpw{display:flex;align-items:center;gap:9px;margin-bottom:9px;}
 .zpbar{flex:1;height:14px;background:var(--bg);border:1px solid var(--border2);border-radius:7px;overflow:hidden;}
 .zpfill{height:100%;border-radius:7px;background:linear-gradient(90deg,var(--copper),var(--gold2));width:0%;transition:width .08s linear;box-shadow:0 0 6px rgba(200,140,20,.35);}
@@ -101,48 +99,54 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:999;op
 #explore-btn{background:linear-gradient(180deg,var(--leather3),var(--leather));border:2px solid var(--border3);color:var(--text);font-family:'Cinzel',serif;font-size:13px;letter-spacing:2px;padding:9px 20px;border-radius:3px;cursor:pointer;transition:all .15s;width:100%;margin-bottom:7px;}
 #explore-btn:hover:not([disabled]){border-color:var(--gold);color:var(--gold2);box-shadow:0 0 14px rgba(200,140,20,.3);}
 #explore-btn[disabled]{opacity:.4;cursor:not-allowed;}
-.drop-tags{display:flex;flex-wrap:wrap;gap:5px;}
-.drop-tag{background:rgba(36,23,9,.9);border:1px solid var(--border2);border-radius:3px;padding:3px 7px;font-size:11px;color:var(--text2);}
+.dtags{display:flex;flex-wrap:wrap;gap:5px;}
+.dtag{background:rgba(36,23,9,.9);border:1px solid var(--border2);border-radius:3px;padding:3px 7px;font-size:11px;color:var(--text2);}
+.dtag-chance{color:var(--text-muted);font-size:10px;margin-left:2px;}
 
-/* ── CLICKER ── */
-#clicker-area{display:none;grid-template-columns:1fr 1fr;gap:8px;}
-.czc{background:linear-gradient(160deg,var(--bg3),var(--bg2));border:2px solid var(--border);border-radius:4px;padding:14px 10px;cursor:pointer;transition:all .12s;text-align:center;user-select:none;}
-.czc:hover{border-color:var(--border3);transform:translateY(-2px);box-shadow:0 4px 14px rgba(0,0,0,.55);}
-.czc:active{transform:translateY(1px);box-shadow:none;border-color:var(--gold);}
-.czc.locked{opacity:.18;pointer-events:none;}
-.czc-icon{font-size:28px;margin-bottom:5px;}
-.czc-name{font-family:'Cinzel',serif;font-size:12px;color:var(--gold);letter-spacing:1px;margin-bottom:4px;}
-.czc-drops{font-size:11px;color:var(--text-dim);line-height:1.5;}
-.czc-bonus{font-size:10px;color:var(--green3);margin-top:4px;}
+/* CLICKER — в режиме кликера зоны становятся кликабельными карточками */
+/* (зоны-бары уже есть, просто делаем их кликабельными большими карточками) */
+#clicker-cards{display:none;grid-template-columns:1fr 1fr;gap:8px;}
+.ccard-zone{background:linear-gradient(160deg,var(--bg3),var(--bg2));border:1px solid var(--border);border-radius:4px;padding:6px 6px 5px;cursor:pointer;transition:all .12s;text-align:center;user-select:none;}
+.ccard-zone:hover{border-color:var(--border3);transform:translateY(-1px);box-shadow:0 2px 8px rgba(0,0,0,.5);}
+.ccard-zone:active{transform:translateY(1px);border-color:var(--gold);}
+.ccard-zone.locked{opacity:.18;pointer-events:none;}
+.czicon{font-size:14px;margin-bottom:1px;}
+.czname{font-family:'Cinzel',serif;font-size:10px;color:var(--gold);letter-spacing:1px;margin-bottom:2px;}
+.czdrops{font-size:9px;color:var(--text-dim);line-height:1.5;}
+.czbonus{font-size:8px;color:var(--green3);margin-top:2px;}
 
-/* ── TABS ── */
+/* TABS */
 .tab-bar{display:flex;gap:3px;background:var(--bg2);border:1px solid var(--border);border-radius:4px;padding:4px;}
-.tab-btn{background:transparent;border:1px solid transparent;color:var(--text-dim);font-family:'Cinzel',serif;font-size:11px;padding:7px 12px;border-radius:3px;cursor:pointer;transition:all .15s;letter-spacing:1px;flex:1;text-align:center;}
-.tab-btn.act{border-color:var(--border3);color:var(--gold);background:linear-gradient(180deg,var(--leather3),var(--leather));}
-.tab-btn:hover:not(.act){border-color:var(--border2);color:var(--text);background:rgba(78,46,20,.25);}
-.tab-content{display:none;}
-.tab-content.act{display:block;}
+.tabbtn{background:transparent;border:1px solid transparent;color:var(--text-dim);font-family:'Cinzel',serif;font-size:11px;padding:7px 12px;border-radius:3px;cursor:pointer;transition:all .15s;letter-spacing:1px;flex:1;text-align:center;}
+.tabbtn.act{border-color:var(--border3);color:var(--gold);background:linear-gradient(180deg,var(--leather3),var(--leather));}
+.tabbtn:hover:not(.act){border-color:var(--border2);color:var(--text);background:rgba(78,46,20,.25);}
+.tabc{display:none;}.tabc.act{display:block;}
 
-/* ── CRAFTING ── */
-#crafting-area{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:7px;}
-.craft-cat-hdr{grid-column:1/-1;font-family:'Cinzel',serif;font-size:10px;color:var(--text-muted);letter-spacing:3px;padding:5px 2px 3px;border-bottom:1px dashed var(--border);margin-top:4px;text-transform:uppercase;}
-.ccard{background:linear-gradient(160deg,var(--bg3),var(--bg2));border:1px solid var(--border);border-radius:4px;padding:10px 11px;cursor:pointer;transition:border-color .15s,transform .1s;text-align:left;position:relative;overflow:hidden;display:flex;flex-direction:column;gap:4px;}
-.ccard::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--border2),transparent);}
-.ccard:hover:not([disabled]):not(.locked){border-color:var(--border3);transform:translateY(-1px);box-shadow:0 3px 10px rgba(0,0,0,.55);}
-.ccard:active:not([disabled]):not(.locked){transform:translateY(0);}
-.ccard[disabled]{opacity:.3;cursor:not-allowed;}
-.ccard.locked{opacity:.12;cursor:not-allowed;}
-.ccard.done{opacity:.45;cursor:default;border-color:var(--green2)!important;}
-.ccard.going{border-color:var(--copper)!important;box-shadow:0 0 8px rgba(200,120,30,.2)!important;}
-.cn{font-family:'Cinzel',serif;font-size:12px;font-weight:600;color:var(--text);letter-spacing:.5px;}
-.cd{font-size:12px;color:var(--text-dim);font-style:italic;line-height:1.3;}
-.cc{font-size:11px;color:var(--copper2);margin-top:2px;}.cc .ok{color:var(--green3);}.cc .miss{color:var(--red2);}
-.cp-wrap{margin-top:4px;}
-.cp-lbl{font-size:10px;color:var(--copper2);font-family:'Cinzel',serif;margin-bottom:3px;}
-.cp-bar{height:5px;background:var(--bg);border:1px solid var(--border2);border-radius:3px;overflow:hidden;}
-.cp-fill{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--copper),var(--gold2));width:0%;transition:width .08s linear;}
+/* CRAFTING */
+#crafting-area{display:grid;grid-template-columns:repeat(auto-fill,minmax(178px,1fr));gap:7px;}
+.cchdr{grid-column:1/-1;font-family:'Cinzel',serif;font-size:10px;color:var(--text-muted);letter-spacing:3px;padding:5px 2px 3px;border-bottom:1px dashed var(--border);margin-top:4px;text-transform:uppercase;}
+.cc{background:linear-gradient(160deg,var(--bg3),var(--bg2));border:1px solid var(--border);border-radius:4px;padding:10px 11px;cursor:pointer;transition:border-color .15s,transform .1s;text-align:left;position:relative;overflow:hidden;display:flex;flex-direction:column;gap:3px;}
+.cc::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--border2),transparent);}
+/* Карточки всегда видны, только меняется стиль */
+.cc.cancraft:hover{border-color:var(--border3);transform:translateY(-1px);box-shadow:0 3px 10px rgba(0,0,0,.55);}
+.cc.cancraft:active{transform:translateY(0);}
+/* Не хватает ресурсов — видна, но слегка приглушена, не заблокирована */
+.cc.needres{opacity:.65;cursor:default;}
+/* Заблокирована (условие unlock не выполнено) */
+.cc.locked{opacity:.25;cursor:default;}
+/* Выполнена */
+.cc.done{opacity:.45;cursor:default;border-color:var(--green2)!important;}
+/* Крафтится */
+.cc.going{border-color:var(--copper)!important;box-shadow:0 0 8px rgba(200,120,30,.2)!important;}
+.ccn{font-family:'Cinzel',serif;font-size:12px;font-weight:600;color:var(--text);letter-spacing:.5px;}
+.ccd{font-size:12px;color:var(--text-dim);font-style:italic;line-height:1.3;}
+.ccc{font-size:11px;margin-top:2px;}.ccc .ok{color:var(--green3);}.ccc .miss{color:var(--red2);}
+.cpw{margin-top:4px;}
+.cpl{font-size:10px;color:var(--copper2);font-family:'Cinzel',serif;margin-bottom:3px;}
+.cpbar{height:5px;background:var(--bg);border:1px solid var(--border2);border-radius:3px;overflow:hidden;}
+.cpfill{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--copper),var(--gold2));width:0%;transition:width .08s linear;}
 
-/* ── MACHINES ── */
+/* MACHINES */
 #machines-area{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:9px;}
 .mcard{background:linear-gradient(160deg,var(--bg3),var(--bg2));border:1px solid var(--border);border-radius:4px;padding:11px;position:relative;overflow:hidden;}
 .mcard::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--border2),transparent);}
@@ -159,34 +163,33 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:999;op
 .mprod{font-size:11px;color:var(--green3);margin-bottom:4px;}
 .mcons{font-size:11px;color:var(--red2);margin-bottom:4px;}
 .mpbar{height:5px;background:var(--bg);border:1px solid var(--border);border-radius:3px;margin-bottom:7px;overflow:hidden;}
-.mpfill{height:100%;border-radius:3px;background:linear-gradient(90deg,#2a4818,var(--green3),var(--gold));width:0%;transition:width .08s linear;}
+.mpfill{height:100%;border-radius:3px;background:linear-gradient(90deg,#2a4818,var(--green3),var(--gold));width:0%;}
 .mbuy{background:linear-gradient(180deg,var(--leather3),var(--leather));border:1px solid var(--border3);color:var(--text);font-family:'Cinzel',serif;font-size:10px;letter-spacing:1px;padding:5px 10px;border-radius:3px;cursor:pointer;width:100%;transition:all .15s;margin-bottom:4px;}
 .mbuy:hover:not([disabled]){border-color:var(--gold);color:var(--gold2);}
 .mbuy[disabled]{opacity:.3;cursor:not-allowed;}
 .mpause{background:transparent;border:1px solid var(--border2);color:var(--text-muted);font-family:'Cinzel',serif;font-size:9px;letter-spacing:1px;padding:4px 10px;border-radius:3px;cursor:pointer;width:100%;transition:all .15s;}
 .mpause:hover{border-color:var(--copper2);color:var(--copper2);}
-.mpause.paused-btn{border-color:var(--green2);color:var(--green3);}
+.mpause.pbtn{border-color:var(--green2);color:var(--green3);}
 .mhint{font-size:11px;color:var(--text-muted);font-style:italic;margin-top:3px;}
 
-/* ── LOG ── */
+/* LOG */
 #log-area{background:var(--bg2);border:1px solid var(--border);border-radius:4px;padding:9px;height:100px;overflow-y:auto;font-size:12px;line-height:1.8;}
-.le{color:var(--text-dim);animation:logIn .3s ease;}
+.le{color:var(--text-dim);animation:lin .3s ease;}
 .le.imp{color:var(--copper2);}.le.good{color:var(--green3);}.le.era{color:var(--gold2);font-family:'Cinzel',serif;font-size:11px;}
-@keyframes logIn{from{opacity:0;padding-left:9px}to{opacity:1;padding-left:0}}
+@keyframes lin{from{opacity:0;padding-left:9px}to{opacity:1;padding-left:0}}
 
-/* ── QUESTBOOK ── */
+/* QUESTBOOK */
 #questbook-panel{background:linear-gradient(180deg,#1e1408,#180f06,#140d05);border-left:3px solid var(--border);overflow-y:auto;padding:10px 10px 10px 14px;position:relative;}
 #questbook-panel::before{content:'';position:absolute;top:0;left:0;bottom:0;width:5px;background:linear-gradient(180deg,var(--border3),var(--border2),var(--leather),var(--border2),var(--border3));opacity:.8;}
 .qctrl{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
 .hdone{background:transparent;border:1px solid var(--border2);color:var(--text-muted);font-family:'Cinzel',serif;font-size:9px;letter-spacing:1px;padding:4px 9px;border-radius:3px;cursor:pointer;transition:all .15s;white-space:nowrap;}
 .hdone:hover{border-color:var(--border3);color:var(--text-dim);}
 .hdone.act{border-color:var(--copper);color:var(--copper2);}
-.qi{background:linear-gradient(160deg,rgba(220,180,40,.03),rgba(180,120,16,.015));border:1px solid var(--border);border-radius:4px;padding:9px 9px 9px 13px;margin-bottom:7px;position:relative;overflow:hidden;transition:border-color .2s;}
+.qi{background:linear-gradient(160deg,rgba(220,180,40,.03),rgba(180,120,16,.015));border:1px solid var(--border);border-radius:4px;padding:9px 9px 9px 13px;margin-bottom:7px;position:relative;overflow:hidden;}
 .qi::before{content:'';position:absolute;top:0;left:0;bottom:0;width:4px;background:var(--border2);border-radius:4px 0 0 4px;}
-.qi.done{border-color:rgba(72,112,48,.4);background:rgba(48,72,24,.08);opacity:.6;}.qi.done::before{background:var(--green2);}
-.qi.locked{opacity:.18;}.qi.locked::before{background:var(--text-muted);}
-.qi.avail::before{background:var(--copper2);}
-.qi:hover:not(.locked):not(.done){border-color:var(--border2);}
+.qi.qdone{border-color:rgba(72,112,48,.4);background:rgba(48,72,24,.08);opacity:.6;}.qi.qdone::before{background:var(--green2);}
+.qi.qlocked{opacity:.18;}.qi.qlocked::before{background:var(--text-muted);}
+.qi.qavail::before{background:var(--copper2);}
 .qt{font-family:'Cinzel',serif;font-size:11px;font-weight:600;color:var(--gold);letter-spacing:.5px;margin-bottom:5px;display:flex;align-items:center;gap:5px;}
 .qt .ck{color:var(--green3);}
 .qdesc{font-size:12px;color:var(--text-dim);line-height:1.5;margin-bottom:6px;font-style:italic;}
@@ -194,19 +197,18 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:999;op
 .qpname{font-size:11px;color:var(--text-dim);min-width:82px;}
 .qpname .ok{color:var(--green3);}.qpname .no{color:var(--red2);}
 .qpb{flex:1;height:5px;background:var(--bg);border:1px solid var(--border);border-radius:3px;overflow:hidden;}
-.qpbf{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--copper),var(--gold));transition:width .5s;}
+.qpbf{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--copper),var(--gold));}
 .qplbl{font-size:11px;color:var(--text2);min-width:52px;text-align:right;font-family:'Cinzel',serif;}
 .qcheck{display:flex;align-items:center;gap:6px;margin-bottom:4px;font-size:12px;}
 .qrew{font-size:12px;color:var(--gold2);margin-top:6px;border-top:1px dashed var(--border);padding-top:5px;}
 .qhint{font-size:11px;color:var(--text-muted);margin-top:4px;font-style:italic;background:rgba(40,24,8,.6);border:1px solid var(--border);border-radius:3px;padding:5px 7px;line-height:1.6;}
 .qclaim{background:linear-gradient(180deg,rgba(72,112,48,.3),rgba(40,80,20,.2));border:1px solid var(--green2);color:var(--green3);font-family:'Cinzel',serif;font-size:10px;letter-spacing:1px;padding:5px 10px;border-radius:3px;cursor:pointer;margin-top:5px;width:100%;transition:all .15s;}
-.qclaim:hover{background:rgba(72,112,48,.45);box-shadow:0 0 8px rgba(72,112,48,.3);}
+.qclaim:hover{background:rgba(72,112,48,.45);}
 
-/* ── NOTIFY ── */
 #notif{position:fixed;top:68px;right:18px;background:linear-gradient(135deg,var(--leather2),var(--leather));border:1px solid var(--gold);border-radius:4px;padding:10px 16px;font-family:'Cinzel',serif;font-size:11px;letter-spacing:1px;color:var(--gold2);z-index:999;transform:translateX(120%);transition:transform .35s cubic-bezier(.34,1.56,.64,1);box-shadow:0 4px 24px rgba(0,0,0,.8);max-width:270px;}
 #notif.show{transform:translateX(0);}
-.ft{position:fixed;font-family:'Cinzel',serif;font-size:12px;color:var(--gold2);text-shadow:0 1px 4px rgba(0,0,0,.9);pointer-events:none;z-index:500;animation:ftUp 1.3s ease forwards;white-space:nowrap;}
-@keyframes ftUp{0%{opacity:1;transform:translateY(0)}100%{opacity:0;transform:translateY(-55px)}}
+.ft{position:fixed;font-family:'Cinzel',serif;font-size:12px;color:var(--gold2);text-shadow:0 1px 4px rgba(0,0,0,.9);pointer-events:none;z-index:500;animation:ftu 1.3s ease forwards;white-space:nowrap;}
+@keyframes ftu{0%{opacity:1;transform:translateY(0)}100%{opacity:0;transform:translateY(-55px)}}
 ::-webkit-scrollbar{width:5px;}::-webkit-scrollbar-track{background:var(--bg);}::-webkit-scrollbar-thumb{background:var(--border2);border-radius:3px;}
 </style>
 </head>
@@ -214,44 +216,57 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:999;op
 <div id="header">
   <h1>⚒ GT: НОВЫЕ ГОРИЗОНТЫ</h1>
   <div id="era-display">✦ КАМЕННЫЙ ВЕК ✦</div>
-  <div id="playtime">00:00:00</div>
+  <div style="display:flex;align-items:center;gap:10px">
+    <div id="ver" onclick="verClick()" style="font-family:'Cinzel',serif;font-size:10px;color:var(--gold);letter-spacing:1px;padding:2px 8px;border:1px solid var(--border3);border-radius:3px;background:rgba(0,0,0,.4);cursor:pointer;user-select:none;" title="Кликни 5 раз для дебага">v0.013</div>
+    <div id="playtime" style="font-family:'Cinzel',serif;font-size:13px;color:var(--text);letter-spacing:2px;font-weight:600;">00:00:00</div>
+  </div>
 </div>
+
 <div id="game-layout">
 
 <!-- RESOURCES -->
 <div id="resources-panel">
-  <div class="panel-title"><span class="rivet"></span> РЕСУРСЫ <span class="rivet"></span></div>
-  <div class="res-group"><div class="rg-title">— Сырьё —</div>
-    <div class="ri" id="rr-wood">  <span class="ri-icon">🪵</span><span class="ri-name">Дерево</span>    <span class="ri-amt" id="ra-wood">0</span>  <span class="ri-rate" id="rrate-wood"></span></div>
-    <div class="ri" id="rr-stone"> <span class="ri-icon">🪨</span><span class="ri-name">Камень</span>    <span class="ri-amt" id="ra-stone">0</span> <span class="ri-rate" id="rrate-stone"></span></div>
-    <div class="ri" id="rr-flint"> <span class="ri-icon">◆</span> <span class="ri-name">Кремень</span>   <span class="ri-amt" id="ra-flint">0</span> <span class="ri-rate" id="rrate-flint"></span></div>
-    <div class="ri" id="rr-clay">  <span class="ri-icon">🟫</span><span class="ri-name">Глина</span>     <span class="ri-amt" id="ra-clay">0</span>  <span class="ri-rate" id="rrate-clay"></span></div>
-    <div class="ri" id="rr-sand">  <span class="ri-icon">🟡</span><span class="ri-name">Песок</span>     <span class="ri-amt" id="ra-sand">0</span>  <span class="ri-rate" id="rrate-sand"></span></div>
-    <div class="ri" id="rr-gravel"><span class="ri-icon">⬛</span><span class="ri-name">Гравий</span>    <span class="ri-amt" id="ra-gravel">0</span><span class="ri-rate" id="rrate-gravel"></span></div>
+  <div class="ptitle"><span class="rivet"></span> РЕСУРСЫ <span class="rivet"></span></div>
+  <div class="rg"><div class="rgt">— Сырьё —</div>
+    <div class="ri" id="rr-wood">  <span class="ric" style="color:#8B5E3C">▣</span><span class="rin">Дерево</span>  <span class="ria" id="ra-wood">0</span>  <span class="rir" id="rrate-wood"></span></div>
+    <div class="ri" id="rr-stone"> <span class="ric" style="color:#8899aa">◈</span><span class="rin">Камень</span>  <span class="ria" id="ra-stone">0</span> <span class="rir" id="rrate-stone"></span></div>
+    <div class="ri" id="rr-gravel"><span class="ric" style="color:#667788">▪</span><span class="rin">Гравий</span>  <span class="ria" id="ra-gravel">0</span><span class="rir" id="rrate-gravel"></span></div>
+    <div class="ri" id="rr-flint"> <span class="ric" style="color:#c8c0a0">◆</span><span class="rin">Кремень</span> <span class="ria" id="ra-flint">0</span> <span class="rir" id="rrate-flint"></span></div>
+    <div class="ri" id="rr-clay">  <span class="ric" style="color:#8B5E3C">◉</span><span class="rin">Глина</span>   <span class="ria" id="ra-clay">0</span>  <span class="rir" id="rrate-clay"></span></div>
+    <div class="ri" id="rr-sand">  <span class="ric" style="color:#d4b060">◉</span><span class="rin">Песок</span>   <span class="ria" id="ra-sand">0</span>  <span class="rir" id="rrate-sand"></span></div>
   </div>
-  <div class="res-group"><div class="rg-title">— Пыль & слитки —</div>
-    <div class="ri" id="rr-cdust"> <span class="ri-icon" style="color:#c07830">✦</span><span class="ri-name">Медная пыль</span>  <span class="ri-amt" id="ra-cdust">0</span> <span class="ri-rate" id="rrate-cdust"></span></div>
-    <div class="ri" id="rr-tdust"> <span class="ri-icon" style="color:#a0c0d8">✦</span><span class="ri-name">Оловян. пыль</span><span class="ri-amt" id="ra-tdust">0</span> <span class="ri-rate" id="rrate-tdust"></span></div>
-    <div class="ri" id="rr-bdust"> <span class="ri-icon" style="color:#cd7f32">✦</span><span class="ri-name">Бронз. пыль</span> <span class="ri-amt" id="ra-bdust">0</span> <span class="ri-rate" id="rrate-bdust"></span></div>
-    <div class="ri" id="rr-copper"><span class="ri-icon" style="color:#c07830">◉</span><span class="ri-name">Медь</span>         <span class="ri-amt" id="ra-copper">0</span><span class="ri-rate" id="rrate-copper"></span></div>
-    <div class="ri" id="rr-tin">   <span class="ri-icon" style="color:#a0c0d8">◉</span><span class="ri-name">Олово</span>        <span class="ri-amt" id="ra-tin">0</span>   <span class="ri-rate" id="rrate-tin"></span></div>
-    <div class="ri" id="rr-iron">  <span class="ri-icon" style="color:#b0c0d0">◉</span><span class="ri-name">Железо</span>       <span class="ri-amt" id="ra-iron">0</span>  <span class="ri-rate" id="rrate-iron"></span></div>
-    <div class="ri" id="rr-coal">  <span class="ri-icon" style="color:#7080a0">◉</span><span class="ri-name">Уголь</span>        <span class="ri-amt" id="ra-coal">0</span>  <span class="ri-rate" id="rrate-coal"></span></div>
-    <div class="ri" id="rr-bronze"><span class="ri-icon" style="color:#cd7f32">◉</span><span class="ri-name">Бронза</span>       <span class="ri-amt" id="ra-bronze">0</span><span class="ri-rate" id="rrate-bronze"></span></div>
-    <div class="ri" id="rr-steel"> <span class="ri-icon" style="color:#c8d8e8">◉</span><span class="ri-name">Сталь</span>        <span class="ri-amt" id="ra-steel">0</span> <span class="ri-rate" id="rrate-steel"></span></div>
+  <div class="rg"><div class="rgt">— Пыль —</div>
+    <div class="ri" id="rr-claydust"><span class="ric" style="color:#a07050">✦</span><span class="rin">Глин. пыль</span>   <span class="ria" id="ra-claydust">0</span><span class="rir" id="rrate-claydust"></span></div>
+    <div class="ri" id="rr-cdust">  <span class="ric" style="color:#c07830">✦</span><span class="rin">Медная пыль</span>  <span class="ria" id="ra-cdust">0</span>  <span class="rir" id="rrate-cdust"></span></div>
+    <div class="ri" id="rr-tdust">  <span class="ric" style="color:#a0c0d8">✦</span><span class="rin">Оловян. пыль</span><span class="ria" id="ra-tdust">0</span>  <span class="rir" id="rrate-tdust"></span></div>
+    <div class="ri" id="rr-bdust">  <span class="ric" style="color:#cd7f32">✦</span><span class="rin">Бронз. пыль</span> <span class="ria" id="ra-bdust">0</span>  <span class="rir" id="rrate-bdust"></span></div>
   </div>
-  <div class="res-group"><div class="rg-title">— Промежуточные —</div>
-    <div class="ri" id="rr-claydust"><span class="ri-icon">🟤</span><span class="ri-name">Глиняная пыль</span><span class="ri-amt" id="ra-claydust">0</span><span class="ri-rate" id="rrate-claydust"></span></div>
-    <div class="ri" id="rr-cokebrick"><span class="ri-icon">🧱</span><span class="ri-name">Кокс. кирпич</span><span class="ri-amt" id="ra-cokebrick">0</span><span class="ri-rate" id="rrate-cokebrick"></span></div>
-    <div class="ri" id="rr-charcoal"><span class="ri-icon">🔥</span><span class="ri-name">Дрв. уголь</span>  <span class="ri-amt" id="ra-charcoal">0</span><span class="ri-rate" id="rrate-charcoal"></span></div>
-    <div class="ri" id="rr-coke">    <span class="ri-icon" style="color:#556677">⬛</span><span class="ri-name">Кокс</span>      <span class="ri-amt" id="ra-coke">0</span>    <span class="ri-rate" id="rrate-coke"></span></div>
-    <div class="ri" id="rr-creosote"><span class="ri-icon" style="color:#667700">◈</span><span class="ri-name">Креозот</span>     <span class="ri-amt" id="ra-creosote">0</span><span class="ri-rate" id="rrate-creosote"></span></div>
-    <div class="ri" id="rr-steam">   <span class="ri-icon" style="color:#7a9898">≋</span><span class="ri-name">Пар (мб)</span>   <span class="ri-amt" id="ra-steam">0</span>   <span class="ri-rate" id="rrate-steam"></span></div>
+  <div class="rg"><div class="rgt">— Руды и слитки —</div>
+    <div class="ri" id="rr-copper"><span class="ric" style="color:#c07830">◉</span><span class="rin">Медь</span>  <span class="ria" id="ra-copper">0</span><span class="rir" id="rrate-copper"></span></div>
+    <div class="ri" id="rr-tin">   <span class="ric" style="color:#a0c0d8">◉</span><span class="rin">Олово</span> <span class="ria" id="ra-tin">0</span>   <span class="rir" id="rrate-tin"></span></div>
+    <div class="ri" id="rr-iron">  <span class="ric" style="color:#b0c0d0">◉</span><span class="rin">Железо</span><span class="ria" id="ra-iron">0</span>  <span class="rir" id="rrate-iron"></span></div>
+    <div class="ri" id="rr-coal">  <span class="ric" style="color:#7080a0">◉</span><span class="rin">Уголь</span> <span class="ria" id="ra-coal">0</span>  <span class="rir" id="rrate-coal"></span></div>
+    <div class="ri" id="rr-bronze"><span class="ric" style="color:#cd7f32">◉</span><span class="rin">Бронза</span><span class="ria" id="ra-bronze">0</span><span class="rir" id="rrate-bronze"></span></div>
+    <div class="ri" id="rr-steel"> <span class="ric" style="color:#c8d8e8">◉</span><span class="rin">Сталь</span> <span class="ria" id="ra-steel">0</span> <span class="rir" id="rrate-steel"></span></div>
   </div>
-  <div class="res-group"><div class="rg-title">— Плиты —</div>
-    <div class="ri" id="rr-bplate"><span class="ri-icon" style="color:#cd7f32">▬</span><span class="ri-name">Бронз. плита</span><span class="ri-amt" id="ra-bplate">0</span><span class="ri-rate" id="rrate-bplate"></span></div>
-    <div class="ri" id="rr-iplate"><span class="ri-icon" style="color:#b0c0d0">▬</span><span class="ri-name">Жел. плита</span> <span class="ri-amt" id="ra-iplate">0</span><span class="ri-rate" id="rrate-iplate"></span></div>
-    <div class="ri" id="rr-splate"><span class="ri-icon" style="color:#c8d8e8">▬</span><span class="ri-name">Стал. плита</span><span class="ri-amt" id="ra-splate">0</span><span class="ri-rate" id="rrate-splate"></span></div>
+  <div class="rg"><div class="rgt">— Промежуточные —</div>    <div class="ri" id="rr-cokebrick"><span class="ric" style="color:#c07840">▦</span><span class="rin">Кокс. кирпич</span><span class="ria" id="ra-cokebrick">0</span><span class="rir" id="rrate-cokebrick"></span></div>
+    <div class="ri" id="rr-charcoal"> <span class="ric" style="color:#e06020">✦</span><span class="rin">Дрв. уголь</span>  <span class="ria" id="ra-charcoal">0</span> <span class="rir" id="rrate-charcoal"></span></div>
+    <div class="ri" id="rr-coke">     <span class="ric" style="color:#556677">⬛</span><span class="rin">Кокс</span>       <span class="ria" id="ra-coke">0</span>     <span class="rir" id="rrate-coke"></span></div>
+    <div class="ri" id="rr-creosote"> <span class="ric" style="color:#667700">◈</span><span class="rin">Креозот</span>    <span class="ria" id="ra-creosote">0</span> <span class="rir" id="rrate-creosote"></span></div>
+    <div class="ri" id="rr-steam">    <span class="ric" style="color:#7a9898">≋</span><span class="rin">Пар (мб)</span>  <span class="ria" id="ra-steam">0</span>    <span class="rir" id="rrate-steam"></span></div>
+  </div>
+  <div class="rg"><div class="rgt">— Плиты —</div>
+    <div class="ri" id="rr-bplate"><span class="ric" style="color:#cd7f32">▬</span><span class="rin">Бронз. плита</span><span class="ria" id="ra-bplate">0</span><span class="rir" id="rrate-bplate"></span></div>
+    <div class="ri" id="rr-iplate"><span class="ric" style="color:#b0c0d0">▬</span><span class="rin">Жел. плита</span> <span class="ria" id="ra-iplate">0</span><span class="rir" id="rrate-iplate"></span></div>
+    <div class="ri" id="rr-splate"><span class="ric" style="color:#c8d8e8">▬</span><span class="rin">Стал. плита</span><span class="ria" id="ra-splate">0</span><span class="rir" id="rrate-splate"></span></div>
+  </div>
+  <div class="rg"><div class="rgt">— LV-эра —</div>
+    <div class="ri" id="rr-rubber">   <span class="ric" style="color:#334455">◈</span><span class="rin">Резина</span>           <span class="ria" id="ra-rubber">0</span>   <span class="rir" id="rrate-rubber"></span></div>
+    <div class="ri" id="rr-wire_cu">  <span class="ric" style="color:#c07830">⌇</span><span class="rin">Медная провол.</span>   <span class="ria" id="ra-wire_cu">0</span>   <span class="rir" id="rrate-wire_cu"></span></div>
+    <div class="ri" id="rr-wire_tin"> <span class="ric" style="color:#a0c0d8">⌇</span><span class="rin">Оловян. провол.</span>  <span class="ria" id="ra-wire_tin">0</span>  <span class="rir" id="rrate-wire_tin"></span></div>
+    <div class="ri" id="rr-battery_lv"><span class="ric" style="color:#90b040">▤</span><span class="rin">Батарейка LV</span>     <span class="ria" id="ra-battery_lv">0</span><span class="rir" id="rrate-battery_lv"></span></div>
+    <div class="ri" id="rr-circuit_lv"><span class="ric" style="color:#4090c0">⊞</span><span class="rin">Схема LV</span>         <span class="ria" id="ra-circuit_lv">0</span><span class="rir" id="rrate-circuit_lv"></span></div>
+    <div class="ri" id="rr-eu">        <span class="ric" style="color:#ffd040">⚡</span><span class="rin">EU (энергия)</span>     <span class="ria" id="ra-eu">0</span>       <span class="rir" id="rrate-eu"></span></div>
   </div>
 </div>
 
@@ -259,51 +274,59 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:999;op
 <div id="main-area">
   <div id="era-banner" class="era-banner">⚒ КАМЕННЫЙ ВЕК ⚒</div>
 
+  <!-- Tools -->
   <div id="tools-section">
-    <div class="sec-hdr"><h3>Снаряжение</h3><div class="sec-line"></div></div>
+    <div class="sechdr"><h3>Снаряжение</h3><div class="secline"></div></div>
     <div id="tools-display">
-      <div class="tool-slot" id="ts-pickaxe"><span>⛏️</span><span class="tt" id="tt-pickaxe">—</span><span class="tb" id="tb-pickaxe">×1</span></div>
-      <div class="tool-slot" id="ts-shovel"> <span>🪓</span><span class="tt" id="tt-shovel">—</span> <span class="tb" id="tb-shovel">×1</span></div>
-      <div class="tool-slot" id="ts-hoe">    <span>🌾</span><span class="tt" id="tt-hoe">—</span>    <span class="tb" id="tb-hoe">×1</span></div>
-      <div class="tools-info">
-        <div class="ti-line">Уровень добычи: <span class="ti-val" id="mining-lvl">1</span></div>
-        <div class="ti-line">Бонус: <span class="ti-val" id="mine-bonus">×1.0</span></div>
-        <button class="hide-done-tools-btn" id="hdt-btn" onclick="toggleHideDoneTools()">Скрыть готовые</button>
+      <div class="tslot" id="ts-pickaxe"><span>⛏️</span><span class="tt" id="tt-p">—</span><span class="tb" id="tb-p">×1</span></div>
+      <div class="tslot" id="ts-shovel"> <span>🪓</span><span class="tt" id="tt-s">—</span><span class="tb" id="tb-s">×1</span></div>
+      <div class="tslot" id="ts-hoe">    <span>🌾</span><span class="tt" id="tt-h">—</span><span class="tb" id="tb-h">×1</span></div>
+      <div class="tinfo">
+        <div class="tiline">Уровень добычи: <span class="tival" id="mlvl">1</span></div>
+        <div class="tiline">Бонус: <span class="tival" id="mbonus">×1.0</span></div>
       </div>
     </div>
   </div>
 
+  <!-- Mode -->
   <div id="mode-bar">
     <span>РЕЖИМ:</span>
-    <button class="mode-btn" id="mb-clicker" onclick="setMode('clicker')">👆 Кликер</button>
-    <button class="mode-btn act" id="mb-explore" onclick="setMode('explore')">🗺️ Исследование</button>
+    <button class="mbtn" id="mb-clicker" onclick="setMode('clicker')">👆 Кликер</button>
+    <button class="mbtn act" id="mb-explore" onclick="setMode('explore')">🗺️ Исследование</button>
   </div>
 
+  <!-- Zones bar — только в режиме исследования -->
   <div id="zones-bar">
-    <button class="zone-btn act" id="zb-forest"      onclick="selZone('forest')"><span class="zone-icon">🌲</span>ЛЕС</button>
-    <button class="zone-btn"    id="zb-beach"       onclick="selZone('beach')"><span class="zone-icon">🏖️</span>ПЛЯЖ</button>
-    <button class="zone-btn"    id="zb-plains"      onclick="selZone('plains')"><span class="zone-icon">🌿</span>РАВНИНА</button>
-    <button class="zone-btn"    id="zb-underground" onclick="selZone('underground')"><span class="zone-icon">⛰️</span>ШАХТА</button>
+    <button class="zbtn act" id="zb-forest"      onclick="selZone('forest')">     <span class="zicon">🌲</span>ЛЕС</button>
+    <button class="zbtn"    id="zb-beach"        onclick="selZone('beach')">      <span class="zicon">🏖️</span>ПЛЯЖ</button>
+    <button class="zbtn"    id="zb-plains"       onclick="selZone('plains')">     <span class="zicon">🌿</span>РАВНИНА</button>
+    <button class="zbtn"    id="zb-underground"  onclick="selZone('underground')"><span class="zicon">⛰️</span>ШАХТА</button>
   </div>
 
+  <!-- Explore mode content -->
   <div id="explore-area">
-    <h4 id="exp-title">🌲 Исследовать лес</h4>
+    <div id="exp-title">🌲 Лес</div>
     <div class="zpw"><div class="zpbar"><div class="zpfill" id="zpfill"></div></div><div class="zplab" id="zplab">Готово</div></div>
     <button id="explore-btn" onclick="doExplore(event)">⚔️ ИССЛЕДОВАТЬ</button>
-    <div class="drop-tags" id="exp-drops"></div>
+    <div class="dtags" id="exp-drops"></div>
   </div>
 
-  <div id="clicker-area"></div>
+  <!-- Clicker mode content — заменяет И zones-bar И explore-area -->
+  <div id="clicker-cards" style="display:none;grid-template-columns:1fr 1fr;gap:8px;"></div>
 
   <div class="tab-bar">
-    <button class="tab-btn act" onclick="switchTab('crafting',event)">Крафт</button>
-    <button class="tab-btn"    onclick="switchTab('machines',event)">Машины</button>
+    <button class="tabbtn act" onclick="switchTab('crafting',event)">Крафт</button>
+    <button class="tabbtn"    onclick="switchTab('machines',event)">Машины</button>
   </div>
-  <div id="tab-crafting" class="tab-content act"><div id="crafting-area"></div></div>
-  <div id="tab-machines" class="tab-content"><div id="machines-area"></div></div>
+  <div id="tab-crafting" class="tabc act">
+    <div id="crafting-area"></div>
+  </div>
+  <div id="tab-machines" class="tabc"><div id="machines-area"></div></div>
 
   <div>
-    <div class="sec-hdr" style="padding-bottom:6px;margin-bottom:6px;border-bottom:1px solid var(--border)"><h3>Летопись</h3><div class="sec-line"></div></div>
+    <div class="sechdr" style="padding-bottom:6px;margin-bottom:6px;border-bottom:1px solid var(--border)">
+      <h3>Летопись</h3><div class="secline"></div>
+    </div>
     <div id="log-area"></div>
   </div>
 </div>
@@ -311,77 +334,102 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:999;op
 <!-- QUESTBOOK -->
 <div id="questbook-panel">
   <div class="qctrl">
-    <div class="panel-title" style="padding:0;border:none;margin:0">📖 ЗАДАНИЯ</div>
-    <button class="hdone" id="hdone-btn" onclick="toggleHideDone()">Скрыть выполн.</button>
+    <div class="ptitle" style="padding:0;border:none;margin:0">📖 ЗАДАНИЯ</div>
+    <button class="hdone" id="hdone-btn" onclick="toggleHD()">Скрыть выполн.</button>
   </div>
   <div id="quests-list"></div>
 </div>
-</div>
+</div><!-- /game-layout -->
 <div id="notif"></div>
 
 <script>
-// ═══════════════════════════════════════════════
+const VERSION = 'v0.013';
+
+// ═══════════════════════════════════════
 // STATE
-// ═══════════════════════════════════════════════
+// ═══════════════════════════════════════
 const G={
   era:0, playTime:0, mode:'explore', zone:'forest',
   res:{
-    wood:0,stone:0,flint:0,clay:0,sand:0,gravel:0,
-    cdust:0,tdust:0,bdust:0,
+    wood:0,stone:0,gravel:0,flint:0,clay:0,sand:0,
+    claydust:0,cdust:0,tdust:0,bdust:0,
     copper:0,tin:0,iron:0,coal:0,bronze:0,steel:0,
-    claydust:0,cokebrick:0,charcoal:0,coke:0,creosote:0,steam:0,
-    bplate:0,iplate:0,splate:0
+    cokebrick:0,charcoal:0,coke:0,creosote:0,steam:0,
+    bplate:0,iplate:0,splate:0,
+    // LV ресурсы
+    rubber:0,       // из дерева в дистилляторе
+    wire_cu:0,      // медная проволока (молоток)
+    wire_tin:0,     // оловянная проволока
+    battery_lv:0,   // батарейка LV
+    circuit_lv:0,   // схема LV
+    eu:0            // EU (хранимая энергия)
   },
   rates:{},
-  on:{ // unlocked
-    wood:true,stone:true,flint:true,clay:false,sand:false,gravel:false,
-    cdust:false,tdust:false,bdust:false,
+  on:{
+    wood:true,stone:true,gravel:false,flint:false,clay:false,sand:false,
+    claydust:false,cdust:false,tdust:false,bdust:false,
     copper:false,tin:false,iron:false,coal:false,bronze:false,steel:false,
-    claydust:false,cokebrick:false,charcoal:false,coke:false,creosote:false,steam:false,
-    bplate:false,iplate:false,splate:false
+    cokebrick:false,charcoal:false,coke:false,creosote:false,steam:false,
+    bplate:false,iplate:false,splate:false,
+    rubber:false,wire_cu:false,wire_tin:false,battery_lv:false,circuit_lv:false,eu:false
   },
   tools:{pickaxe:{tier:'none',bonus:1},shovel:{tier:'none',bonus:1},hoe:{tier:'none',bonus:1}},
   mLvl:1,
-  machines:{}, // id->count
-  paused:{},   // id->bool
+  machines:{},
+  paused:{},
   qClaimed:new Set(),
   cDone:new Set(),
   hideDone:false,
   hideDoneTools:false
 };
 
-const RN={wood:'Дерево',stone:'Камень',flint:'Кремень',clay:'Глина',sand:'Песок',gravel:'Гравий',
-  cdust:'Медная пыль',tdust:'Оловян. пыль',bdust:'Бронз. пыль',
+const RN={wood:'Дерево',stone:'Камень',gravel:'Гравий',flint:'Кремень',clay:'Глина',sand:'Песок',
+  claydust:'Глин. пыль',cdust:'Медная пыль',tdust:'Оловян. пыль',bdust:'Бронз. пыль',
   copper:'Медь',tin:'Олово',iron:'Железо',coal:'Уголь',bronze:'Бронза',steel:'Сталь',
-  claydust:'Глин. пыль',cokebrick:'Кокс. кирпич',charcoal:'Дрв. уголь',coke:'Кокс',creosote:'Креозот',steam:'Пар',
-  bplate:'Бронз. плита',iplate:'Жел. плита',splate:'Стал. плита'};
+  cokebrick:'Кокс. кирпич',charcoal:'Дрв. уголь',coke:'Кокс',creosote:'Креозот',steam:'Пар',
+  bplate:'Бронз. плита',iplate:'Жел. плита',splate:'Стал. плита',
+  rubber:'Резина',wire_cu:'Медная проволока',wire_tin:'Оловян. проволока',
+  battery_lv:'Батарейка LV',circuit_lv:'Схема LV',eu:'EU (энергия)'};
 
 const TIERS={none:{l:'—',b:1},flint:{l:'КРЕМЕНЬ',b:1.5},stone:{l:'КАМЕНЬ',b:2},
   iron:{l:'ЖЕЛЕЗО',b:3},bronze:{l:'БРОНЗА',b:4.5},steel:{l:'СТАЛЬ',b:7}};
 
-// ═══════════════════════════════════════════════
+// ═══════════════════════════════════════
 // ZONES
-// ═══════════════════════════════════════════════
+// ═══════════════════════════════════════
 const ZONES={
-  forest:{label:'🌲 Лес',icon:'🌲',dur:2400,
-    drops:[{r:'wood',mn:3,mx:10,ch:.98,t:'shovel'},{r:'flint',mn:0,mx:2,ch:.25,t:'pickaxe'},{r:'stone',mn:0,mx:2,ch:.12,t:'pickaxe'}],
-    cdesc:'Дерево, Кремень'},
-  beach:{label:'🏖️ Пляж',icon:'🏖️',dur:2600,
-    drops:[{r:'sand',mn:4,mx:10,ch:.95,t:'shovel'},{r:'clay',mn:2,mx:7,ch:.65,t:'shovel'},{r:'gravel',mn:0,mx:3,ch:.35,t:'shovel'}],
-    cdesc:'Песок, Глина, Гравий'},
-  plains:{label:'🌿 Равнина',icon:'🌿',dur:2300,
-    drops:[{r:'stone',mn:5,mx:13,ch:.98,t:'pickaxe'},{r:'gravel',mn:1,mx:4,ch:.5,t:'shovel'},{r:'flint',mn:0,mx:3,ch:.3,t:'pickaxe'}],
-    cdesc:'Камень, Кремень, Гравий'},
-  underground:{label:'⛰️ Шахта',icon:'⛰️',dur:3800,
-    drops:[{r:'stone',mn:3,mx:8,ch:.98,t:'pickaxe'},{r:'coal',mn:1,mx:5,ch:.5,t:'pickaxe'},{r:'iron',mn:0,mx:3,ch:.38,t:'pickaxe'},{r:'copper',mn:0,mx:3,ch:.32,t:'pickaxe'},{r:'tin',mn:0,mx:2,ch:.25,t:'pickaxe'}],
-    cdesc:'Железо, Уголь, Медь, Олово',req:true}
+  forest:{name:'🌲 Лес',icon:'🌲',dur:2500,
+    drops:[
+      {r:'wood',  mn:4, mx:11, ch:.98, t:'shovel', pct:'98%'},
+      {r:'gravel',mn:1, mx:4,  ch:.40, t:'shovel', pct:'40%'},
+    ]},
+  beach:{name:'🏖️ Пляж',icon:'🏖️',dur:2700,
+    drops:[
+      {r:'sand',  mn:4, mx:11, ch:.95, t:'shovel', pct:'95%'},
+      {r:'clay',  mn:2, mx:7,  ch:.65, t:'shovel', pct:'65%'},
+      {r:'gravel',mn:1, mx:5,  ch:.50, t:'shovel', pct:'50%'},
+    ]},
+  plains:{name:'🌿 Равнина',icon:'🌿',dur:2400,
+    drops:[
+      {r:'stone', mn:5, mx:14, ch:.98, t:'pickaxe',pct:'98%'},
+      {r:'gravel',mn:2, mx:6,  ch:.70, t:'shovel', pct:'70%'},
+      {r:'clay',  mn:0, mx:3,  ch:.20, t:'shovel', pct:'20%'},
+    ]},
+  underground:{name:'⛰️ Шахта',icon:'⛰️',dur:3800,req:true,
+    drops:[
+      {r:'stone', mn:3, mx:8,  ch:.98, t:'pickaxe',pct:'98%'},
+      {r:'coal',  mn:1, mx:5,  ch:.55, t:'pickaxe',pct:'55%'},
+      {r:'iron',  mn:0, mx:3,  ch:.40, t:'pickaxe',pct:'40%'},
+      {r:'copper',mn:0, mx:3,  ch:.35, t:'pickaxe',pct:'35%'},
+      {r:'tin',   mn:0, mx:2,  ch:.25, t:'pickaxe',pct:'25%'},
+    ]}
 };
 
 function selZone(id){
   G.zone=id;
-  document.querySelectorAll('.zone-btn').forEach(b=>b.classList.remove('act'));
+  document.querySelectorAll('.zbtn').forEach(b=>b.classList.remove('act'));
   document.getElementById('zb-'+id).classList.add('act');
-  stopExplore(); updateExpUI();
+  stopExp(); updateExpUI();
   if(G.mode==='clicker') renderClicker();
 }
 
@@ -389,29 +437,31 @@ function setMode(m){
   G.mode=m;
   document.getElementById('mb-clicker').classList.toggle('act',m==='clicker');
   document.getElementById('mb-explore').classList.toggle('act',m==='explore');
-  document.getElementById('explore-area').style.display=m==='explore'?'':'none';
-  const ca=document.getElementById('clicker-area');
-  ca.style.display=m==='clicker'?'grid':'none';
-  if(m==='clicker')renderClicker();
-  stopExplore();
+  // В кликере: скрываем zones-bar и explore-area, показываем clicker-cards
+  // В исследовании: показываем zones-bar и explore-area, скрываем clicker-cards
+  document.getElementById('zones-bar').style.display     = m==='explore' ? '' : 'none';
+  document.getElementById('explore-area').style.display  = m==='explore' ? '' : 'none';
+  document.getElementById('clicker-cards').style.display = m==='clicker' ? 'grid' : 'none';
+  if(m==='clicker') renderClicker();
+  stopExp();
 }
 
 // ── EXPLORE ──
-let expTimer=null,expRunning=false;
+let expTimer=null, expRunning=false;
 function updateExpUI(){
   const z=ZONES[G.zone];
-  document.getElementById('exp-title').textContent=z.label;
+  document.getElementById('exp-title').textContent=z.name;
   const locked=z.req&&G.tools.pickaxe.tier==='none';
   const btn=document.getElementById('explore-btn');
   btn.disabled=locked||expRunning;
   if(!expRunning) btn.textContent=locked?'🔒 Нужна кирка':'⚔️ ИССЛЕДОВАТЬ';
   document.getElementById('exp-drops').innerHTML=
-    z.drops.filter(d=>d.ch>0.1).map(d=>`<div class="drop-tag">${RN[d.r]}</div>`).join('');
+    z.drops.map(d=>`<div class="dtag">${RN[d.r]}<span class="dtag-chance">&nbsp;${d.pct}</span></div>`).join('');
 }
 function doExplore(ev){
   if(expRunning)return;
   const z=ZONES[G.zone];
-  if(z.req&&G.tools.pickaxe.tier==='none'){log('Нужна кирка!','imp');return;}
+  if(z.req&&G.tools.pickaxe.tier==='none'){log('Нужна кирка для шахты!','imp');return;}
   expRunning=true;
   const btn=document.getElementById('explore-btn');
   btn.disabled=true; btn.textContent='⏳ Добываем...';
@@ -420,17 +470,17 @@ function doExplore(ev){
   expTimer=setInterval(()=>{
     el+=50;
     const pct=Math.min(100,el/dur*100);
-    const fill=document.getElementById('zpfill'); if(fill)fill.style.width=pct+'%';
-    const lab=document.getElementById('zplab'); if(lab)lab.textContent=Math.ceil((dur-el)/100)/10+'с';
+    const f=document.getElementById('zpfill'); if(f)f.style.width=pct+'%';
+    const l=document.getElementById('zplab'); if(l)l.textContent=Math.ceil((dur-el)/100)/10+'с';
     if(el>=dur){
       clearInterval(expTimer);expTimer=null;expRunning=false;
-      if(fill)fill.style.width='0%'; if(lab)lab.textContent='Готово';
-      btn.disabled=false; btn.textContent='⚔️ ИССЛЕДОВАТЬ';
+      if(f)f.style.width='0%';if(l)l.textContent='Готово';
+      btn.disabled=false;btn.textContent='⚔️ ИССЛЕДОВАТЬ';
       applyDrop(z,ev);
     }
   },50);
 }
-function stopExplore(){
+function stopExp(){
   if(expTimer){clearInterval(expTimer);expTimer=null;}
   expRunning=false;
   const f=document.getElementById('zpfill');if(f)f.style.width='0%';
@@ -455,14 +505,16 @@ function applyDrop(z,ev){
 // ── CLICKER ──
 const clickCD={};
 function renderClicker(){
-  const area=document.getElementById('clicker-area'); area.innerHTML='';
+  const area=document.getElementById('clicker-cards'); area.innerHTML='';
   for(const[zid,z]of Object.entries(ZONES)){
     const locked=z.req&&G.tools.pickaxe.tier==='none';
     const card=document.createElement('div');
-    card.className='czc'+(locked?' locked':''); card.id='czc-'+zid;
-    const dropsText=z.drops.filter(d=>d.ch>.15).map(d=>`${RN[d.r]}: +${d.mn}~${d.mx}`).join('<br>');
-    const avgBonus=((G.tools.pickaxe.bonus+G.tools.shovel.bonus)/2).toFixed(1);
-    card.innerHTML=`<div class="czc-icon">${z.icon}</div><div class="czc-name">${z.label.replace(/.*? /,'')}</div><div class="czc-drops">${dropsText}</div><div class="czc-bonus">Инструмент: ×${avgBonus}</div>`;
+    card.className='ccard-zone'+(locked?' locked':'');
+    card.id='czc-'+zid;
+    // Все дропы с шансами
+    const dText=z.drops.map(d=>`${RN[d.r]}: <span style="color:var(--text-muted)">${d.pct}</span>`).join('<br>');
+    const avgB=((G.tools.pickaxe.bonus+G.tools.shovel.bonus)/2).toFixed(1);
+    card.innerHTML=`<div class="czicon">${z.icon}</div><div class="czname">${z.name.replace(/^.+? /,'')}</div><div class="czdrops">${dText}</div><div class="czbonus">Инструмент ×${avgB}</div>`;
     if(!locked)card.onclick=(ev)=>doClick(zid,ev);
     area.appendChild(card);
   }
@@ -471,276 +523,468 @@ function doClick(zid,ev){
   const now=Date.now(); if(now<(clickCD[zid]||0))return;
   clickCD[zid]=now+700;
   const z=ZONES[zid], gained={};
-  for(const[res,[mn,mx]]of Object.entries(
-    Object.fromEntries(z.drops.map(d=>[d.r,[d.mn,d.mx]]))
-  )){
-    const d=z.drops.find(x=>x.r===res); if(!d||Math.random()>d.ch*.7)continue;
+
+  // Кликер выдаёт ~70% от одного исследования, но мгновенно
+  // Первый дроп (основной) — всегда гарантирован
+  for(let i=0;i<z.drops.length;i++){
+    const d=z.drops[i];
+    // Первый дроп всегда падает; остальные с шансом *0.7
+    const roll = i===0 ? true : Math.random()<d.ch*0.7;
+    if(!roll) continue;
     const tb=d.t?G.tools[d.t].bonus:1;
-    const amt=(mn+Math.random()*(mx-mn)*0.5)*(tb*0.4+0.6);
-    if(amt<0.05)continue;
-    G.res[res]=(G.res[res]||0)+amt; G.on[res]=true;
-    gained[res]=(gained[res]||0)+amt;
+    // Первый дроп: полный диапазон * 0.65; остальные: полный * 0.55
+    const scale = i===0 ? 0.65 : 0.55;
+    const amt=(d.mn + Math.random()*(d.mx-d.mn)) * tb * scale;
+    const floored=Math.floor(amt*10)/10; // не обрезаем до 0
+    if(floored<=0) continue;
+    G.res[d.r]=(G.res[d.r]||0)+floored; G.on[d.r]=true;
+    gained[d.r]=(gained[d.r]||0)+floored;
   }
+
   const card=document.getElementById('czc-'+zid);
-  if(card){card.style.transform='scale(.94)';setTimeout(()=>card.style.transform='',110);}
+  if(card){card.style.transform='scale(.93)';setTimeout(()=>card.style.transform='',110);}
   updRes(); checkEra(); checkQP(); refreshAff();
-  const s=Object.entries(gained).map(([k,v])=>`+${Math.floor(v)} ${RN[k]}`).join('  ');
+  // Показываем только ненулевые, минимум что-то должно быть
+  const s=Object.entries(gained).filter(([,v])=>v>=0.1).map(([k,v])=>`+${Math.floor(v)||'<1'} ${RN[k]}`).join('  ');
   if(s)ft(ev.clientX-80,ev.clientY-20,s);
 }
 
-// ═══════════════════════════════════════════════
-// CRAFTS — реальная GTNH прогрессия
-// ═══════════════════════════════════════════════
-// Категории: Инструменты / GT-инструменты / Морт (пыль) / Крафт-стол / Плавильня / Паровой век
+// ═══════════════════════════════════════
+// CRAFTS
+// ═══════════════════════════════════════
+// Кремень: в GTNH из гравия в пест → кремниевая пыль → кремень (флинт)
+// Инструменты: flint → stone → iron → bronze → steel
 const CRAFTS=[
+  // ── Базовый крафт (без инструментов) ──
+  {id:'flint-from-gravel',name:'◆ Расколоть кремень из гравия',desc:'Руками: 20 гравия → 1 кремень. Медленно, но без инструментов.',
+   cat:'Базовый крафт',era:0,cost:{gravel:20},dur:4000,rep:true,
+   unlock:()=>G.res.gravel>=20,
+   eff:()=>{G.res.flint=(G.res.flint||0)+1;G.on.flint=true;updRes();}},
+
   // ── Инструменты ──
-  {id:'flint-pick',  name:'⛏️ Кремнёвая кирка',   desc:'Первая кирка. Открывает Шахту. +50% добычи.',     cat:'Инструменты',era:0,cost:{flint:3,wood:2},dur:3000,rep:false,
+  {id:'flint-pick',  name:'⛏ Кремнёвая кирка',  desc:'3 кремня + 2 дерева. Открывает шахту.',        cat:'Инструменты',era:0,cost:{flint:3,wood:2},dur:3000,rep:false,
    unlock:()=>G.res.flint>=3&&G.res.wood>=2,
    eff:()=>{setTool('pickaxe','flint');G.on.copper=true;G.on.iron=true;G.on.coal=true;G.on.tin=true;}},
-  {id:'flint-shovel',name:'🪓 Кремнёвая лопата',  desc:'Ускоряет копку. Открывает глину и песок.',        cat:'Инструменты',era:0,cost:{flint:2,wood:2},dur:2500,rep:false,
+  {id:'flint-shovel',name:'⚒ Кремнёвая лопата', desc:'2 кремня + 2 дерева. Ускоряет копку.',         cat:'Инструменты',era:0,cost:{flint:2,wood:2},dur:2500,rep:false,
    unlock:()=>G.res.flint>=2&&G.res.wood>=2,
    eff:()=>{setTool('shovel','flint');G.on.clay=true;G.on.sand=true;}},
-  {id:'flint-hoe',   name:'🌾 Кремнёвая мотыга',  desc:'Возделывает почву.',                               cat:'Инструменты',era:0,cost:{flint:2,wood:2},dur:2500,rep:false,
+  {id:'flint-hoe',   name:'✾ Кремнёвая мотыга', desc:'2 кремня + 2 дерева.',                          cat:'Инструменты',era:0,cost:{flint:2,wood:2},dur:2500,rep:false,
    unlock:()=>G.res.flint>=2&&G.res.wood>=2,
    eff:()=>setTool('hoe','flint')},
-  {id:'stone-pick',  name:'⛏️ Каменная кирка',    desc:'Уровень 2. Больше руды из шахты.',                cat:'Инструменты',era:0,cost:{stone:3,wood:2},dur:5000,rep:false,
+  {id:'stone-pick',  name:'⛏ Каменная кирка',   desc:'3 камня + 2 дерева. Уровень 2.',               cat:'Инструменты',era:0,cost:{stone:3,wood:2},dur:4500,rep:false,
    unlock:()=>G.tools.pickaxe.tier==='flint'&&G.res.stone>=3,
-   eff:()=>{setTool('pickaxe','stone');G.mLvl=2;log('Каменная кирка! Уровень 2','imp');}},
-  {id:'stone-shovel',name:'🪓 Каменная лопата',   desc:'Уровень 2.',                                       cat:'Инструменты',era:0,cost:{stone:3,wood:2},dur:4000,rep:false,
+   eff:()=>{setTool('pickaxe','stone');G.mLvl=2;log('Каменная кирка — уровень 2','imp');}},
+  {id:'stone-shovel',name:'⚒ Каменная лопата',  desc:'3 камня + 2 дерева. Уровень 2.',               cat:'Инструменты',era:0,cost:{stone:3,wood:2},dur:4000,rep:false,
    unlock:()=>G.tools.shovel.tier==='flint'&&G.res.stone>=3,
    eff:()=>setTool('shovel','stone')},
-  {id:'stone-hoe',   name:'🌾 Каменная мотыга',   desc:'Уровень 2.',                                       cat:'Инструменты',era:0,cost:{stone:3,wood:2},dur:4000,rep:false,
+  {id:'stone-hoe',   name:'✾ Каменная мотыга',  desc:'3 камня + 2 дерева. Уровень 2.',               cat:'Инструменты',era:0,cost:{stone:3,wood:2},dur:4000,rep:false,
    unlock:()=>G.tools.hoe.tier==='flint'&&G.res.stone>=3,
    eff:()=>setTool('hoe','stone')},
+  {id:'iron-pick',   name:'⛏ Железная кирка',   desc:'3 жел. плиты + 2 дерева. Уровень 3.',          cat:'Инструменты',era:0,cost:{iplate:3,wood:2},dur:6000,rep:false,
+   unlock:()=>G.res.iplate>=3&&G.res.wood>=2,
+   eff:()=>{setTool('pickaxe','iron');G.mLvl=3;log('Железная кирка — уровень 3','imp');}},
+  {id:'iron-shovel', name:'⚒ Железная лопата',  desc:'2 жел. плиты + 2 дерева.',                     cat:'Инструменты',era:0,cost:{iplate:2,wood:2},dur:5000,rep:false,
+   unlock:()=>G.res.iplate>=2&&G.res.wood>=2,
+   eff:()=>setTool('shovel','iron')},
+  {id:'iron-hoe',    name:'✾ Железная мотыга',  desc:'2 жел. плиты + 2 дерева.',                     cat:'Инструменты',era:0,cost:{iplate:2,wood:2},dur:5000,rep:false,
+   unlock:()=>G.res.iplate>=2&&G.res.wood>=2,
+   eff:()=>setTool('hoe','iron')},
+  {id:'bronze-pick', name:'⛏ Бронзовая кирка',  desc:'3 бронз. плиты + 2 дерева. Уровень 4.',        cat:'Инструменты',era:0,cost:{bplate:3,wood:2},dur:8000,rep:false,
+   unlock:()=>G.res.bplate>=3&&G.res.wood>=2,
+   eff:()=>{setTool('pickaxe','bronze');G.mLvl=4;log('Бронзовая кирка — уровень 4!','era');}},
+  {id:'bronze-shovel',name:'⚒ Бронзовая лопата',desc:'2 бронз. плиты + 2 дерева.',                   cat:'Инструменты',era:0,cost:{bplate:2,wood:2},dur:6000,rep:false,
+   unlock:()=>G.res.bplate>=2&&G.res.wood>=2,
+   eff:()=>setTool('shovel','bronze')},
+  {id:'bronze-hoe',  name:'✾ Бронзовая мотыга', desc:'2 бронз. плиты + 2 дерева.',                   cat:'Инструменты',era:0,cost:{bplate:2,wood:2},dur:6000,rep:false,
+   unlock:()=>G.res.bplate>=2&&G.res.wood>=2,
+   eff:()=>setTool('hoe','bronze')},
+  {id:'steel-pick',  name:'⛏ Стальная кирка',   desc:'3 стал. плиты + 2 дерева. Уровень 5.',         cat:'Инструменты',era:1,cost:{splate:3,wood:2},dur:10000,rep:false,
+   unlock:()=>G.era>=1&&G.res.splate>=3,
+   eff:()=>{setTool('pickaxe','steel');G.mLvl=5;log('СТАЛЬНАЯ КИРКА — уровень 5!','era');}},
+  {id:'steel-shovel',name:'⚒ Стальная лопата',  desc:'2 стал. плиты + 2 дерева.',                    cat:'Инструменты',era:1,cost:{splate:2,wood:2},dur:8000,rep:false,
+   unlock:()=>G.era>=1&&G.res.splate>=2,
+   eff:()=>setTool('shovel','steel')},
+  {id:'steel-hoe',   name:'✾ Стальная мотыга',  desc:'2 стал. плиты + 2 дерева.',                    cat:'Инструменты',era:1,cost:{splate:2,wood:2},dur:8000,rep:false,
+   unlock:()=>G.era>=1&&G.res.splate>=2,
+   eff:()=>setTool('hoe','steel')},
 
   // ── GT-инструменты ──
-  {id:'soft-mallet', name:'🔨 Мягкий молоток',    desc:'Первый GT-инструмент. Нужен для крафта кровати и многого другого.',cat:'GT-инструменты',era:0,cost:{wood:6},dur:2000,rep:false,
+  {id:'soft-mallet', name:'▣ Мягкий молоток',   desc:'6 дерева. Первый GT-инструмент.',               cat:'GT-инструменты',era:0,cost:{wood:6},dur:2000,rep:false,
    unlock:()=>G.res.wood>=6&&!G.machines['soft-mallet'],
    eff:()=>{G.machines['soft-mallet']=1;log('Мягкий молоток готов!','good');}},
-  {id:'mortar',      name:'🪨 Каменный пест',      desc:'Перемалывает слитки в пыль. 5 камня + 2 кремня.', cat:'GT-инструменты',era:0,cost:{stone:5,flint:2},dur:4000,rep:false,
+  {id:'mortar',      name:'◈ Каменный пест',     desc:'5 камня + 2 кремня. Молоть руду и глину.',     cat:'GT-инструменты',era:0,cost:{stone:5,flint:2},dur:4000,rep:false,
    unlock:()=>G.res.stone>=5&&G.res.flint>=2&&!G.machines['mortar'],
-   eff:()=>{G.machines['mortar']=1;log('Каменный пест готов! Можно молоть руду','good');}},
-  {id:'hammer',      name:'🔨 Железный молоток',   desc:'GT-молоток. Кует плиты. 3 железа + 2 дерева.',    cat:'GT-инструменты',era:0,cost:{iron:3,wood:2},dur:5000,rep:false,
+   eff:()=>{G.machines['mortar']=1;log('Каменный пест! Теперь можно молоть руду','good');}},
+  {id:'hammer',      name:'⚙ Железный молоток',  desc:'3 железа + 2 дерева. Ковать плиты.',           cat:'GT-инструменты',era:0,cost:{iron:3,wood:2},dur:5000,rep:false,
    unlock:()=>G.res.iron>=3&&G.res.wood>=2&&!G.machines['hammer'],
    eff:()=>{G.machines['hammer']=1;G.on['iplate']=true;log('Железный молоток! Ковка открыта','good');}},
 
-  // ── Пест: молоть руду в пыль ──
-  {id:'grind-copper',name:'✦ Молоть медь → пыль', desc:'Пест: 1 медный слиток → 1 медная пыль.',           cat:'Пест (помол)',era:0,cost:{copper:1},dur:1500,rep:true,
+  // ── Пест: помол ──
+  // GTNH: гравий в пест → кремниевый песок (flint dust) → кремень (flint)
+  {id:'grind-gravel',name:'◆ Гравий → кремень',  desc:'Пест: 2 гравия → 1 кремень (флинт). Рецепт GTNH.',cat:'Пест (помол)',era:0,cost:{gravel:2},dur:1800,rep:true,
+   unlock:()=>G.machines['mortar']&&G.res.gravel>=2,
+   eff:()=>{G.res.flint=(G.res.flint||0)+1;G.on.flint=true;updRes();}},
+  {id:'grind-copper',name:'✦ Молоть медь',        desc:'Пест: 1 медный слиток → 1 медная пыль.',       cat:'Пест (помол)',era:0,cost:{copper:1},dur:1500,rep:true,
    unlock:()=>G.machines['mortar']&&G.res.copper>=1,
-   eff:()=>{G.res.cdust+=1;G.on.cdust=true;updRes();}},
-  {id:'grind-tin',   name:'✦ Молоть олово → пыль',desc:'Пест: 1 оловянный слиток → 1 оловянная пыль.',    cat:'Пест (помол)',era:0,cost:{tin:1},dur:1500,rep:true,
+   eff:()=>{G.res.cdust=(G.res.cdust||0)+1;G.on.cdust=true;updRes();}},
+  {id:'grind-tin',   name:'✦ Молоть олово',       desc:'Пест: 1 оловян. слиток → 1 оловян. пыль.',     cat:'Пест (помол)',era:0,cost:{tin:1},dur:1500,rep:true,
    unlock:()=>G.machines['mortar']&&G.res.tin>=1,
-   eff:()=>{G.res.tdust+=1;G.on.tdust=true;updRes();}},
-  {id:'grind-clay',  name:'✦ Молоть глину → пыль',desc:'Пест: 2 глины → 2 глин. пыли. Нужна для кирпичей.',cat:'Пест (помол)',era:0,cost:{clay:2},dur:2000,rep:true,
+   eff:()=>{G.res.tdust=(G.res.tdust||0)+1;G.on.tdust=true;updRes();}},
+  {id:'grind-clay',  name:'✦ Молоть глину',       desc:'Пест: 2 глины → 2 глин. пыли. Для кирпичей.',  cat:'Пест (помол)',era:0,cost:{clay:2},dur:2000,rep:true,
    unlock:()=>G.machines['mortar']&&G.res.clay>=2,
-   eff:()=>{G.res.claydust+=2;G.on.claydust=true;updRes();}},
+   eff:()=>{G.res.claydust=(G.res.claydust||0)+2;G.on.claydust=true;updRes();}},
 
-  // ── Крафт-стол: смешать пыль ──
-  {id:'mix-bronze',  name:'⚗️ Смешать бронзовую пыль',desc:'Стол: 3 медн. пыли + 1 оловян. пыль → 4 бронз. пыли.',cat:'Крафт-стол',era:0,cost:{cdust:3,tdust:1},dur:2000,rep:true,
+  // ── Крафт-стол ──
+  {id:'mix-bronze',  name:'⚗️ Смешать бронз. пыль',desc:'Стол: 3 медн. + 1 оловян. → 4 бронз. пыли.',cat:'Крафт-стол',era:0,cost:{cdust:3,tdust:1},dur:2000,rep:true,
    unlock:()=>G.res.cdust>=3&&G.res.tdust>=1,
-   eff:()=>{G.res.bdust+=4;G.on.bdust=true;updRes();}},
-  {id:'make-cokebrick',name:'🧱 Слепить кокс. кирпич',desc:'Стол: 1 глин. пыль + 1 песок → 2 кокс. кирпича.',cat:'Крафт-стол',era:0,cost:{claydust:1,sand:1},dur:2000,rep:true,
+   eff:()=>{G.res.bdust=(G.res.bdust||0)+4;G.on.bdust=true;updRes();}},
+  {id:'make-cokebrick',name:'🧱 Слепить кокс. кирпич',desc:'Стол: 1 глин. пыль + 1 песок → 2 кирпича.',cat:'Крафт-стол',era:0,cost:{claydust:1,sand:1},dur:2000,rep:true,
    unlock:()=>G.res.claydust>=1&&G.res.sand>=1,
-   eff:()=>{G.res.cokebrick+=2;G.on.cokebrick=true;updRes();}},
+   eff:()=>{G.res.cokebrick=(G.res.cokebrick||0)+2;G.on.cokebrick=true;updRes();}},
 
-  // ── Плавильня (печь): обжигать ──
-  {id:'smelt-bronze',name:'🔥 Обжечь бронзовую пыль',desc:'Печь: 1 бронз. пыль → 1 бронзовый слиток.',    cat:'Плавильня',era:0,cost:{bdust:1},dur:2500,rep:true,
+  // ── Плавильня (костёр) ──
+  {id:'smelt-bronze',name:'🔥 Обжечь бронз. пыль',desc:'Печь: 1 бронз. пыль → 1 бронз. слиток.',      cat:'Плавильня',era:0,cost:{bdust:1},dur:2500,rep:true,
    unlock:()=>G.res.bdust>=1,
-   eff:()=>{G.res.bronze+=1;G.on.bronze=true;updRes();}},
+   eff:()=>{G.res.bronze=(G.res.bronze||0)+1;G.on.bronze=true;updRes();}},
 
-  // ── Ковка (молоток) ──
-  {id:'forge-iplate',name:'▬ Ковать жел. плиту',  desc:'Молоток: 2 железа → 1 жел. плита.',               cat:'Ковка (молоток)',era:0,cost:{iron:2},dur:3000,rep:true,
+  // ── Ковка ──
+  {id:'forge-iplate',name:'▬ Ковать жел. плиту',  desc:'Молоток: 2 железа → 1 жел. плита.',           cat:'Ковка',era:0,cost:{iron:2},dur:3000,rep:true,
    unlock:()=>G.machines['hammer']&&G.res.iron>=2,
-   eff:()=>{G.res.iplate+=1;G.on.iplate=true;updRes();}},
-  {id:'forge-bplate',name:'▬ Ковать бронз. плиту',desc:'Молоток: 2 бронзы → 1 бронз. плита.',             cat:'Ковка (молоток)',era:0,cost:{bronze:2},dur:3000,rep:true,
+   eff:()=>{G.res.iplate=(G.res.iplate||0)+1;G.on.iplate=true;updRes();}},
+  {id:'forge-bplate',name:'▬ Ковать бронз. плиту',desc:'Молоток: 2 бронзы → 1 бронз. плита.',         cat:'Ковка',era:0,cost:{bronze:2},dur:3000,rep:true,
    unlock:()=>G.machines['hammer']&&G.res.bronze>=2,
-   eff:()=>{G.res.bplate+=1;G.on.bplate=true;updRes();}},
-
-  // ── Бронзовые инструменты: 3 плиты + 2 палки (как в GTNH 3x3) ──
-  {id:'bronze-pick', name:'⛏️ Бронзовая кирка',   desc:'Tinker\'s: 3 бронз. плиты + 2 дерева. Уровень 3.', cat:'Инструменты',era:0,cost:{bplate:3,wood:2},dur:7000,rep:false,
-   unlock:()=>G.res.bplate>=3&&G.res.wood>=2,
-   eff:()=>{setTool('pickaxe','bronze');G.mLvl=3;log('Бронзовая кирка! Уровень 3','era');}},
-  {id:'bronze-shovel',name:'🪓 Бронзовая лопата', desc:'Tinker\'s: 2 бронз. плиты + 2 дерева.',            cat:'Инструменты',era:0,cost:{bplate:2,wood:2},dur:6000,rep:false,
-   unlock:()=>G.res.bplate>=2&&G.res.wood>=2,
-   eff:()=>setTool('shovel','bronze')},
-  {id:'bronze-hoe',  name:'🌾 Бронзовая мотыга',  desc:'Tinker\'s: 2 бронз. плиты + 2 дерева.',            cat:'Инструменты',era:0,cost:{bplate:2,wood:2},dur:6000,rep:false,
-   unlock:()=>G.res.bplate>=2&&G.res.wood>=2,
-   eff:()=>setTool('hoe','bronze')},
-
-  // ── Паровой век ──
-  {id:'forge-splate',name:'▬ Ковать стал. плиту', desc:'Молоток: 2 стали → 1 стал. плита.',                cat:'Ковка (молоток)',era:1,cost:{steel:2},dur:3500,rep:true,
+   eff:()=>{G.res.bplate=(G.res.bplate||0)+1;G.on.bplate=true;updRes();}},
+  {id:'forge-splate',name:'▬ Ковать стал. плиту', desc:'Молоток: 2 стали → 1 стал. плита.',            cat:'Ковка',era:1,cost:{steel:2},dur:3500,rep:true,
    unlock:()=>G.era>=1&&G.machines['hammer']&&G.res.steel>=2,
-   eff:()=>{G.res.splate+=1;G.on.splate=true;updRes();}},
-  {id:'steel-pick',  name:'⛏️ Стальная кирка',    desc:'3 стал. плиты + 2 дерева. Уровень 4.',             cat:'Инструменты',era:1,cost:{splate:3,wood:2},dur:10000,rep:false,
-   unlock:()=>G.era>=1&&G.res.splate>=3,
-   eff:()=>{setTool('pickaxe','steel');G.mLvl=4;log('СТАЛЬНАЯ КИРКА! Уровень 4!','era');}},
-  {id:'steel-shovel',name:'🪓 Стальная лопата',   desc:'2 стал. плиты + 2 дерева.',                        cat:'Инструменты',era:1,cost:{splate:2,wood:2},dur:8000,rep:false,
-   unlock:()=>G.era>=1&&G.res.splate>=2,
-   eff:()=>setTool('shovel','steel')},
-  {id:'steel-hoe',   name:'🌾 Стальная мотыга',   desc:'2 стал. плиты + 2 дерева.',                        cat:'Инструменты',era:1,cost:{splate:2,wood:2},dur:8000,rep:false,
-   unlock:()=>G.era>=1&&G.res.splate>=2,
-   eff:()=>setTool('hoe','steel')},
+   eff:()=>{G.res.splate=(G.res.splate||0)+1;G.on.splate=true;updRes();}},
+
+  // ── LV-эра: крафт ──
+  // Резина: в GTNH из смолы дерева в дистилляторе, здесь упрощаем: 8 дерева → 1 резина
+  {id:'make-rubber',  name:'◈ Получить резину',   desc:'Варить: 8 дерева → 1 резина. Нужна для изоляции проводов.',
+   cat:'LV-крафт',era:1,cost:{wood:8},dur:5000,rep:true,
+   unlock:()=>G.era>=2&&G.res.wood>=8,
+   eff:()=>{G.res.rubber=(G.res.rubber||0)+1;G.on.rubber=true;updRes();}},
+  // Медная проволока: молоток плющит медный слиток
+  {id:'make-wire-cu', name:'⌇ Медная проволока',  desc:'Молоток: 1 медь (слиток) → 2 медн. провол.',
+   cat:'LV-крафт',era:1,cost:{copper:1},dur:3000,rep:true,
+   unlock:()=>G.era>=1&&G.machines['hammer']&&G.res.copper>=1,
+   eff:()=>{G.res.wire_cu=(G.res.wire_cu||0)+2;G.on.wire_cu=true;updRes();}},
+  {id:'make-wire-tin',name:'⌇ Оловян. проволока', desc:'Молоток: 1 олово (слиток) → 2 олов. провол.',
+   cat:'LV-крафт',era:1,cost:{tin:1},dur:3000,rep:true,
+   unlock:()=>G.era>=1&&G.machines['hammer']&&G.res.tin>=1,
+   eff:()=>{G.res.wire_tin=(G.res.wire_tin||0)+2;G.on.wire_tin=true;updRes();}},
+  // Батарейка LV: 2 олов. провол. + 2 резины + 2 жел. плиты
+  {id:'make-battery', name:'▤ Батарейка LV',      desc:'Стол: 2 олов. пров. + 2 резины + 2 жел. плиты.',
+   cat:'LV-крафт',era:1,cost:{wire_tin:2,rubber:2,iplate:2},dur:6000,rep:true,
+   unlock:()=>G.era>=1&&G.res.wire_tin>=2&&G.res.rubber>=2&&G.res.iplate>=2,
+   eff:()=>{G.res.battery_lv=(G.res.battery_lv||0)+1;G.on.battery_lv=true;updRes();}},
+  // Схема LV (простая): 4 медн. пров. + 2 жел. плиты + 1 резина
+  {id:'make-circuit', name:'⊞ Схема LV',          desc:'Паяльник: 4 медн. пров. + 2 жел. плиты + 1 резина.',
+   cat:'LV-крафт',era:1,cost:{wire_cu:4,iplate:2,rubber:1},dur:8000,rep:true,
+   unlock:()=>G.era>=1&&G.res.wire_cu>=4&&G.res.iplate>=2&&G.res.rubber>=1,
+   eff:()=>{G.res.circuit_lv=(G.res.circuit_lv||0)+1;G.on.circuit_lv=true;updRes();}},
 ];
 
-// ═══════════════════════════════════════════════
-// MACHINES — фиксированные цены, пауза, умный пар
-// ═══════════════════════════════════════════════
+// ═══════════════════════════════════════
+// MACHINES
+// ═══════════════════════════════════════
+// pt = длительность цикла в секундах
+// prod = количество за ЦИКЛ (не в секунду)
+// cons = количество за ЦИКЛ
+// steamCost = мб пара за ЦИКЛ
 const MDEF=[
-  {id:'coke-oven',  name:'КОКСОВАЯ ПЕЧЬ',       icon:'🏭',era:0,max:4,
-   desc:'Дерево → Дрв. уголь + Креозот',
-   recipe:'Дерево → Дрв. уголь + Креозот',
+  {id:'coke-oven',    name:'КОКСОВАЯ ПЕЧЬ',       icon:'⚑',era:0,max:4,
+   desc:'Дерево→Дрв. уголь+Креозот, или Дрв. уголь→Кокс+Креозот',
+   recipe:'6 дерева → 3 дрв. угля + 1 креозот  ИЛИ  3 дрв. угля → 2 кокса + 1 креозот',
    cost:{cokebrick:32,stone:8},
-   prod:{charcoal:0.018,creosote:0.009},cons:{wood:0.012},
-   pt:150, steamCost:0,
+   prod:{charcoal:3,creosote:1}, cons:{wood:6},
+   pt:150,steamCost:0,isSelector:true,
+   selectorOpts:[
+     {label:'Дерево→Уголь',  input:'wood',     output:'charcoal', qty:3, inputQty:6, extra:{creosote:1}},
+     {label:'Уголь→Кокс',   input:'charcoal', output:'coke',     qty:2, inputQty:3, extra:{creosote:1}},
+   ],
    unlock:()=>G.res.cokebrick>=32&&G.res.stone>=8,
-   hint:'Нужно: 32 кокс. кирпича + 8 камня\n(крафт кирпичей: глин. пыль + песок)'},
-  {id:'coal-boiler',name:'УГОЛЬНЫЙ КОТЁЛ',      icon:'⚗️',era:0,max:4,
-   desc:'Уголь/Дрв. уголь → Пар (144 мб/с)',
-   recipe:'Уголь → 144 мб/с пара',
+   hint:'32 кокс. кирпича + 8 камня'},
+  {id:'coal-boiler',  name:'ТВЕРДОТОПЛ. КОТЁЛ',   icon:'⚗',era:0,max:8,
+   desc:'Сжигает твёрдое топливо → Пар. Выбирайте топливо! Стройте 6-8 для LV.',
+   recipe:'Топливо → пар (4с/цикл)',
    cost:{bplate:20,stone:30},
-   prod:{steam:28},cons:{coal:0.008,charcoal:0.008},
-   pt:1, steamCost:0,
+   prod:{},cons:{},pt:4,steamCost:0,
+   isBoiler:true,isSelector:true,
+   selectorOpts:[
+     {label:'Уголь',      input:'coal',     output:'steam', qty:576, inputQty:1},
+     {label:'Дрв. уголь', input:'charcoal', output:'steam', qty:576, inputQty:1},
+     {label:'Дерево',     input:'wood',     output:'steam', qty:288, inputQty:1},
+   ],
    unlock:()=>G.res.bplate>=20&&G.res.stone>=30,
-   hint:'Нужно: 20 бронз. плит + 30 камня'},
-  {id:'steam-macer',name:'ПАР. МАЦЕРАТОР',      icon:'⚙️',era:1,max:2,
-   desc:'Перемалывает руду паром, удваивая выход',
-   recipe:'Руда + Пар → ×2 Металл',
+   hint:'20 бронз. плит + 30 камня\nДерево: 288 мб/цикл. Уголь/дрв.уголь: 576 мб/цикл\nСтройте 6-8 штук для питания LV-машин!'},
+  {id:'steam-macer',  name:'ПАР. МАЦЕРАТОР',     icon:'⚙',era:1,max:2,
+   desc:'Перемалывает руду паром, удваивая выход',recipe:'1 руда + 800 мб пара → 2 порошка',
    cost:{bplate:20,iplate:10,steam:1000},
-   prod:{copper:0.06,tin:0.04,iron:0.08},cons:{steam:0},
-   pt:50, steamCost:2400, // мб за цикл
+   prod:{},                         // динамически: зависит от выбранной руды
+   cons:{},
+   pt:10,steamCost:800,
+   isSelector:true,                 // выбор типа руды
+   selectorOpts:[
+     {label:'Медь',  input:'copper', output:'cdust',  qty:2},
+     {label:'Олово', input:'tin',    output:'tdust',  qty:2},
+     {label:'Железо',input:'iron',   output:'iron',   qty:2},
+   ],
    unlock:()=>(G.machines['coal-boiler']||0)>=1&&G.res.steam>=1000,
    hint:'Котёл + 1000 мб пара'},
-  {id:'bbf',        name:'КИРП. ПЛАВИЛЬНЯ (BBF)',icon:'🔥',era:1,max:8,
-   desc:'Железо + Кокс → Сталь. Стройте 4-6 штук!',
-   recipe:'Железо + Кокс → Сталь',
+  {id:'bbf',          name:'КИРП. ПЛАВИЛЬНЯ (BBF)',icon:'✦',era:1,max:8,
+   desc:'Железо + Кокс → Сталь (1 цикл = 45с)',recipe:'1 железо + 1 кокс → 1 сталь',
    cost:{clay:40,stone:25,sand:25,coal:15},
-   prod:{steel:0.003},cons:{iron:0.003,coke:0.003},
-   pt:480, steamCost:0,
-   unlock:()=>G.era>=1,
-   hint:'Доступно в Паровом веке'},
-  {id:'steam-furnace',name:'ПАРОВАЯ ПЕЧЬ',       icon:'♨️',era:1,max:2,
-   desc:'Дерево → Дрв. уголь + Кокс (быстро)',
-   recipe:'Дерево + Пар → Дрв. уголь + Кокс',
+   prod:{steel:1},
+   cons:{iron:1,coke:1},
+   pt:45,steamCost:0,
+   unlock:()=>G.era>=1,hint:'Доступно в Паровом веке'},
+  {id:'steam-furnace',name:'ПАРОВАЯ ПЕЧЬ',        icon:'♨',era:1,max:2,
+   desc:'Обжигает металлическую пыль в слитки. Только для пыли — не руды!',
+   recipe:'1 пыль + 500 мб пара → 1 слиток',
    cost:{bplate:15,iplate:8},
-   prod:{charcoal:0.04,coke:0.025},cons:{wood:0.03},
-   pt:15, steamCost:600, // мб за цикл (600 мб = 15с × 40мб/с)
-   unlock:()=>(G.machines['coal-boiler']||0)>=1,
-   hint:'Нужен котёл'},
-  {id:'steam-hammer',name:'ПАРОВОЙ МОЛОТ',       icon:'🔨',era:1,max:2,
-   desc:'Авто: слитки → плиты. Бронза, железо, сталь.',
-   recipe:'Слитки + Пар → Плиты',
+   prod:{},cons:{},pt:8,steamCost:500,isSelector:true,
+   selectorOpts:[
+     {label:'Пыль меди→Медь',   input:'cdust', output:'cu_ing',  qty:1, inputQty:1},
+     {label:'Пыль олова→Олово', input:'tdust', output:'tin_ing', qty:1, inputQty:1},
+     {label:'Пыль железа→Жел.', input:'idust', output:'fe_ing',  qty:1, inputQty:1},
+     {label:'Пыль бронзы→Бронза',input:'bdust',output:'bronze',  qty:1, inputQty:1},
+     {label:'Уголь→Кокс',       input:'coal',  output:'coke',    qty:1, inputQty:1},
+   ],
+   unlock:()=>(G.machines['coal-boiler']||0)>=1,hint:'Нужен котёл'},
+  {id:'steam-hammer', name:'ПАРОВОЙ МОЛОТ',       icon:'⚒',era:1,max:2,
+   desc:'Авто: слитки → плиты (паром)',recipe:'2 металла + 400 мб → 1 плита',
    cost:{bplate:20,iplate:10},
-   prod:{bplate:0.025,iplate:0.02,splate:0.012},cons:{bronze:0.05,iron:0.04,steel:0.024},
-   pt:40, steamCost:1600, // мб за цикл
-   unlock:()=>(G.machines['coal-boiler']||0)>=1&&G.res.bronze>=20,
-   hint:'Котёл + 20 бронзы'},
+   prod:{},cons:{},pt:8,steamCost:400,isSelector:true,
+   selectorOpts:[
+     {label:'Бронза', input:'bronze', output:'bplate', qty:1, inputQty:2},
+     {label:'Железо', input:'iron',   output:'iplate', qty:1, inputQty:2},
+     {label:'Сталь',  input:'steel',  output:'splate', qty:1, inputQty:2},
+   ],
+   unlock:()=>(G.machines['coal-boiler']||0)>=1&&(G.res.bplate||0)+(G.res.iplate||0)>=10,
+   hint:'Нужен котёл + хотя бы 10 плит (бронзовых или железных)'},
+  // ── LV-эра ──
+  {id:'steam-turbine',name:'ПАРОВАЯ ТУРБИНА',     icon:'⚡',era:1,max:8,
+   desc:'Пар → EU. Постройка открывает LV-эру! Стройте несколько.',recipe:'1000 мб/цикл → 200 EU',
+   cost:{splate:20,iplate:10,circuit_lv:2},
+   prod:{eu:160},cons:{},pt:6,steamCost:400,
+   unlock:()=>G.era>=1&&G.res.splate>=20&&G.res.circuit_lv>=2,
+   hint:'Паровой век: 20 стал. плит + 10 жел. плит + 2 схемы LV'},
+  {id:'lv-macerator',name:'LV МАЦЕРАТОР',         icon:'⚙',era:2,max:4,
+   desc:'Электрический мацератор. Быстрее парового.',recipe:'1 руда + 300 EU → 2 порошка',
+   cost:{splate:8,iplate:8,wire_cu:8,circuit_lv:2},
+   prod:{},cons:{eu:100},pt:5,steamCost:0,isSelector:true,
+   selectorOpts:[
+     {label:'Медь→×2 пыль',   input:'copper', output:'cdust', qty:2},
+     {label:'Олово→×2 пыль',  input:'tin',    output:'tdust', qty:2},
+     {label:'Железо→×2 пыль', input:'iron',   output:'iron',  qty:2},
+   ],
+   unlock:()=>G.era>=2&&G.res.splate>=8&&G.res.circuit_lv>=2,
+   hint:'LV-эра: стал. плиты + медная проволока + схема LV'},
+  {id:'lv-furnace',  name:'LV ЭЛЕКТРОПЕЧЬ',       icon:'✦',era:2,max:4,
+   desc:'Электрическая печь. Плавит пыль быстро.',recipe:'1 пыль + 150 EU → 1 слиток',
+   cost:{splate:6,iplate:6,wire_cu:4,circuit_lv:1},
+   prod:{},cons:{eu:60},pt:4,steamCost:0,isSelector:true,
+   selectorOpts:[
+     {label:'Медн. пыль→Медь',   input:'cdust', output:'copper', qty:1, inputQty:1},
+     {label:'Оловян. пыль→Олово',input:'tdust', output:'tin',    qty:1, inputQty:1},
+     {label:'Бронз. пыль→Бронза',input:'bdust', output:'bronze', qty:1, inputQty:1},
+     {label:'Уголь→Кокс',        input:'coal',  output:'coke',   qty:1, inputQty:1},
+   ],
+   unlock:()=>G.era>=2&&G.res.splate>=6&&G.res.circuit_lv>=1,
+   hint:'LV-эра: стал. плиты + медная проволока + схема LV'},
 ];
 
-// ═══════════════════════════════════════════════
+// Выбранные опции для селекторных машин
+const machSel={};  // id -> optIndex
+
+function getMachProdCons(m){
+  if(m.isSelector){
+    const sel=machSel[m.id]||0;
+    const opt=m.selectorOpts[sel];
+    if(!opt)return{prod:{},cons:{...m.cons||{}}};
+    const inQty=opt.inputQty||1;
+    const prod={[opt.output]:opt.qty};
+    if(opt.extra) Object.assign(prod, opt.extra);
+    // Мержим базовый cons (EU и т.д.) с входным материалом
+    // Для котла output='steam' — не добавляем в cons
+    const cons={...(m.cons||{})};
+    if(opt.output!=='steam') cons[opt.input]=inQty;
+    else cons[opt.input]=inQty; // топливо
+    return{prod, cons};
+  }
+  if(m.isBoiler){
+    // Fallback: авто-выбор (уголь → дрв. уголь)
+    if((G.res.coal||0)>0) return{prod:{steam:576}, cons:{coal:1}};
+    return{prod:{steam:576}, cons:{charcoal:1}};
+  }
+  return{prod:m.prod||{}, cons:m.cons||{}};
+}
+
+function machCanRun(m,cnt){
+  if(G.paused[m.id])return{ok:false,reason:'На паузе'};
+  const {cons}=getMachProdCons(m);
+  for(const[res,qty]of Object.entries(cons)){
+    // Котёл с селектором — cons уже содержит нужное топливо из getMachProdCons
+    if((G.res[res]||0)<qty*cnt)return{ok:false,reason:'Мало: '+(RN[res]||res)};
+  }
+  if(m.steamCost>0&&(G.res.steam||0)<m.steamCost*cnt)
+    return{ok:false,reason:`Мало пара (нужно ${m.steamCost*cnt} мб)`};
+  // Проверка EU для LV-машин
+  if(m.cons&&m.cons.eu&&(G.res.eu||0)<m.cons.eu*cnt)
+    return{ok:false,reason:`Мало EU (нужно ${m.cons.eu*cnt})`};
+  return{ok:true,reason:''};
+}
+
+// ═══════════════════════════════════════
 // QUESTS
-// ═══════════════════════════════════════════════
+// ═══════════════════════════════════════
 const QUESTS=[
-  {id:'q-start',    title:'НАЧАЛО ПУТИ',      era:0,
-   desc:'Выберите зону и начните добычу. Для кремня — Лес или Равнина.',
-   req:[{r:'wood',a:20,l:'Дерево'},{r:'flint',a:5,l:'Кремень'}],
-   rew:{wood:25,flint:8},rdesc:'+25 дерева, +8 кремня',
-   hint:'Лес: дерево + кремень\nРавнина: камень + кремень',requires:[]},
-  {id:'q-tools',    title:'ПЕРВЫЕ ИНСТРУМЕНТЫ',era:0,
-   desc:'Создайте кирку и лопату из кремня.',
-   req:[{chk:()=>G.tools.pickaxe.tier!=='none',l:'Кирка'},{chk:()=>G.tools.shovel.tier!=='none',l:'Лопата'}],
-   rew:{flint:10,stone:20},rdesc:'+10 кремня, +20 камня',
-   hint:'Крафт → Кремнёвая кирка (3 кремня + 2 дерева)\nКрафт → Кремнёвая лопата (2 кремня + 2 дерева)',requires:['q-start']},
-  {id:'q-mallet',   title:'МЯГКИЙ МОЛОТОК',   era:0,
-   desc:'Первый GT-инструмент. 6 деревянных плах.',
+  {id:'q-start',   title:'НАЧАЛО ПУТИ',         era:0,
+   desc:'Нарубите дерево и накопайте гравий. Из 20 гравия можно расколоть кремень руками — сразу в Крафте.',
+   req:[{r:'wood',a:20,l:'Дерево'},{r:'gravel',a:20,l:'Гравий'}],
+   rew:{wood:25,gravel:15},rdesc:'+25 дерева, +15 гравия',
+   hint:'🌲 Лес: дерево + гравий (40%)\n🌿 Равнина: камень + много гравия (70%)\n🏖️ Пляж: глина/песок + гравий (50%)\n\nКогда будет 20 гравия → Крафт → «Расколоть кремень из гравия»',requires:[]},
+  {id:'q-mallet',  title:'МЯГКИЙ МОЛОТОК',      era:0,
+   desc:'Первый GT-инструмент из 6 дерева.',
    req:[{chk:()=>!!G.machines['soft-mallet'],l:'Мягкий молоток'}],
    rew:{wood:20},rdesc:'+20 дерева',
-   hint:'Крафт → «Мягкий молоток» (6 дерева)',requires:['q-tools']},
-  {id:'q-mortar',   title:'КАМЕННЫЙ ПЕСТ',     era:0,
-   desc:'GT-пест для помола руды в пыль. 5 камня + 2 кремня.',
+   hint:'Крафт → «Мягкий молоток» (6 дерева)',requires:['q-start']},
+  {id:'q-mortar',  title:'КАМЕННЫЙ ПЕСТ',       era:0,
+   desc:'Пест молотит гравий → кремень (2 гравия = 1). Нужен: 5 камня + 2 кремня.',
    req:[{chk:()=>!!G.machines['mortar'],l:'Каменный пест'}],
-   rew:{stone:15,flint:8},rdesc:'+15 камня, +8 кремня',
-   hint:'Крафт → «Каменный пест» (5 камня + 2 кремня)',requires:['q-mallet']},
-  {id:'q-mine',     title:'В ШАХТУ!',          era:0,
-   desc:'Кирка открыла Шахту. Добудьте первые металлы.',
-   req:[{r:'iron',a:10,l:'Железо'},{r:'coal',a:10,l:'Уголь'}],
+   rew:{stone:20,gravel:15},rdesc:'+20 камня, +15 гравия',
+   hint:'Кремень: Крафт → «Расколоть кремень из гравия» (20 гравия = 1 кремень, без инструментов)\nКамень: 🌿 Равнина\nКрафт → «Каменный пест» (5 камня + 2 кремня)',requires:['q-mallet']},
+  {id:'q-flint',   title:'КРЕМЕНЬ ИЗ ГРАВИЯ',   era:0,
+   desc:'Пест: 2 гравия → 1 кремень. Это быстрее чем раскалывать руками. Соберите достаточно.',
+   req:[{r:'flint',a:12,l:'Кремень'}],
+   rew:{flint:6,gravel:10},rdesc:'+6 кремня, +10 гравия',
+   hint:'Пест → «Гравий → кремень» (2 гравия = 1 кремень)\nГравий: 🌲 Лес (40%), 🏖️ Пляж (50%), 🌿 Равнина (70%)',requires:['q-mortar']},
+  {id:'q-tools',   title:'ПЕРВЫЕ ИНСТРУМЕНТЫ',  era:0,
+   desc:'Создайте кремнёвые кирку и лопату.',
+   req:[{chk:()=>G.tools.pickaxe.tier!=='none',l:'Кирка'},{chk:()=>G.tools.shovel.tier!=='none',l:'Лопата'}],
+   rew:{flint:8,stone:15},rdesc:'+8 кремня, +15 камня',
+   hint:'Крафт → Кремнёвая кирка (3 кремня + 2 дерева)\nКрафт → Кремнёвая лопата (2 кремня + 2 дерева)',requires:['q-flint']},
+  {id:'q-mine',    title:'В ШАХТУ!',            era:0,
+   desc:'Кирка открывает Шахту — главный источник металлов.',
+   req:[{r:'iron',a:12,l:'Железо'},{r:'coal',a:12,l:'Уголь'}],
    rew:{iron:10,coal:10},rdesc:'+10 железа, +10 угля',
-   hint:'Зона ⛰️ Шахта. Без кирки закрыта.',requires:['q-mortar']},
-  {id:'q-metals',   title:'МЕДЬ И ОЛОВО',      era:0,
-   desc:'Для бронзы нужна медь и олово из Шахты.',
+   hint:'Зона ⛰️ Шахта открыта с кирки.\nКаменная кирка (+2 дерева + 3 камня) даёт больше.',requires:['q-tools']},
+  {id:'q-metals',  title:'МЕДЬ И ОЛОВО',        era:0,
+   desc:'Нужны для бронзы. Добывайте в шахте.',
    req:[{r:'copper',a:18,l:'Медь'},{r:'tin',a:9,l:'Олово'}],
    rew:{copper:10,tin:5},rdesc:'+10 меди, +5 олова',
-   hint:'⛰️ Шахта. Каменная кирка даёт больше.',requires:['q-mine']},
-  {id:'q-bronze-dust',title:'БРОНЗОВАЯ ПЫЛЬ',  era:0,
-   desc:'Помелите медь и олово в пест, затем смешайте 3:1 на крафт-столе.',
+   hint:'⛰️ Шахта. Каменная кирка увеличивает добычу.',requires:['q-mine']},
+  {id:'q-bdust',   title:'БРОНЗОВАЯ ПЫЛЬ',      era:0,
+   desc:'Пест молотит медь и олово в пыль, крафт-стол смешивает 3:1.',
    req:[{r:'bdust',a:8,l:'Бронзовая пыль'}],
    rew:{cdust:6,tdust:3},rdesc:'+6 медн. пыли, +3 оловян. пыли',
-   hint:'Шаг 1: Пест → «Молоть медь» (медь → медная пыль)\nШаг 2: Пест → «Молоть олово» (олово → оловян. пыль)\nШаг 3: Крафт-стол → «Смешать бронзовую пыль» (3 медн. + 1 оловян. = 4 бронз.)',requires:['q-metals']},
-  {id:'q-bronze',   title:'БРОНЗОВЫЕ СЛИТКИ',  era:0,
-   desc:'Обожгите бронзовую пыль в печи (костре) — получите слитки.',
-   req:[{r:'bronze',a:24,l:'Бронза'}],
-   rew:{bronze:12,copper:12},rdesc:'+12 бронзы, +12 меди',
-   hint:'Крафт → «Обжечь бронзовую пыль» (1 пыль → 1 слиток)\nЭто имитация простой печи/костра.',requires:['q-bronze-dust']},
-  {id:'q-hammer',   title:'ЖЕЛЕЗНЫЙ МОЛОТОК',  era:0,
-   desc:'GT-молоток. 3 железа + 2 дерева. Открывает ковку плит.',
-   req:[{chk:()=>!!G.machines['hammer'],l:'Железный молоток'}],
-   rew:{iron:20,iplate:5},rdesc:'+20 железа, +5 жел. плит',
+   hint:'1) Пест → Молоть медь (слиток → пыль)\n2) Пест → Молоть олово\n3) Крафт-стол → Смешать бронз. пыль (3+1=4)',requires:['q-metals']},
+  {id:'q-bronze',  title:'БРОНЗОВЫЕ СЛИТКИ',    era:0,
+   desc:'Обожгите бронзовую пыль — получите слитки.',
+   req:[{r:'bronze',a:20,l:'Бронза'}],
+   rew:{bronze:10,copper:10},rdesc:'+10 бронзы, +10 меди',
+   hint:'Крафт → «Обжечь бронз. пыль» (1 пыль → 1 слиток)',requires:['q-bdust']},
+  {id:'q-hammer',  title:'ЖЕЛЕЗНЫЙ МОЛОТОК',    era:0,
+   desc:'3 железа + 2 дерева. Ковать плиты.',
+   req:[{chk:()=>!!G.machines['hammer'],l:'Молоток'}],
+   rew:{iron:15,iplate:5},rdesc:'+15 железа, +5 жел. плит',
    hint:'Крафт → «Железный молоток» (3 железа + 2 дерева)',requires:['q-bronze']},
-  {id:'q-coke-prep',title:'ГЛИН. ПЫЛЬ + КИРПИЧИ',era:0,
-   desc:'Для коксовой печи нужны кирпичи: глина → глин. пыль (пест) → кирпичи (стол: пыль + песок).',
+  {id:'q-coke',    title:'КОКСОВЫЕ КИРПИЧИ',    era:0,
+   desc:'Глина → глин. пыль (пест) → кирпичи (крафт-стол).',
    req:[{r:'cokebrick',a:32,l:'Кокс. кирпичей'}],
    rew:{clay:20,sand:20},rdesc:'+20 глины, +20 песка',
-   hint:'Шаг 1: Пест → «Молоть глину» (2 глины → 2 глин. пыли)\nШаг 2: Крафт-стол → «Слепить кокс. кирпич» (1 пыль + 1 песок → 2 кирпича)\nИтого: 32 кирпича = 16 помолов + 16 крафтов',requires:['q-hammer']},
-  {id:'q-coke-oven',title:'КОКСОВАЯ ПЕЧЬ',     era:0,
-   desc:'Постройте печь: 32 кирпича + 8 камня. Даёт дрв. уголь — топливо для котла.',
+   hint:'1) Пест → Молоть глину (2 глины → 2 пыли)\n2) Крафт-стол → Слепить кирпич (1 пыль + 1 песок = 2 кирпича)\nИтого: 32 кирпича = 16 помолов',requires:['q-hammer']},
+  {id:'q-coven',   title:'КОКСОВАЯ ПЕЧЬ',       era:0,
+   desc:'Постройте. Даёт дрв. уголь — топливо для котла.',
    req:[{chk:()=>(G.machines['coke-oven']||0)>=1,l:'Коксовая печь'}],
    rew:{coal:20,wood:40},rdesc:'+20 угля, +40 дерева',
-   hint:'Машины → «Коксовая печь»\nСтоит: 32 кокс. кирпича + 8 камня',requires:['q-coke-prep']},
-  {id:'q-bplate',   title:'БРОНЗОВЫЕ ПЛИТЫ',   era:0,
-   desc:'Ковка молотком: 2 бронзы → 1 плита. Нужны для бронзовых инструментов и котла.',
-   req:[{r:'bplate',a:26,l:'Бронз. плит'}],
-   rew:{bronze:20,bplate:5},rdesc:'+20 бронзы, +5 плит',
-   hint:'Крафт → «Ковать бронз. плиту» (2 бронзы → 1 плита)',requires:['q-coke-oven']},
-  {id:'q-bronzekit',title:'БРОНЗОВЫЙ НАБОР',   era:0,
-   desc:'Бронзовые инструменты: 3 плиты + 2 дерева на кирку.',
-   req:[{chk:()=>G.tools.pickaxe.tier==='bronze',l:'Бронз. кирка'},{chk:()=>G.tools.shovel.tier==='bronze',l:'Бронз. лопата'},{chk:()=>G.tools.hoe.tier==='bronze',l:'Бронз. мотыга'}],
-   rew:{bronze:30,bplate:10},rdesc:'+30 бронзы, +10 плит',
-   hint:'Крафт → Бронзовые инструменты (у каждого свои плиты + дерево)',requires:['q-bplate']},
-  {id:'q-boiler',   title:'УГОЛЬНЫЙ КОТЁЛ',    era:0,
-   desc:'Котёл запустит Паровой век! 20 бронз. плит + 30 камня.',
-   req:[{chk:()=>(G.machines['coal-boiler']||0)>=1,l:'Котёл построен'}],
-   rew:{bplate:15,coal:35},rdesc:'+15 бронз. плит, +35 угля',
-   hint:'Машины → «Угольный котёл» (20 бронз. плит + 30 камня)\nКотлу нужен уголь или дрв. уголь для работы.',requires:['q-bronzekit']},
-  {id:'q-steam',    title:'⚙️ ПАРОВОЙ ВЕК',   era:0,
-   desc:'Котёл заработал — новые машины разблокированы!',
+   hint:'Машины → «Коксовая печь» (32 кирпича + 8 камня)',requires:['q-coke']},
+  {id:'q-bplate',  title:'БРОНЗОВЫЕ ПЛИТЫ',     era:0,
+   desc:'Ковка молотком: 2 бронзы → 1 плита.',
+   req:[{r:'bplate',a:22,l:'Бронз. плит'}],
+   rew:{bronze:15,bplate:5},rdesc:'+15 бронзы, +5 плит',
+   hint:'Крафт → «Ковать бронз. плиту» (2 бронзы → 1 плита)',requires:['q-coven']},
+  {id:'q-boiler',  title:'УГОЛЬНЫЙ КОТЁЛ',      era:0,
+   desc:'20 бронз. плит + 30 камня. Запускает Паровой век!',
+   req:[{chk:()=>(G.machines['coal-boiler']||0)>=1,l:'Котёл'}],
+   rew:{bplate:12,coal:30},rdesc:'+12 плит, +30 угля',
+   hint:'Машины → «Угольный котёл» (20 бронз. плит + 30 камня)\nКотлу нужен уголь или дрв. уголь.',requires:['q-bplate']},
+  {id:'q-steam',   title:'⚙️ ПАРОВОЙ ВЕК',     era:0,
+   desc:'Котёл заработал — новые машины открыты!',
    req:[{chk:()=>G.era>=1,l:'Паровой век'}],
-   rew:{bplate:12,coal:25},rdesc:'+12 бронз. плит, +25 угля',
+   rew:{bplate:10,coal:25},rdesc:'+10 плит, +25 угля',
    hint:null,requires:['q-boiler']},
-  {id:'q-bbf',      title:'КИРП. ПЛАВИЛЬНЯ',   era:1,
-   desc:'BBF плавит железо + кокс → сталь. Стройте 4-6 штук!',
+  {id:'q-bbf',     title:'КИРП. ПЛАВИЛЬНЯ',     era:1,
+   desc:'BBF: железо + кокс → сталь. 4-6 штук для нормальной скорости.',
    req:[{chk:()=>(G.machines['bbf']||0)>=4,l:'BBF × 4'}],
    rew:{coke:20,iron:50},rdesc:'+20 кокса, +50 железа',
-   hint:'Машины → «Кирп. плавильня»\nПотребляет кокс. Кокс: из Паровой печи.',requires:['q-steam']},
-  {id:'q-steel',    title:'ПЕРВАЯ СТАЛЬ',       era:1,
-   desc:'Накопите сталь для финального снаряжения.',
+   hint:'Машины → «Кирп. плавильня»\nКокс: из Паровой печи или Коксовой печи (поставьте на паузу и запустите с коксом).',requires:['q-steam']},
+  {id:'q-steel',   title:'ПЕРВАЯ СТАЛЬ',        era:1,
+   desc:'Копите сталь для финальных инструментов.',
    req:[{r:'steel',a:30,l:'Сталь'}],
-   rew:{steel:15,splate:3},rdesc:'+15 стали, +3 стал. плиты',
-   hint:'4-6 BBF дают сталь постепенно.',requires:['q-bbf']},
-  {id:'q-steelkit', title:'СТАЛЬНОЙ НАБОР',     era:1,
-   desc:'Стальные инструменты — вершина Парового века.',
+   rew:{steel:12,splate:3},rdesc:'+12 стали, +3 стал. плиты',
+   hint:'BBF работает медленно — нужно 4+ штук.',requires:['q-bbf']},
+  {id:'q-steelkit',title:'СТАЛЬНОЙ НАБОР',      era:1,
+   desc:'Стальные инструменты — вершина Парового века!',
    req:[{chk:()=>G.tools.pickaxe.tier==='steel',l:'Стальная кирка'},{chk:()=>G.tools.shovel.tier==='steel',l:'Стальная лопата'},{chk:()=>G.tools.hoe.tier==='steel',l:'Стальная мотыга'}],
    rew:{steel:20,splate:10},rdesc:'+20 стали, +10 стал. плит',
-   hint:'Крафт → Стальные инструменты (плиты + дерево)',requires:['q-steel']},
+   hint:'Крафт → 3 стальных инструмента (плиты + дерево)',requires:['q-steel']},
+
+  // ── LV-ЭРА — правильный порядок ──
+  // Сначала крафтим компоненты для схем, потом схемы, потом турбину
+  {id:'q-rubber',   title:'ПЕРВАЯ РЕЗИНА',      era:1,
+   desc:'Резина нужна для изоляции проводов и схем LV. Варится из дерева.',
+   req:[{r:'rubber',a:8,l:'Резина'}],
+   rew:{rubber:4,wood:40},rdesc:'+4 резины, +40 дерева',
+   hint:'Крафт (Паровой век) → «Получить резину» (8 дерева → 1 резина)',
+   requires:['q-steelkit']},
+  {id:'q-wires',    title:'ПЕРВЫЕ ПРОВОДА',      era:1,
+   desc:'Провода — основа LV-схем. Нужны для схемы LV.',
+   req:[{r:'wire_cu',a:16,l:'Медная проволока'},{r:'wire_tin',a:8,l:'Оловян. проволока'}],
+   rew:{wire_cu:8,wire_tin:4},rdesc:'+8 медн. пров., +4 олов. пров.',
+   hint:'Крафт → «Медная проволока» (1 бронз. плита → 2 провода)\nКрафт → «Оловян. проволока» (1 жел. плита → 2 провода)',
+   requires:['q-rubber']},
+  {id:'q-circuit',  title:'ПЕРВЫЕ СХЕМЫ LV',     era:1,
+   desc:'Схемы нужны для турбины и LV-машин. Требуют провода и резину.',
+   req:[{r:'circuit_lv',a:4,l:'Схема LV'}],
+   rew:{circuit_lv:2,wire_cu:8},rdesc:'+2 схемы, +8 медн. пров.',
+   hint:'Крафт → «Схема LV» (4 медн. пров. + 2 жел. плиты + 1 резина)',
+   requires:['q-wires']},
+  {id:'q-turbine',  title:'⚡ ПАРОВАЯ ТУРБИНА',   era:1,
+   desc:'Постройте турбину — она открывает LV-эру! Доступна в Паровом веке при наличии схем.',
+   req:[{chk:()=>(G.machines['steam-turbine']||0)>=1,l:'Паровая турбина'}],
+   rew:{splate:15,circuit_lv:2},rdesc:'+15 стал. плит, +2 схемы',
+   hint:'Машины → «Паровая турбина»\nСтоит: 20 стал. плит + 10 жел. плит + 2 схемы LV\nТурбина тратит 1000 мб пара за цикл, производит 100 EU.',
+   requires:['q-circuit']},
+  {id:'q-lv-era',   title:'⚡ LV-ЭРА!',           era:1,
+   desc:'Электрический век начался! Теперь доступны LV-машины.',
+   req:[{chk:()=>G.era>=2,l:'LV-эра разблокирована'}],
+   rew:{eu:200,splate:10},rdesc:'+200 EU, +10 стал. плит',
+   hint:'Турбина уже построена — просто дождитесь активации эры.',
+   requires:['q-turbine']},
+  {id:'q-lv-macer', title:'LV МАЦЕРАТОР',         era:2,
+   desc:'Электрический мацератор. Быстрее парового.',
+   req:[{chk:()=>(G.machines['lv-macerator']||0)>=1,l:'LV Мацератор'}],
+   rew:{eu:500,circuit_lv:1},rdesc:'+500 EU, +1 схема',
+   hint:'Машины → «LV Мацератор» (стал. плиты + медная проволока + схема)',
+   requires:['q-lv-era']},
+  {id:'q-lv-furnace',title:'LV ЭЛЕКТРОПЕЧЬ',      era:2,
+   desc:'Электрическая печь плавит быстро.',
+   req:[{chk:()=>(G.machines['lv-furnace']||0)>=1,l:'LV Электропечь'}],
+   rew:{eu:500,splate:5},rdesc:'+500 EU, +5 стал. плит',
+   hint:'Машины → «LV Электропечь» (стал. плиты + медная проволока + схема)',
+   requires:['q-lv-macer']},
 ];
 
-// ═══════════════════════════════════════════════
+// ═══════════════════════════════════════
 // HELPERS
-// ═══════════════════════════════════════════════
+// ═══════════════════════════════════════
 function setTool(t,tier){
-  G.tools[t].tier=tier; G.tools[t].bonus=TIERS[tier].b;
-  updTools(); renderCrafts();
-  log(`${TIERS[tier].l} ${t==='pickaxe'?'кирка':t==='shovel'?'лопата':'мотыга'} готова`,'good');
-  updateExpUI();
-  if(G.mode==='clicker')renderClicker();
+  G.tools[t].tier=tier;G.tools[t].bonus=TIERS[tier].b;
+  updTools();renderCrafts();
+  log(`${TIERS[tier].l} ${t==='pickaxe'?'кирка':t==='shovel'?'лопата':'мотыга'} — готова`,'good');
+  updateExpUI();if(G.mode==='clicker')renderClicker();
 }
 function canAfford(c){for(const[k,v]of Object.entries(c))if((G.res[k]||0)<v)return false;return true;}
 function payCost(c){for(const[k,v]of Object.entries(c))G.res[k]=Math.max(0,(G.res[k]||0)-v);}
@@ -753,35 +997,37 @@ function log(msg,type=''){
 function notify(msg){
   const n=document.getElementById('notif');n.textContent=msg;n.classList.add('show');setTimeout(()=>n.classList.remove('show'),3500);
 }
-function ft(x,y,text){
-  const el=document.createElement('div');el.className='ft';el.textContent=text;
+function ft(x,y,txt){
+  const el=document.createElement('div');el.className='ft';el.textContent=txt;
   el.style.left=x+'px';el.style.top=y+'px';document.body.appendChild(el);setTimeout(()=>el.remove(),1300);
 }
 
-// ═══════════════════════════════════════════════
+// ═══════════════════════════════════════
 // DISPLAY
-// ═══════════════════════════════════════════════
+// ═══════════════════════════════════════
 function updRes(){
   for(const[k,v]of Object.entries(G.res)){
     const ri=document.getElementById('rr-'+k);if(ri)ri.classList.toggle('on',!!G.on[k]);
     const a=document.getElementById('ra-'+k);if(a)a.textContent=fmt(v);
     const r=document.getElementById('rrate-'+k);
-    if(r){const rt=G.rates[k]||0;r.textContent=Math.abs(rt)>.005?(rt>0?'+':'')+rt.toFixed(2)+'/с':'';r.style.color=rt>0?'var(--green3)':rt<0?'var(--red2)':'var(--text-dim)';}
+    if(r){const rt=G.rates[k]||0;r.textContent=Math.abs(rt)>.004?(rt>0?'+':'')+rt.toFixed(2)+'/с':'';r.style.color=rt>0?'var(--green3)':rt<0?'var(--red2)':'var(--text-dim)';}
   }
 }
 function updTools(){
   for(const[t,d]of Object.entries(G.tools)){
-    document.getElementById('tt-'+t).textContent=TIERS[d.tier].l;
-    document.getElementById('tb-'+t).textContent='×'+d.bonus.toFixed(1);
-    document.getElementById('ts-'+t).classList.toggle('has-tool',d.tier!=='none');
+    const idm={'pickaxe':'p','shovel':'s','hoe':'h'};
+    const id=idm[t];
+    document.getElementById('tt-'+id).textContent=TIERS[d.tier].l;
+    document.getElementById('tb-'+id).textContent='×'+d.bonus.toFixed(1);
+    document.getElementById('ts-'+t).classList.toggle('has',d.tier!=='none');
   }
-  document.getElementById('mining-lvl').textContent=G.mLvl;
-  document.getElementById('mine-bonus').textContent='×'+((G.tools.pickaxe.bonus*.6+G.tools.shovel.bonus*.2+G.tools.hoe.bonus*.2)).toFixed(1);
+  document.getElementById('mlvl').textContent=G.mLvl;
+  document.getElementById('mbonus').textContent='×'+((G.tools.pickaxe.bonus*.6+G.tools.shovel.bonus*.2+G.tools.hoe.bonus*.2)).toFixed(1);
 }
 
-// ═══════════════════════════════════════════════
-// CRAFTING — прогресс-бар без ре-рендера
-// ═══════════════════════════════════════════════
+// ═══════════════════════════════════════
+// CRAFTING
+// ═══════════════════════════════════════
 const cT={};
 function renderCrafts(){
   const area=document.getElementById('crafting-area');
@@ -790,28 +1036,56 @@ function renderCrafts(){
   const cats={};
   for(const c of CRAFTS){
     if(c.era>G.era)continue;
-    // Скрыть выполненные одноразовые инструменты если включён режим
-    if(G.hideDoneTools&&!c.rep&&G.cDone.has(c.id)&&c.cat==='Инструменты')continue;
+    // Скрыть выполненные инструменты и GT-инструменты если флаг
+    if(G.hideDoneTools&&!c.rep&&G.cDone.has(c.id)&&(c.cat==='Инструменты'||c.cat==='GT-инструменты'))continue;
     if(!cats[c.cat])cats[c.cat]=[];
     cats[c.cat].push(c);
   }
   for(const[cat,items]of Object.entries(cats)){
-    const h=document.createElement('div');h.className='craft-cat-hdr';h.textContent='— '+cat+' —';area.appendChild(h);
+    const h=document.createElement('div');
+    h.className='cchdr';
+    if(cat==='Инструменты'){
+      // Кнопка рядом с заголовком "ИНСТРУМЕНТЫ"
+      h.style.display='flex';h.style.alignItems='center';h.style.justifyContent='space-between';
+      const hdtId=document.getElementById('hdt-btn');
+      const hdtAct=G.hideDoneTools;
+      h.innerHTML=`<span>— ${cat} —</span><button id="hdt-btn" onclick="toggleHDT()" style="background:transparent;border:1px solid var(--border2);color:${hdtAct?'var(--copper2)':'var(--text-muted)'};font-family:'Cinzel',serif;font-size:8px;letter-spacing:1px;padding:2px 8px;border-radius:3px;cursor:pointer;transition:all .15s;text-transform:none;">${hdtAct?'Показать инструменты':'Скрыть готовые'}</button>`;
+    } else {
+      h.textContent='— '+cat+' —';
+    }
+    area.appendChild(h);
     for(const c of items){
       const done=!c.rep&&G.cDone.has(c.id);
       const going=inProg.has(c.id);
-      const ok=c.unlock()&&!done&&!going;
-      const locked=!c.unlock()&&!done&&!going;
+      const affordable=canAfford(c.cost);
+      const condOk=c.unlock();
+
+      // Классификация карточки:
+      // done → выполнена, going → крафтится, cancraft → можно крафтить
+      // needres → условие выполнено но ресов не хватает (видна, чуть приглушена)
+      // locked → условие не выполнено (приглушена сильно)
+      let cls='cc';
+      if(done) cls+=' done';
+      else if(going) cls+=' going';
+      else if(condOk&&affordable) cls+=' cancraft';
+      else if(condOk&&!affordable) cls+=' needres';
+      else cls+=' locked';
+
       const card=document.createElement('div');
-      card.className='ccard'+(done?' done':going?' going':locked?' locked':'');
-      card.id='cc-'+c.id;
-      if(!ok&&!going)card.setAttribute('disabled','');
-      const costH=Object.entries(c.cost).map(([k,v])=>`<span class="${(G.res[k]||0)>=v?'ok':'miss'}">${v} ${RN[k]||k}</span>`).join(', ');
+      card.className=cls;card.id='cc-'+c.id;
+
+      const costH=Object.entries(c.cost).map(([k,v])=>{
+        const have=G.res[k]||0; const ok=have>=v;
+        // Всегда показываем сколько есть / сколько нужно
+        return `<span class="${ok?'ok':'miss'}">${v} ${RN[k]||k}${!ok?' ('+Math.floor(have)+')':''}</span>`;
+      }).join(', ');
+
       const progH=going
-        ?`<div class="cp-wrap"><div class="cp-lbl" id="cpl-${c.id}">Крафтим...</div><div class="cp-bar"><div class="cp-fill" id="cpf-${c.id}" style="width:${Math.floor((cT[c.id]?.el||0)/c.dur*100)}%"></div></div></div>`
-        :`<div class="cc">Нужно: ${costH}</div>`;
-      card.innerHTML=`<div class="cn">${done?'✓ ':going?'⚙️ ':''}${c.name}</div><div class="cd">${c.desc}</div>${progH}`;
-      if(ok)card.onclick=()=>doCraft(c);
+        ?`<div class="cpw"><div class="cpl" id="cpl-${c.id}">Крафтим...</div><div class="cpbar"><div class="cpfill" id="cpf-${c.id}" style="width:${Math.floor((cT[c.id]?.el||0)/c.dur*100)}%"></div></div></div>`
+        :`<div class="ccc">Нужно: ${costH}</div>`;
+
+      card.innerHTML=`<div class="ccn">${done?'✓ ':going?'⚙️ ':''}${c.name}</div><div class="ccd">${c.desc}</div>${progH}`;
+      if(condOk&&affordable&&!done&&!going)card.onclick=()=>doCraft(c);
       area.appendChild(card);
     }
   }
@@ -825,8 +1099,8 @@ function doCraft(c){
   cT[c.id].iv=setInterval(()=>{
     cT[c.id].el+=50;
     const pct=Math.min(100,cT[c.id].el/c.dur*100);
-    const f=document.getElementById('cpf-'+c.id); if(f)f.style.width=pct+'%';
-    const l=document.getElementById('cpl-'+c.id); if(l){const r=Math.ceil((c.dur-cT[c.id].el)/100)/10;l.textContent=r>0?r+'с':'Готово!';}
+    const f=document.getElementById('cpf-'+c.id);if(f)f.style.width=pct+'%';
+    const l=document.getElementById('cpl-'+c.id);if(l){const r=Math.ceil((c.dur-cT[c.id].el)/100)/10;l.textContent=r>0?r+'с':'Готово!';}
     if(cT[c.id].el>=c.dur){
       clearInterval(cT[c.id].iv);delete cT[c.id];
       c.eff();if(!c.rep)G.cDone.add(c.id);
@@ -834,70 +1108,151 @@ function doCraft(c){
     }
   },50);
 }
+// Обновляем только цвета/доступность без полного ре-рендера
 function refreshAff(){
   for(const c of CRAFTS){
     if(c.era>G.era||cT[c.id])continue;
     const card=document.getElementById('cc-'+c.id);if(!card)continue;
-    const cc=card.querySelector('.cc');if(!cc)continue;
-    const costH=Object.entries(c.cost).map(([k,v])=>`<span class="${(G.res[k]||0)>=v?'ok':'miss'}">${v} ${RN[k]||k}</span>`).join(', ');
-    cc.innerHTML='Нужно: '+costH;
-    if(c.unlock()&&!G.cDone.has(c.id))card.removeAttribute('disabled');
-    else if(!c.unlock())card.setAttribute('disabled','');
+    const done=G.cDone.has(c.id);if(done)continue;
+    const affordable=canAfford(c.cost),condOk=c.unlock();
+    // Обновляем класс
+    card.className='cc'+(done?' done':condOk&&affordable?' cancraft':condOk?' needres':' locked');
+    // Обновляем текст стоимости
+    const cc=card.querySelector('.ccc');
+    if(cc){
+      const costH=Object.entries(c.cost).map(([k,v])=>{
+        const have=G.res[k]||0;const ok=have>=v;
+        return`<span class="${ok?'ok':'miss'}">${v} ${RN[k]||k}${!ok?' ('+Math.floor(have)+')':''}</span>`;
+      }).join(', ');
+      cc.innerHTML='Нужно: '+costH;
+    }
+    if(condOk&&affordable)card.onclick=()=>doCraft(c);
+    else card.onclick=null;
   }
 }
-function toggleHideDoneTools(){
+function toggleHDT(){
   G.hideDoneTools=!G.hideDoneTools;
-  const b=document.getElementById('hdt-btn');
-  b.textContent=G.hideDoneTools?'Показать все':'Скрыть готовые';
-  b.classList.toggle('act',G.hideDoneTools);
-  renderCrafts();
+  renderCrafts(); // кнопка встроена в заголовок категории, ре-рендер обновит её
 }
 
-// ═══════════════════════════════════════════════
-// MACHINES — пауза + умный пар
-// ═══════════════════════════════════════════════
+// ═══════════════════════════════════════
+// MACHINES
+// ═══════════════════════════════════════
 const mT={};
+// Мягкое обновление — только предупреждения и кнопки покупки, не трогает прогресс-бары
+function softUpdateMachines(){
+  for(const m of MDEF){
+    if(m.era>G.era) continue;
+    const cnt=G.machines[m.id]||0;
+    const card=document.getElementById('mc-'+m.id);
+    if(!card) continue;
+    const ok=m.unlock(), paused=G.paused[m.id];
+    const {ok:canRun,reason}=cnt>0?machCanRun(m,cnt):{ok:false,reason:''};
+
+    // Класс карточки
+    let cls='mcard';
+    if(cnt>0){ if(paused)cls+=' paused'; else if(canRun)cls+=' on'; }
+    if(!ok&&cnt===0)cls+=' locked';
+    card.className=cls;
+
+    // Варнинг — один единственный .mwarn уже в DOM, просто обновляем
+    const warn=card.querySelector('.mwarn');
+    if(warn){
+      if(cnt>0&&!paused&&!canRun){
+        warn.style.display=''; warn.textContent='⚠️ '+reason;
+      } else {
+        warn.style.display='none'; warn.textContent='';
+      }
+    }
+
+    // Обновляем кнопку ПОСТРОИТЬ — цвета ресурсов и доступность
+    const buyWrap=card.querySelector('.mbuy-wrap');
+    if(buyWrap){
+      const cStr=Object.entries(m.cost).map(([k,v])=>
+        `<span style="color:${(G.res[k]||0)>=v?'var(--green3)':'var(--red2)'}">${v} ${RN[k]||k}</span>`
+      ).join(', ');
+      if(ok&&cnt<m.max){
+        buyWrap.innerHTML=`<button class="mbuy" onclick="buyM('${m.id}')">ПОСТРОИТЬ (${cStr})</button>`;
+      } else if(!ok){
+        buyWrap.innerHTML=`<div class="mhint">🔒 ${m.hint}</div>`;
+      } else {
+        buyWrap.innerHTML=`<div style="font-size:11px;color:var(--text-muted);text-align:center;padding:3px">— МАКСИМУМ —</div>`;
+      }
+    }
+  }
+}
+
 function renderMachines(){
   const area=document.getElementById('machines-area');area.innerHTML='';
   for(const m of MDEF){
     if(m.era>G.era)continue;
     const cnt=G.machines[m.id]||0,ok=m.unlock(),paused=G.paused[m.id];
+    const {ok:canRun,reason}=cnt>0?machCanRun(m,cnt):{ok:false,reason:''};
+    let cardCls='mcard';
+    if(cnt>0){ if(paused)cardCls+=' paused'; else if(canRun)cardCls+=' on'; }
+    if(!ok&&cnt===0)cardCls+=' locked';
     const card=document.createElement('div');
-    card.className='mcard'+(cnt>0?(paused?' paused':' on'):'')+((!ok&&cnt===0)?' locked':'');
-    card.id='mc-'+m.id;
-    const cStr=Object.entries(m.cost).map(([k,v])=>`<span style="color:${(G.res[k]||0)>=v?'var(--green3)':'var(--red2)'}">${v} ${RN[k]}</span>`).join(', ');
-    const pStr=cnt>0?Object.entries(m.prod).map(([k,v])=>`+${(v*cnt).toFixed(3)}/с ${RN[k]}`).join('<br>'):'';
-    const cStr2=cnt>0?[
-      ...Object.entries(m.cons||{}).map(([k,v])=>`-${(v*cnt).toFixed(3)}/с ${RN[k]}`),
-      ...(m.steamCost>0?[`-${m.steamCost*cnt} мб/цикл Пар`]:[])
-    ].join('<br>'):'';
+    card.className=cardCls; card.id='mc-'+m.id;
+
+    const cStr=Object.entries(m.cost).map(([k,v])=>
+      `<span style="color:${(G.res[k]||0)>=v?'var(--green3)':'var(--red2)'}">${v} ${RN[k]||k}</span>`
+    ).join(', ');
+
+    const {prod,cons}=getMachProdCons(m);
+    const pLines=cnt>0?Object.entries(prod).map(([k,v])=>`+${v*cnt} ${RN[k]||k} / цикл`).join('<br>'):'';
+    const cLines=cnt>0?[
+      ...(m.isBoiler?[`-1 уголь или дрв. уголь / цикл`]:Object.entries(cons).map(([k,v])=>`-${v*cnt} ${RN[k]||k} / цикл`)),
+      ...(m.steamCost>0?[`-${m.steamCost*cnt} мб пара / цикл`]:[])
+    ].filter((v,i,a)=>a.indexOf(v)===i).join('<br>'):'';
+
+    const warnHtml=cnt>0&&!paused&&!canRun
+      ?`<div style="font-size:11px;color:var(--red2);margin-bottom:5px;padding:4px 6px;border:1px solid var(--red);border-radius:3px;background:rgba(128,36,24,.15)">⚠️ ${reason}</div>`:'';
+
+    let selectorHtml='';
+    if(m.isSelector&&cnt>0){
+      const sel=machSel[m.id]||0;
+      selectorHtml=`<div style="display:flex;gap:4px;margin-bottom:7px;flex-wrap:wrap">`;
+      m.selectorOpts.forEach((opt,i)=>{
+        const a=i===sel;
+        selectorHtml+=`<button onclick="setMachSel('${m.id}',${i})" style="background:${a?'linear-gradient(180deg,var(--leather3),var(--leather))':'transparent'};border:1px solid ${a?'var(--gold)':'var(--border2)'};color:${a?'var(--gold2)':'var(--text-dim)'};font-family:'Cinzel',serif;font-size:9px;letter-spacing:1px;padding:3px 8px;border-radius:3px;cursor:pointer;">${opt.label}</button>`;
+      });
+      selectorHtml+=`</div>`;
+    }
+
     card.innerHTML=`
       <div class="mn">${m.icon} ${m.name}</div><div class="mcnt">${cnt}/${m.max}</div>
       <div class="ms">${m.desc}</div>
-      <div class="mr"><b>Рецепт:</b> ${m.recipe}</div>
-      ${cnt>0?`<div class="mprod">${pStr}</div>`:''}
-      ${cnt>0&&cStr2?`<div class="mcons">${cStr2}</div>`:''}
-      <div class="mpbar"><div class="mpfill" id="mp-${m.id}"></div></div>
-      ${cnt>0?`<button class="mpause${paused?' paused-btn':''}" onclick="togglePause('${m.id}')">${paused?'▶ ВОЗОБНОВИТЬ':'⏸ ПАУЗА'}</button>`:''}
+      <div class="mr"><b>Рецепт:</b> ${m.recipe} <span style="color:var(--text-muted)">[${m.pt}с]</span></div>
+      <div class="mwarn" style="display:none;font-size:11px;color:var(--red2);margin-bottom:5px;padding:4px 6px;border:1px solid var(--red);border-radius:3px;background:rgba(128,36,24,.15)"></div>
+      ${selectorHtml}
+      ${pLines?`<div class="mprod">${pLines}</div>`:''}
+      ${cLines?`<div class="mcons">${cLines}</div>`:''}
+      <div class="mpbar"><div class="mpfill" id="mp-${m.id}" style="width:0%"></div></div>
+      ${cnt>0?`<button class="mpause${paused?' pbtn':''}" onclick="togglePause('${m.id}')">${paused?'▶ ВОЗОБНОВИТЬ':'⏸ ПАУЗА'}</button>`:''}
+      <div class="mbuy-wrap">
       ${ok&&cnt<m.max?`<button class="mbuy" onclick="buyM('${m.id}')">ПОСТРОИТЬ (${cStr})</button>`
         :!ok?`<div class="mhint">🔒 ${m.hint}</div>`
         :`<div style="font-size:11px;color:var(--text-muted);text-align:center;padding:3px">— МАКСИМУМ —</div>`}
+      </div>
     `;
     area.appendChild(card);
   }
 }
-function togglePause(id){
-  G.paused[id]=!G.paused[id];
-  renderMachines();
+function setMachSel(id,idx){
+  machSel[id]=idx;renderMachines();
   const m=MDEF.find(x=>x.id===id);
-  log(`${m.name}: ${G.paused[id]?'ПАУЗА':'Возобновлена'}`,G.paused[id]?'imp':'good');
+  log(`${m.name}: → ${m.selectorOpts[idx].label}`,'good');
+}
+function togglePause(id){
+  G.paused[id]=!G.paused[id];renderMachines();
+  const m=MDEF.find(x=>x.id===id);
+  log(`${m.name}: ${G.paused[id]?'⏸ ПАУЗА':'▶ Работает'}`,G.paused[id]?'imp':'good');
 }
 function buyM(id){
   const m=MDEF.find(x=>x.id===id);if(!m)return;
   if(!canAfford(m.cost)){log('Мало ресурсов!');return;}
   payCost(m.cost);G.machines[id]=(G.machines[id]||0)+1;
-  updRes();renderMachines();
-  log(`Построено: ${m.name} (×${G.machines[id]})`,'good');
+  updRes();renderMachines();log(`Построено: ${m.name} (×${G.machines[id]})`,'good');
   checkEra();checkQP();renderQuests();
   if(G.machines[id]===1)startM(id);
 }
@@ -908,30 +1263,59 @@ function startM(id){
   mT[id]=setInterval(()=>{
     const cnt=G.machines[id]||0;
     if(cnt===0){clearInterval(mT[id]);delete mT[id];return;}
-    if(G.paused[id]){const f=document.getElementById('mp-'+id);if(f)f.style.width=p+'%';return;}
-    // Проверка ресурсов (не пар)
-    let canRun=true;
-    for(const[res]of Object.entries(m.cons||{}))if((G.res[res]||0)<=0){canRun=false;break;}
-    // Умная проверка пара: нужно хватать на весь цикл
-    if(m.steamCost>0&&(G.res.steam||0)<m.steamCost*cnt){canRun=false;}
+    // НЕ работаем если на паузе — прогресс не двигается, ресурсы НЕ тратятся
+    if(G.paused[id]){
+      const f=document.getElementById('mp-'+id);if(f)f.style.width=p+'%';
+      return;
+    }
+    const {ok:canRun}=machCanRun(m,cnt);
     const f=document.getElementById('mp-'+id);
     if(canRun){
-      p+=100/(m.pt*10);if(f)f.style.width=Math.min(100,p)+'%';
+      p+=100/(m.pt*10); if(f)f.style.width=Math.min(100,p)+'%';
       if(p>=100){
+        // Сначала убираем transition для мгновенного сброса без вспышки
+        if(f){ f.style.transition='none'; f.style.width='0%'; }
+        // Через кадр возвращаем transition
+        requestAnimationFrame(()=>{ if(f) f.style.transition=''; });
         p=0;
-        for(const[res,rate]of Object.entries(m.prod)){G.res[res]=(G.res[res]||0)+rate*cnt*m.pt;G.on[res]=true;}
-        // Списываем пар за цикл
-        if(m.steamCost>0)G.res.steam=Math.max(0,G.res.steam-m.steamCost*cnt);
+        // Списываем ресурсы и добавляем продукцию за цикл * cnt машин
+        const {prod,cons}=getMachProdCons(m);
+        // Потребление
+        if(m.isBoiler&&!m.isSelector){
+          // Старый котёл без селектора: авто
+          for(let i=0;i<cnt;i++){
+            if(G.res.coal>=1){ G.res.coal-=1; }
+            else if(G.res.charcoal>=1){ G.res.charcoal-=1; }
+          }
+        } else {
+          for(const[res,qty]of Object.entries(cons))
+            G.res[res]=Math.max(0,(G.res[res]||0)-qty*cnt);
+        }
+        if(m.steamCost>0) G.res.steam=Math.max(0,(G.res.steam||0)-m.steamCost*cnt);
+        // Производство
+        for(const[res,qty]of Object.entries(prod)){
+          G.res[res]=(G.res[res]||0)+qty*cnt; G.on[res]=true;
+        }
         updRes();checkQP();renderQuests();
+        // Обновляем предупреждение мягко
+        const {ok:stillRun}=machCanRun(m,cnt);
+        const card=document.getElementById('mc-'+id);
+        if(card){
+          const wasWarn=!!card.querySelector('.mwarn');
+          if(stillRun!==wasWarn) softUpdateMachines(); // только если статус изменился
+        }
       }
-    }else{if(f)f.style.width='0%';p=0;}
+    } else {
+      if(f)f.style.width='0%'; p=0;
+      // Показываем предупреждение раз в 3 сек
+    }
   },100);
 }
 function initMs(){for(const m of MDEF)if((G.machines[m.id]||0)>0)startM(m.id);}
 
-// ═══════════════════════════════════════════════
+// ═══════════════════════════════════════
 // ERA
-// ═══════════════════════════════════════════════
+// ═══════════════════════════════════════
 function checkEra(){
   if(G.era===0&&(G.machines['coal-boiler']||0)>=1){
     G.era=1;
@@ -943,20 +1327,29 @@ function checkEra(){
     log('═══ ПАРОВОЙ ВЕК! ═══','era');notify('⚙️ ПАРОВОЙ ВЕК РАЗБЛОКИРОВАН!');
     renderCrafts();renderMachines();renderQuests();
   }
+  if(G.era===1&&(G.machines['steam-turbine']||0)>=1){
+    G.era=2;
+    document.getElementById('era-display').textContent='⚡ LV-ЭРА ⚡';
+    const b=document.getElementById('era-banner');
+    b.textContent='⚡ LV-ЭРА — ЭЛЕКТРИЧЕСКИЙ ВЕК ⚡';
+    b.style.background='linear-gradient(90deg,transparent,rgba(20,50,80,.8) 18%,rgba(30,70,110,.95) 50%,rgba(20,50,80,.8) 82%,transparent)';
+    b.style.color='#88ccff';b.style.borderColor='#4488cc';
+    log('══ LV-ЭРА! ЭЛЕКТРИЧЕСКИЙ ВЕК НАЧАЛСЯ! ══','era');notify('⚡ LV-ЭРА РАЗБЛОКИРОВАНА!');
+    renderCrafts();renderMachines();renderQuests();
+  }
 }
 
-// ═══════════════════════════════════════════════
+// ═══════════════════════════════════════
 // QUESTS
-// ═══════════════════════════════════════════════
+// ═══════════════════════════════════════
 function qOk(r){return r.chk?r.chk():(G.res[r.r]||0)>=r.a;}
 function qDone(q){return q.req.every(r=>qOk(r));}
 function qLocked(q){return q.requires.some(id=>!G.qClaimed.has(id));}
-function toggleHideDone(){
+function toggleHD(){
   G.hideDone=!G.hideDone;
   const b=document.getElementById('hdone-btn');
-  b.textContent=G.hideDone?'Показать все':'Скрыть выполн.';
-  b.classList.toggle('act',G.hideDone);
-  renderQuests();
+  b.textContent=G.hideDone?'Показать выполн.':'Скрыть выполн.';
+  b.classList.toggle('act',G.hideDone);renderQuests();
 }
 function renderQuests(){
   const list=document.getElementById('quests-list');list.innerHTML='';
@@ -966,7 +1359,7 @@ function renderQuests(){
     if(cl&&G.hideDone)continue;
     const lk=qLocked(q),dn=qDone(q);
     const div=document.createElement('div');
-    div.className='qi '+(cl?'done':lk?'locked':dn?'avail':'');
+    div.className='qi '+(cl?'qdone':lk?'qlocked':dn?'qavail':'');
     const rH=q.req.map(r=>{
       const ok=qOk(r),lbl=r.l||r.r;
       if(r.r){
@@ -991,26 +1384,119 @@ function claimQ(id){
   const q=QUESTS.find(x=>x.id===id);if(!q||G.qClaimed.has(id)||!qDone(q))return;
   G.qClaimed.add(id);
   for(const[res,amt]of Object.entries(q.rew)){G.res[res]=(G.res[res]||0)+amt;G.on[res]=true;}
-  updRes();renderQuests();
-  log(`Задание: ${q.title}`,'good');notify(`📖 ${q.title} — выполнено!`);
+  updRes();renderQuests();log(`Задание: ${q.title}`,'good');notify(`📖 ${q.title} — выполнено!`);
 }
 function checkQP(){renderQuests();}
 
-// ═══════════════════════════════════════════════
+// ═══════════════════════════════════════
+// SAVE / LOAD
+// ═══════════════════════════════════════
+const SAVE_KEY='gtnh_idle_save';
+function saveGame(){
+  try{
+    const s={
+      ver:VERSION, era:G.era, playTime:G.playTime,
+      res:{...G.res}, on:{...G.on},
+      tools:JSON.parse(JSON.stringify(G.tools)),
+      mLvl:G.mLvl, machines:{...G.machines},
+      paused:{...G.paused}, machSel:{...machSel},
+      qClaimed:[...G.qClaimed], cDone:[...G.cDone],
+      hideDone:G.hideDone, hideDoneTools:G.hideDoneTools
+    };
+    localStorage.setItem(SAVE_KEY,JSON.stringify(s));
+  }catch(e){console.warn('Save failed',e);}
+}
+function loadGame(){
+  try{
+    const raw=localStorage.getItem(SAVE_KEY);
+    if(!raw)return false;
+    const s=JSON.parse(raw);
+    G.era=s.era||0; G.playTime=s.playTime||0;
+    Object.assign(G.res,s.res||{}); Object.assign(G.on,s.on||{});
+    if(s.tools)Object.assign(G.tools,s.tools);
+    G.mLvl=s.mLvl||1; Object.assign(G.machines,s.machines||{});
+    Object.assign(G.paused,s.paused||{}); Object.assign(machSel,s.machSel||{});
+    G.qClaimed=new Set(s.qClaimed||[]); G.cDone=new Set(s.cDone||[]);
+    G.hideDone=s.hideDone||false; G.hideDoneTools=s.hideDoneTools||false;
+    return true;
+  }catch(e){console.warn('Load failed',e);return false;}
+}
+
+// ═══════════════════════════════════════
+// DEBUG
+// ═══════════════════════════════════════
+let verClicks=0, verTimer=null;
+function verClick(){
+  verClicks++;
+  clearTimeout(verTimer);
+  verTimer=setTimeout(()=>verClicks=0,2000);
+  if(verClicks>=5){ verClicks=0; openDebug(); }
+}
+function openDebug(){
+  const m=document.getElementById('debug-modal');
+  m.style.display='flex';
+  const saved=localStorage.getItem(SAVE_KEY);
+  const info=document.getElementById('debug-save-info');
+  if(saved){const s=JSON.parse(saved);info.textContent=`Сохранение: ${s.ver||'?'}, время: ${Math.floor((s.playTime||0)/60)}мин`;}
+  else{info.textContent='Сохранения нет';}
+}
+function closeDebug(){ document.getElementById('debug-modal').style.display='none'; }
+function debugReset(){
+  localStorage.removeItem(SAVE_KEY);
+  // Сбрасываем состояние прямо в памяти (location.reload не работает в iframe)
+  for(const k of Object.keys(G.res)) G.res[k]=0;
+  for(const k of Object.keys(G.on)) G.on[k]=false;
+  G.on.wood=true; G.on.stone=true;
+  G.era=0; G.playTime=0; G.mLvl=1;
+  G.tools={pickaxe:{tier:'none',bonus:1},shovel:{tier:'none',bonus:1},hoe:{tier:'none',bonus:1}};
+  Object.keys(G.machines).forEach(k=>delete G.machines[k]);
+  Object.keys(G.paused).forEach(k=>delete G.paused[k]);
+  Object.keys(machSel).forEach(k=>delete machSel[k]);
+  G.qClaimed=new Set(); G.cDone=new Set();
+  G.hideDone=false; G.hideDoneTools=false;
+  // Останавливаем все машины
+  Object.keys(mT).forEach(k=>{ clearInterval(mT[k]); delete mT[k]; });
+  // Сбрасываем UI
+  document.getElementById('era-display').textContent='✦ КАМЕННЫЙ ВЕК ✦';
+  const b=document.getElementById('era-banner');
+  b.textContent='⚒ КАМЕННЫЙ ВЕК ⚒';
+  b.style.background=''; b.style.color=''; b.style.borderColor='';
+  updRes(); updTools(); renderCrafts(); renderMachines(); renderQuests(); updateExpUI();
+  log('Сохранение удалено. Начало заново!','era'); closeDebug();
+}
+function debugGiveRes(){
+  const big=999;
+  for(const k of Object.keys(G.res)){ G.res[k]=big; G.on[k]=true; }
+  saveGame(); updRes(); renderCrafts(); renderMachines(); renderQuests();
+  log('DEBUG: все ресурсы x999','era'); closeDebug();
+}
+function debugSkipToSteam(){
+  G.era=1;
+  G.res.bplate=30;G.res.iplate=20;G.res.bronze=50;G.res.steel=10;G.res.coal=50;
+  G.res.charcoal=30;G.res.steam=5000; G.res.coke=20;
+  Object.keys(G.on).forEach(k=>G.on[k]=true);
+  G.machines['coal-boiler']=2; G.machines['coke-oven']=1; G.machines['mortar']=1; G.machines['hammer']=1;
+  setTool('pickaxe','bronze'); setTool('shovel','bronze'); setTool('hoe','bronze');
+  saveGame(); checkEra(); updRes(); renderCrafts(); renderMachines(); renderQuests();
+  initMs(); log('DEBUG: прыжок в Паровой век','era'); closeDebug();
+}
+function debugSkipToLV(){
+  G.era=2;
+  for(const k of Object.keys(G.res)){ G.res[k]=500; G.on[k]=true; }
+  Object.assign(G.machines,{'coal-boiler':3,'coke-oven':2,'bbf':4,'steam-hammer':1,'steam-furnace':1,'mortar':1,'hammer':1,'steam-turbine':1});
+  setTool('pickaxe','steel'); setTool('shovel','steel'); setTool('hoe','steel');
+  saveGame(); checkEra(); updRes(); renderCrafts(); renderMachines(); renderQuests();
+  initMs(); log('DEBUG: прыжок в LV-эру','era'); closeDebug();
+}
+
+// ═══════════════════════════════════════
 // TICKS
-// ═══════════════════════════════════════════════
+// ═══════════════════════════════════════
 let prevR={};
 setInterval(()=>{
   for(const k of Object.keys(G.res)){G.rates[k]=(G.res[k]||0)-(prevR[k]||0);prevR[k]=G.res[k]||0;}
   updRes();
 },1000);
-// Machine non-steam consumption
-setInterval(()=>{
-  for(const m of MDEF){
-    const cnt=G.machines[m.id]||0;if(cnt===0||!m.cons||G.paused[m.id])continue;
-    for(const[res,rate]of Object.entries(m.cons))G.res[res]=Math.max(0,(G.res[res]||0)-rate*cnt);
-  }
-},100);
 setInterval(()=>{
   G.playTime++;
   const h=Math.floor(G.playTime/3600).toString().padStart(2,'0');
@@ -1018,31 +1504,69 @@ setInterval(()=>{
   const s=(G.playTime%60).toString().padStart(2,'0');
   document.getElementById('playtime').textContent=`${h}:${m}:${s}`;
 },1000);
-setInterval(()=>{refreshAff();},1800);
-setInterval(()=>{
-  const a=document.querySelector('.tab-content.act');if(!a)return;
-  if(a.id==='tab-machines')renderMachines();
-},3500);
+setInterval(()=>{ refreshAff(); },1500);
+// Обновляем машины каждые 3.5с — всегда, не только в табе Машины
+setInterval(()=>{ softUpdateMachines(); },1200);
 
-// ═══════════════════════════════════════════════
+// Автосохранение каждые 15 сек
+setInterval(()=>{ saveGame(); },15000);
+// Сохранение при закрытии вкладки
+window.addEventListener('beforeunload',()=>saveGame());
+
+// ═══════════════════════════════════════
 // TABS
-// ═══════════════════════════════════════════════
+// ═══════════════════════════════════════
 function switchTab(tab,e){
-  document.querySelectorAll('.tab-content').forEach(x=>x.classList.remove('act'));
-  document.querySelectorAll('.tab-btn').forEach(x=>x.classList.remove('act'));
+  document.querySelectorAll('.tabc').forEach(x=>x.classList.remove('act'));
+  document.querySelectorAll('.tabbtn').forEach(x=>x.classList.remove('act'));
   document.getElementById('tab-'+tab).classList.add('act');
   if(e&&e.target)e.target.classList.add('act');
   if(tab==='crafting')renderCrafts();
   if(tab==='machines')renderMachines();
 }
 
-// ═══════════════════════════════════════════════
+// ═══════════════════════════════════════
 // INIT
-// ═══════════════════════════════════════════════
+// ═══════════════════════════════════════
+const loaded=loadGame();
+// Восстанавливаем эру-баннер
+if(G.era>=1){
+  document.getElementById('era-display').textContent='✦ ПАРОВОЙ ВЕК ✦';
+  const b=document.getElementById('era-banner');
+  b.textContent='⚙️ ПАРОВОЙ ВЕК ⚙️';
+  b.style.background='linear-gradient(90deg,transparent,rgba(90,55,20,.7) 18%,rgba(110,65,20,.9) 50%,rgba(90,55,20,.7) 82%,transparent)';
+  b.style.color='var(--copper2)';b.style.borderColor='var(--copper)';
+}
+if(G.era>=2){
+  document.getElementById('era-display').textContent='⚡ LV-ЭРА ⚡';
+  const b=document.getElementById('era-banner');
+  b.textContent='⚡ LV-ЭРА — ЭЛЕКТРИЧЕСКИЙ ВЕК ⚡';
+  b.style.background='linear-gradient(90deg,transparent,rgba(20,50,80,.8) 18%,rgba(30,70,110,.95) 50%,rgba(20,50,80,.8) 82%,transparent)';
+  b.style.color='#88ccff';b.style.borderColor='#4488cc';
+}
+const hdtBtn=document.getElementById('hdt-btn');
+if(hdtBtn&&G.hideDoneTools){hdtBtn.textContent='Показать инструменты';hdtBtn.classList.add('act');}
 updRes();updTools();renderCrafts();renderMachines();renderQuests();updateExpUI();initMs();
-log('Добро пожаловать в GT: Новые Горизонты!','era');
-log('Совет: сначала нарубите дерево и кремень','');
-log('Следуйте Книге заданий справа →','imp');
+if(loaded){
+  log(`Сохранение загружено (${VERSION})`,'good');
+} else {
+  log(`GT: Новые Горизонты ${VERSION} — Добро пожаловать!`,'era');
+  log('Равнина/Лес: гравий → кремень (Крафт без инструментов)','');
+  log('Следуйте Книге заданий →','imp');
+}
 </script>
+<div id="debug-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:9999;align-items:center;justify-content:center;">
+  <div style="background:var(--bg3);border:2px solid var(--border3);border-radius:6px;padding:24px;min-width:320px;font-family:'Cinzel',serif;">
+    <div style="font-size:14px;color:var(--gold2);letter-spacing:3px;margin-bottom:16px;border-bottom:1px solid var(--border);padding-bottom:8px;">⚙️ ДЕБАГ ПАНЕЛЬ</div>
+    <div style="display:flex;flex-direction:column;gap:8px;">
+      <button onclick="debugReset()" style="background:linear-gradient(180deg,#5a1010,#3a0808);border:1px solid #8a2020;color:#ff8080;font-family:'Cinzel',serif;font-size:11px;letter-spacing:1px;padding:8px 16px;border-radius:3px;cursor:pointer;">🗑️ ПОЛНЫЙ СБРОС (удалить сохранение)</button>
+      <button onclick="debugGiveRes()" style="background:linear-gradient(180deg,var(--leather3),var(--leather));border:1px solid var(--border3);color:var(--text);font-family:'Cinzel',serif;font-size:11px;letter-spacing:1px;padding:8px 16px;border-radius:3px;cursor:pointer;">🎁 ДАТЬ ВСЕ РЕСУРСЫ (x999)</button>
+      <button onclick="debugSkipToSteam()" style="background:linear-gradient(180deg,var(--leather3),var(--leather));border:1px solid var(--border3);color:var(--text);font-family:'Cinzel',serif;font-size:11px;letter-spacing:1px;padding:8px 16px;border-radius:3px;cursor:pointer;">⚙️ ПРЫЖОК → ПАРОВОЙ ВЕК</button>
+      <button onclick="debugSkipToLV()" style="background:linear-gradient(180deg,var(--leather3),var(--leather));border:1px solid var(--border3);color:var(--text);font-family:'Cinzel',serif;font-size:11px;letter-spacing:1px;padding:8px 16px;border-radius:3px;cursor:pointer;">⚡ ПРЫЖОК → LV-ЭРА</button>
+      <div style="font-size:10px;color:var(--text-muted);margin-top:4px;" id="debug-save-info"></div>
+    </div>
+    <button onclick="closeDebug()" style="margin-top:16px;width:100%;background:transparent;border:1px solid var(--border2);color:var(--text-dim);font-family:'Cinzel',serif;font-size:10px;padding:6px;border-radius:3px;cursor:pointer;">ЗАКРЫТЬ</button>
+  </div>
+</div>
 </body>
 </html>
